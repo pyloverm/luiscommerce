@@ -1,61 +1,23 @@
 import React from 'react'
 
-const Footer = () => {
+import { urlFor } from '../lib/client'
+
+const DropMenu = ({DropMenu}) => {
   return (
-    <div class="droped transition-transform ease-in-out transition-[height]" id="droped">
+    <div class="droped" id="droped">
                   <div class="mega-menu" id="mega-menu">
-                      <div class="contain-link">
-                          <a href="#">
-                              <img src="https://via.placeholder.com/250x150" alt=""/>
-                              <p class="desc-img">place holder</p>
-                          </a>
-                      </div>
-                      <div class="contain-link">
-                          <a href="#">
-                              <img src="https://via.placeholder.com/250x150" alt=""/>
-                              <p class="desc-img">place holder</p>
-                          </a>
-                      </div>
-                      <div class="contain-link">
-                          <a href="#">
-                              <img src="https://via.placeholder.com/250x150" alt=""/>
-                              <p class="desc-img">place holder</p>
-                          </a>
-                      </div>
-                      <div class="contain-link">
-                          <a href="#">
-                              <img src="https://via.placeholder.com/250x150" alt=""/>
-                              <p class="desc-img">place holder</p>
-                          </a>
-                      </div>
-                      <div class="contain-link">
-                          <a href="#">
-                              <img src="https://via.placeholder.com/250x150" alt=""/>
-                              <p class="desc-img">place holder</p>
-                          </a>
-                      </div>
-                      <div class="contain-link">
-                          <a href="#">
-                              <img src="https://via.placeholder.com/250x150" alt=""/>
-                              <p class="desc-img">place holder</p>
-                          </a>
-                      </div>
-                      <div class="contain-link">
-                          <a href="#">
-                              <img src="https://via.placeholder.com/250x150" alt=""/>
-                              <p class="desc-img">place holder</p>
-                          </a>
-                      </div>
-                      <div class="contain-link">
-                          <a href="#">
-                              <img src="https://via.placeholder.com/250x150" alt=""/>
-                              <p class="desc-img">place holder</p>
-                          </a>
-                      </div>
+                      {DropMenu?.map(novidade => (
+                        <div class="contain-link">
+                            <a href='#'>
+                                <div class='imageContainer'><img src={urlFor(novidade.image)}  class='zoom' alt=""/></div>
+                                <p class="desc-img">{novidade.name}</p>
+                            </a>
+                        </div>
+                      ))
+                      }
                 </div>
     </div>
   )
 }
-
-export default Footer
+export default DropMenu
 

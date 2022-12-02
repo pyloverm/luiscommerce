@@ -3,8 +3,8 @@ import Link from 'next/Link'
 
 const HerroBanner = () => {
   return (
-    <div class="fixed">
-        <div class="header">
+    <div class="fixed" id='fixed'>
+        <div class="header" id='header'>
             <div class="search">
                 <form>
                     <input type="text" class="searchbar" placeholder="Procuro um produto ..."/>
@@ -12,14 +12,14 @@ const HerroBanner = () => {
             </div>
 
             <div class="logo">
-                <a href="#" class="logotext">ELECTROMOVEIS</a>
+                <a class="logotext" href='/'>ELECTROMOVEIS</a>
             </div>
             
             <div class="icons">
-                <a href="#" class="fa fa-address-card"></a>
-                <p class="name-icon">Contactos</p>
-                <a href="#" class="fa fa-map-marker "></a>
-                <p class="name-icon">Lojas</p>
+                <a href="/contactos" class="fa fa-address-card"></a>
+                <a href="/contactos" class="name-icon">Contactos</a>
+                <a href="/lojas" class="fa fa-map-marker "></a>
+                <a href="/lojas" class="name-icon">Lojas</a>
                 <a href="#" class="fa fa-shopping-cart "></a>
             </div>
         </div>
@@ -29,10 +29,10 @@ const HerroBanner = () => {
             </form>
         </div>
         <div class="drop-menus" id="navbar">
-            <button class="drop-button" id="novidades">NOVIDADES</button>
-            <button class="drop-button">PRODUTOS</button>
-            <button class="drop-button">ESPAÇOS</button>
-            <button class="drop-button special">INSPIRAÇÕES</button>
+            <button class="drop-button" id="novidades">NOVIDADES <img src='/static/arrow.svg' class='arrow' id='noviarrow'></img></button>
+            <button class="drop-button">PRODUTOS <img src='/static/arrow.svg' class='arrow' id='prodarrow'></img></button>
+            <button class="drop-button" id='espaços'>ESPAÇOS <img src='/static/arrow.svg' class='arrow' id='esprrow'></img></button>
+            <button class="drop-button special">INSPIRAÇÕES <img src='/static/arrow.svg' class='arrow' id='inspiarrow'></img></button>
         </div>
     </div>
   )

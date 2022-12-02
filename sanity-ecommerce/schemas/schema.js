@@ -3,9 +3,11 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
 
 import product from './product';
 import banner from './banner';
+import novidades from './novidades';
+import espacos from './espacos';
 
 export default createSchema({
   name: 'default',
-  types: schemaTypes.concat([ product, banner ]),
+  types: schemaTypes.concat([ product, banner, novidades ,espacos]),
 })
   
