@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Script from 'next/script'
 
 import { client } from '../lib/client'
-import { Product, FooterBanner , HeroBanner, DropMenu, DropMenu2 } from '../components'
+import { Product, FooterBanner , HeroBanner, NovidadesMenu, EspacosMenu, ProdutosMenu } from '../components'
 
 const Home = ({novidades,espacos}) => {
   return (
@@ -18,8 +18,9 @@ const Home = ({novidades,espacos}) => {
       </Head>
         <HeroBanner/>
           <div class="content">
-              <DropMenu DropMenu = {novidades.length && novidades}/>
-              <DropMenu2 DropMenu2 = {espacos.length && espacos}/>
+              <NovidadesMenu NovidadesMenu = {novidades.length && novidades}/>
+              <ProdutosMenu/>
+              <EspacosMenu EspacosMenu = {espacos.length && espacos}/>
               <div class="placehodling-content">
                   <img src="https://via.placeholder.com/1000x500" alt=""/>
                   <img src="https://via.placeholder.com/1000x500" alt=""/>

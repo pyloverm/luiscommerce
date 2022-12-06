@@ -66,6 +66,37 @@ document.getElementById("espaços").onclick = function() {
     }
 }
 
+
+
+document.getElementById("produtos").onclick = function() {
+    touchHandler('expespaços')
+    if (document.getElementById("product-menu").style.display === "grid"){
+        document.getElementById("droped-product").style.maxHeight = '0%'
+        document.getElementById("droped-product").style.transition = 'max-height .3s ease-out'
+        document.getElementById("prodarrow").style.WebkitTransitionDuration='.3s';
+        document.getElementById("prodarrow").style.transform  = 'rotate(270deg)';
+        setTimeout(() => {
+            document.getElementById("product-menu").style.display = "none";
+            document.getElementById("droped-product").style.display = "none";
+            document.getElementById('html').classList.remove('no-scroll');
+            document.getElementById('fixed').style.paddingRight = '';
+            document.getElementById('html').style.paddingRight = '';
+          }, "300")
+    }else{
+        document.getElementById("droped-product").style.display = "block";
+        document.getElementById("product-menu").style.display = "grid";
+        document.getElementById('html').classList.add('no-scroll');
+        document.getElementById('fixed').style.paddingRight = mobileAgentsChecking();
+        document.getElementById('html').style.paddingRight = mobileAgentsChecking();
+        document.getElementById("prodarrow").style.WebkitTransitionDuration='.3s';
+        document.getElementById("prodarrow").style.transform  = 'rotate(90deg)';
+        setTimeout(() => {
+            document.getElementById("droped-product").style.maxHeight = '100%'
+            document.getElementById("droped-product").style.transition = 'max-height .3s ease-in'
+          }, "0")
+    }
+}
+
 document.getElementById("header").addEventListener('click', touchHandler, false);
 
 function touchHandler(expr) {

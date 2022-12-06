@@ -30,7 +30,7 @@ const HerroBanner = () => {
         </div>
         <div class="drop-menus" id="navbar">
             <button class="drop-button" id="novidades">NOVIDADES <img src='/static/arrow.svg' class='arrow' id='noviarrow'></img></button>
-            <button class="drop-button">PRODUTOS <img src='/static/arrow.svg' class='arrow' id='prodarrow'></img></button>
+            <button class="drop-button" id="produtos">PRODUTOS <img src='/static/arrow.svg' class='arrow' id='prodarrow'></img></button>
             <button class="drop-button" id='espaços'>ESPAÇOS <img src='/static/arrow.svg' class='arrow' id='esprrow'></img></button>
             <button class="drop-button special">INSPIRAÇÕES <img src='/static/arrow.svg' class='arrow' id='inspiarrow'></img></button>
         </div>

@@ -91,6 +91,37 @@ body { overflow: auto; }
   background-color:white;
 }
 
+.menu-link{
+  flex-direction: row;
+  height: 100%;
+  display: flex;
+  align-content: flex-start;
+}
+.familias{
+  padding: 1.5rem;
+  overflow: auto;
+  flex-direction: column;
+  display: flex;
+  width: 25%;
+  margin: 0;
+  list-style: none;
+  height: 400px;
+  position:fixed;
+  
+}
+
+.menuprod{
+  height: 100%;
+  width: 100%;
+}
+
+.more{
+  height: 100%;
+  width: 75%;
+  padding-left: 25%;
+  float:right;
+}
+
 
 /* Style the navbar links */
 #navbar button {
@@ -130,6 +161,7 @@ h1 {
   padding-left: 50px;
   padding-right: 50px;
 }
+
 .droped{
   display: none;
   width: 100%;
@@ -143,7 +175,9 @@ h1 {
   background-color: white;
   overflow: hidden;
 }
-
+.duo{
+  overflow: auto;
+}
 .transition-\[height\] {
   transition-duration: .15s;
   transition-property: height;
