@@ -90,39 +90,95 @@ body { overflow: auto; }
   width: 100%;
   background-color:white;
 }
-
-.menu-link{
-  flex-direction: row;
-  height: 100%;
-  display: flex;
-  align-content: flex-start;
+.SubFamilia{
+  margin-bottom: 16px;
 }
-.familias{
-  padding: 1.5rem;
-  overflow: auto;
-  flex-direction: column;
+.SubFamilia a{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+  font-family: inter;
+  font-size: 0.85rem;
+}
+.SubFamilia a:hover{
+  text-decoration:underline;
+}
+.valor{
+  margin-bottom: 8px;
+}
+.valor a{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-family: inter;
+  font-size: 0.85rem;
+}
+.valor a:hover{
+  text-decoration:underline;
+}
+.menu-link{
   display: flex;
-  width: 25%;
-  margin: 0;
+  overflow: auto;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.list{
   list-style: none;
-  height: 400px;
-  position:fixed;
-  
+  display: 	flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  row-gap: 2rem;
+}
+
+.sublist{
+  list-style: none;
+  display: 	flex;
+  flex-direction: column;
+  width: 25%;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .menuprod{
-  height: 100%;
-  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .more{
-  height: 100%;
-  width: 75%;
-  padding-left: 25%;
-  float:right;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  overflow-y: auto;
+  flex-basis: 75%;
+  padding: 24px;
 }
 
+.familias{
+  list-style: none;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  overflow-y: auto;
+  flex-basis: 25%;
+  padding: 24px;
+}
 
+.familia{
+  margin-bottom: 16px;
+}
+
+.familia a{
+  color: #000;
+  text-decoration: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.familia a:hover{
+  font-weight:bold;
+}
 /* Style the navbar links */
 #navbar button {
   border-style:hidden;
@@ -175,9 +231,7 @@ h1 {
   background-color: white;
   overflow: hidden;
 }
-.duo{
-  overflow: auto;
-}
+
 .transition-\[height\] {
   transition-duration: .15s;
   transition-property: height;

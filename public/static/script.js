@@ -69,8 +69,8 @@ document.getElementById("espaços").onclick = function() {
 
 
 document.getElementById("produtos").onclick = function() {
-    touchHandler('expespaços')
-    if (document.getElementById("product-menu").style.display === "grid"){
+    touchHandler('expprodutos')
+    if (document.getElementById("product-menu").style.display === "flex"){
         document.getElementById("droped-product").style.maxHeight = '0%'
         document.getElementById("droped-product").style.transition = 'max-height .3s ease-out'
         document.getElementById("prodarrow").style.WebkitTransitionDuration='.3s';
@@ -83,8 +83,8 @@ document.getElementById("produtos").onclick = function() {
             document.getElementById('html').style.paddingRight = '';
           }, "300")
     }else{
-        document.getElementById("droped-product").style.display = "block";
-        document.getElementById("product-menu").style.display = "grid";
+        document.getElementById("droped-product").style.display = "flex";
+        document.getElementById("product-menu").style.display = "flex";
         document.getElementById('html').classList.add('no-scroll');
         document.getElementById('fixed').style.paddingRight = mobileAgentsChecking();
         document.getElementById('html').style.paddingRight = mobileAgentsChecking();
@@ -123,6 +123,26 @@ function touchHandler(expr) {
                 document.getElementById("noviarrow").style.transform  = 'rotate(270deg)';
             }
             break;
+        case 'expprodutos':
+            if (document.getElementById("mega-menu").style.display === "grid"){
+                document.getElementById("mega-menu").style.display = "none";
+                document.getElementById("droped").style.display = "none";
+                document.getElementById('html').classList.remove('no-scroll');
+                document.getElementById('fixed').style.paddingRight = '';
+            document.getElementById('html').style.paddingRight = '';
+                document.getElementById("noviarrow").style.WebkitTransitionDuration='.3s';
+                document.getElementById("noviarrow").style.transform  = 'rotate(270deg)';
+            }
+            if (document.getElementById("mega-menu2").style.display === "grid"){
+                document.getElementById("mega-menu2").style.display = "none";
+                document.getElementById("droped2").style.display = "none";
+                document.getElementById('html').classList.remove('no-scroll');
+                document.getElementById('fixed').style.paddingRight = '';
+            document.getElementById('html').style.paddingRight = '';
+                document.getElementById("esprrow").style.WebkitTransitionDuration='.3s';
+                document.getElementById("esprrow").style.transform  = 'rotate(270deg)';
+            }
+            break;
         default:
             if (document.getElementById("mega-menu").style.display === "grid"){
                 document.getElementById("mega-menu").style.display = "none";
@@ -142,4 +162,8 @@ function touchHandler(expr) {
                 document.getElementById("esprrow").style.transform  = 'rotate(270deg)';
             }
       }
+}
+
+document.getElementById("familia").onclick = function() {
+    console.log('VIN DIESEL');
 }
