@@ -2,11 +2,10 @@ const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 import arbo from "../../src/arbo.json"
 
-const path = path.resolve(__dirname,'productdb.sqlite')
 
 async function openDb() {
   return sqlite.open({
-    filename: path,
+    filename: './productdb.sqlite',
     driver: sqlite3.Database,
   });
 }
