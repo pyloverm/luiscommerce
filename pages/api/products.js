@@ -4,7 +4,7 @@ import arbo from "../../src/arbo.json"
 
 async function openDb() {
   return sqlite.open({
-    filename: './productdb.sqlite',
+    filename: path.resolve(__dirname,'./productdb.sqlite'),
     driver: sqlite3.Database,
   });
 }
