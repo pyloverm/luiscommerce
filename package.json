@@ -25,6 +25,8 @@
     "react-hot-toast": "^2.2.0",
     "react-icons": "^4.3.1",
     "react-leaflet": "^4.2.0",
+    "sqlite": "^4.1.2",
+    "sqlite3": "^5.1.4",
     "stripe": "^8.209.0"
   },
   "devDependencies": {

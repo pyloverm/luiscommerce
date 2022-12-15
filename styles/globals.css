@@ -45,7 +45,7 @@ body { overflow: auto; }
   align-items: center;
   text-align: center;
   padding-left: 40%;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .icons .fa{
@@ -110,18 +110,34 @@ body { overflow: auto; }
   text-decoration: none;
   color: rgb(0, 0, 0);
   font-family: inter;
-  font-size: 0.85rem;
+  font-size: 0.70rem;
 }
 .valor a:hover{
   text-decoration:underline;
 }
+
+.categoria{
+  margin-bottom: 12px;
+  text-decoration: underline;
+  color: rgb(0, 0, 0);
+  font-family: inter;
+  font-size: 0.80rem;
+}
+
 .menu-link{
   display: flex;
-  overflow: auto;
-  max-width: 1200px;
+  width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
+.clicked{
+  padding-left: 16px;
+  border-left: solid 3px black;
+  font-weight: bold;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-duration: .1s;
+}
+
 .list{
   list-style: none;
   display: 	flex;
@@ -153,6 +169,16 @@ body { overflow: auto; }
   overflow-y: auto;
   flex-basis: 75%;
   padding: 24px;
+  margin-bottom: 180px;
+  list-style-type: none;
+}
+
+.panel{
+  display: none;
+  column-count: 4;
+}
+.active{
+  display: block;
 }
 
 .familias{
@@ -166,17 +192,22 @@ body { overflow: auto; }
   padding: 24px;
 }
 
-.familia{
+.familias li{
   margin-bottom: 16px;
 }
+.familias li:hover{
+  font-weight: bold;
+}
 
-.familia a{
+.familia{
+  display: inline-block;
   color: #000;
   text-decoration: none;
   font-size: 0.85rem;
   cursor: pointer;
 }
-.familia a:hover{
+
+.familia:hover{
   font-weight:bold;
 }
 /* Style the navbar links */
@@ -283,9 +314,45 @@ h1 {
   width: 250px;
   height: 150px;
 }
-.placehodling-content img{
-  width: 100%;
+.product{
+  padding: 15px;
+  border-radius: 8px;
+  border: rgba(255, 255, 255, 0) solid 2px;
+  width: 25%;
 }
+.product a{
+  text-decoration: none;
+}
+.product-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product:hover{
+  border: rgba(158, 158, 158, 0.301) solid 2px;
+}
+
+.product-img{
+  width: 100%;
+  height: auto;
+  padding-bottom: 15px;
+}
+
+.desc{
+  color: #333333bf;
+  padding-bottom: 15px;
+}
+.price{
+  color: #000;
+  font-weight: bold;
+}
+
+.placehodling-content{
+  width: 100%;
+  
+}
+
+
 .placehodling-content{
   margin-top: 20px;
 }
@@ -371,6 +438,17 @@ h1 {
   .contain-link{
      width: 80%;
   }
+  .menu-link{
+    width: 100%;
+  }
+  .panel{
+    column-count: 3;
+  }
+  
+  .menuprod{
+    width: 100%;
+  }
+
   .mega-menu{
       padding-bottom: 150px;
       overflow-y: auto;
@@ -386,6 +464,16 @@ h1 {
 
 }
 @media screen and (max-width: 1000px) { 
+
+  .product{
+    width: 33%;
+  }
+  .more{
+    flex-basis: 65%;
+  }
+  .familias{
+    flex-basis: 35%;
+  }
   .drop-menus{
     padding: 10px 20px;
     height: 60px;
@@ -396,7 +484,9 @@ h1 {
   .icons{
     padding-left: 40%
   }
-
+  .panel{
+    column-count: 2;
+  }
   .icons .fa{
     font-size: 30px;
   }
@@ -422,6 +512,15 @@ h1 {
 
 
 @media screen and (max-width: 700px) {
+  .product{
+    width: 50%;
+  }
+  .more{
+    flex-basis: 50%;
+  }
+  .familias{
+    flex-basis: 50%;
+  }
   .header {
       padding: 0 0;
       padding-right: 2%;
@@ -433,6 +532,9 @@ h1 {
   }
   .search-v2 input{
       display: grid;
+  }
+  .panel{
+    column-count: 1;
   }
   .logo{
       font-size: 12px;
@@ -462,3 +564,8 @@ h1 {
   }
   
 }
+
+@media screen and (max-width: 500px) {
+  .product{
+    width: 100%;
+  }}

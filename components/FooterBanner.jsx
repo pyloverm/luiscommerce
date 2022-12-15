@@ -2,7 +2,7 @@ import React from 'react'
 
 const FooterBanner = () => {
   return (
-    <div class='footer'>
+    <div class='footer' >
       <div class='footerContainer'>
         <div class='footerRow'>
           <p>© ELECTROMOVEIS 2022</p>

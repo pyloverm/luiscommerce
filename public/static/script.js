@@ -1,169 +1,116 @@
 
 function mobileAgentsChecking() {
-    if(navigator.userAgent.toLowerCase().search('mobile') === -1){
-        return '15px'
+    var scrollHeight = window.innerHeight;
+    document.getElementsByClassName('panel')[0].classList.add('active');
+    document.getElementsByClassName('familia')[0].classList.add('clicked');
+    if (document.getElementById('html').offsetHeight > scrollHeight) {
+        if(navigator.userAgent.toLowerCase().search('mobile') === -1){
+            return '15px'
+        }else{
+        return '0px'}
     }else{
-    return '0px'}
+        return '0px'
+    }
+}
+var panelBtn = document.getElementsByClassName('familia');
+
+function myScript(){
+    alert('marche')
 }
 
-document.getElementById("novidades").onclick = function() {
-    touchHandler("expnovidades")
-    if (document.getElementById("mega-menu").style.display === "grid"){
-        document.getElementById("droped").style.maxHeight = '0%'
-        document.getElementById("droped").style.transition = 'max-height .3s ease-out'
-        document.getElementById("noviarrow").style.WebkitTransitionDuration='.3s';
-        document.getElementById("noviarrow").style.transform  = 'rotate(270deg)';
-        setTimeout(() => {
-            document.getElementById("mega-menu").style.display = "none";
-            document.getElementById("droped").style.display = "none";
-            document.getElementById('html').classList.remove('no-scroll');
-            document.getElementById('fixed').style.paddingRight = '';
-            document.getElementById('html').style.paddingRight = '';
-          }, "300")
-        
-    }else{
-        document.getElementById("droped").style.display = "block";
-        document.getElementById("mega-menu").style.display = "grid";
-        document.getElementById('html').classList.add('no-scroll');
-        document.getElementById('fixed').style.paddingRight = mobileAgentsChecking();
-        document.getElementById('html').style.paddingRight = mobileAgentsChecking();
-        document.getElementById("noviarrow").style.WebkitTransitionDuration='.3s';
-        document.getElementById("noviarrow").style.transform  = 'rotate(90deg)';
-        setTimeout(() => {
-            document.getElementById("droped").style.maxHeight = '100%'
-            document.getElementById("droped").style.transition = 'max-height .3s ease-in'
-          }, "0")
+function openPanel(){
+    var elements = document.getElementsByClassName("test");
+    for(var i = 0; i < elements.length; i++) {
+        names += elements[i].name;
     }
 }
 
-
-document.getElementById("espaços").onclick = function() {
-    touchHandler('expespaços')
-    if (document.getElementById("mega-menu2").style.display === "grid"){
-        document.getElementById("droped2").style.maxHeight = '0%'
-        document.getElementById("droped2").style.transition = 'max-height .3s ease-out'
-        document.getElementById("esprrow").style.WebkitTransitionDuration='.3s';
-        document.getElementById("esprrow").style.transform  = 'rotate(270deg)';
+function OpenCloseMenu(nameMenu,nameTab,nameArrow,display,display2,bntName) {
+    if (document.getElementById(nameMenu).style.display === display){
+        document.getElementById(bntName).style.fontWeight = '400';
+        document.getElementById(nameTab).style.maxHeight = '0%'
+        document.getElementById(nameTab).style.transition = 'max-height .3s ease-out'
+        document.getElementById(nameArrow).style.WebkitTransitionDuration='.3s';
+        document.getElementById(nameArrow).style.transform  = 'rotate(270deg)';
         setTimeout(() => {
-            document.getElementById("mega-menu2").style.display = "none";
-            document.getElementById("droped2").style.display = "none";
+            document.getElementById(nameMenu).style.display = "none";
+            document.getElementById(nameTab).style.display = "none";
             document.getElementById('html').classList.remove('no-scroll');
             document.getElementById('fixed').style.paddingRight = '';
             document.getElementById('html').style.paddingRight = '';
           }, "300")
     }else{
-        document.getElementById("droped2").style.display = "block";
-        document.getElementById("mega-menu2").style.display = "grid";
+        document.getElementById(bntName).style.fontWeight = 'bold';
+        document.getElementById(nameTab).style.display = display2;
+        document.getElementById(nameMenu).style.display = display;
         document.getElementById('html').classList.add('no-scroll');
         document.getElementById('fixed').style.paddingRight = mobileAgentsChecking();
         document.getElementById('html').style.paddingRight = mobileAgentsChecking();
-        document.getElementById("esprrow").style.WebkitTransitionDuration='.3s';
-        document.getElementById("esprrow").style.transform  = 'rotate(90deg)';
+        document.getElementById(nameArrow).style.WebkitTransitionDuration='.3s';
+        document.getElementById(nameArrow).style.transform  = 'rotate(90deg)';
         setTimeout(() => {
-            document.getElementById("droped2").style.maxHeight = '100%'
-            document.getElementById("droped2").style.transition = 'max-height .3s ease-in'
+            document.getElementById(nameTab).style.maxHeight = '100%'
+            document.getElementById(nameTab).style.transition = 'max-height .3s ease-in'
           }, "0")
     }
 }
 
-
-
-document.getElementById("produtos").onclick = function() {
-    touchHandler('expprodutos')
-    if (document.getElementById("product-menu").style.display === "flex"){
-        document.getElementById("droped-product").style.maxHeight = '0%'
-        document.getElementById("droped-product").style.transition = 'max-height .3s ease-out'
-        document.getElementById("prodarrow").style.WebkitTransitionDuration='.3s';
-        document.getElementById("prodarrow").style.transform  = 'rotate(270deg)';
-        setTimeout(() => {
-            document.getElementById("product-menu").style.display = "none";
-            document.getElementById("droped-product").style.display = "none";
-            document.getElementById('html').classList.remove('no-scroll');
-            document.getElementById('fixed').style.paddingRight = '';
-            document.getElementById('html').style.paddingRight = '';
-          }, "300")
-    }else{
-        document.getElementById("droped-product").style.display = "flex";
-        document.getElementById("product-menu").style.display = "flex";
-        document.getElementById('html').classList.add('no-scroll');
-        document.getElementById('fixed').style.paddingRight = mobileAgentsChecking();
-        document.getElementById('html').style.paddingRight = mobileAgentsChecking();
-        document.getElementById("prodarrow").style.WebkitTransitionDuration='.3s';
-        document.getElementById("prodarrow").style.transform  = 'rotate(90deg)';
-        setTimeout(() => {
-            document.getElementById("droped-product").style.maxHeight = '100%'
-            document.getElementById("droped-product").style.transition = 'max-height .3s ease-in'
-          }, "0")
-    }
+function close(nameArrow,nameMenu,nameTab,bntName) {
+    document.getElementById(nameMenu).style.display = "none";
+    document.getElementById(nameTab).style.display = "none";
+    document.getElementById('html').classList.remove('no-scroll');
+    document.getElementById('fixed').style.paddingRight = '';
+    document.getElementById('html').style.paddingRight = '';
+    document.getElementById(bntName).style.fontWeight = '400';
+    document.getElementById(nameArrow).style.WebkitTransitionDuration='.3s';
+    document.getElementById(nameArrow).style.transform  = 'rotate(270deg)';
 }
-
-document.getElementById("header").addEventListener('click', touchHandler, false);
 
 function touchHandler(expr) {
     switch (expr) {
         case 'expnovidades':
             if (document.getElementById("mega-menu2").style.display === "grid"){
-                document.getElementById("mega-menu2").style.display = "none";
-                document.getElementById("droped2").style.display = "none";
-                document.getElementById('html').classList.remove('no-scroll');
-                document.getElementById('fixed').style.paddingRight = '';
-            document.getElementById('html').style.paddingRight = '';
-                document.getElementById("esprrow").style.WebkitTransitionDuration='.3s';
-                document.getElementById("esprrow").style.transform  = 'rotate(270deg)';
-            }
-            break;
+                close("esprrow","mega-menu2","droped2","espaços");
+            }else if (document.getElementById("product-menu").style.display === "flex"){
+                close("prodarrow","product-menu","droped-product","produtos");
+            }break;
         case 'expespaços':
             if (document.getElementById("mega-menu").style.display === "grid"){
-                document.getElementById("mega-menu").style.display = "none";
-                document.getElementById("droped").style.display = "none";
-                document.getElementById('html').classList.remove('no-scroll');
-                document.getElementById('fixed').style.paddingRight = '';
-            document.getElementById('html').style.paddingRight = '';
-                document.getElementById("noviarrow").style.WebkitTransitionDuration='.3s';
-                document.getElementById("noviarrow").style.transform  = 'rotate(270deg)';
-            }
-            break;
+                close("noviarrow","mega-menu","droped","novidades");
+            }else if(document.getElementById("product-menu").style.display === "flex"){
+                close("prodarrow","product-menu","droped-product","produtos");
+            }break;
         case 'expprodutos':
             if (document.getElementById("mega-menu").style.display === "grid"){
-                document.getElementById("mega-menu").style.display = "none";
-                document.getElementById("droped").style.display = "none";
-                document.getElementById('html').classList.remove('no-scroll');
-                document.getElementById('fixed').style.paddingRight = '';
-            document.getElementById('html').style.paddingRight = '';
-                document.getElementById("noviarrow").style.WebkitTransitionDuration='.3s';
-                document.getElementById("noviarrow").style.transform  = 'rotate(270deg)';
-            }
-            if (document.getElementById("mega-menu2").style.display === "grid"){
-                document.getElementById("mega-menu2").style.display = "none";
-                document.getElementById("droped2").style.display = "none";
-                document.getElementById('html').classList.remove('no-scroll');
-                document.getElementById('fixed').style.paddingRight = '';
-            document.getElementById('html').style.paddingRight = '';
-                document.getElementById("esprrow").style.WebkitTransitionDuration='.3s';
-                document.getElementById("esprrow").style.transform  = 'rotate(270deg)';
-            }
-            break;
+                close("noviarrow","mega-menu","droped","novidades");
+            }else if(document.getElementById("mega-menu2").style.display === "grid"){
+                close("esprrow","mega-menu2","droped2","espaços");
+            }break;
         default:
             if (document.getElementById("mega-menu").style.display === "grid"){
-                document.getElementById("mega-menu").style.display = "none";
-                document.getElementById("droped").style.display = "none";
-                document.getElementById('html').classList.remove('no-scroll');
-                document.getElementById('fixed').style.paddingRight = '';
-            document.getElementById('html').style.paddingRight = '';
-                document.getElementById("noviarrow").style.WebkitTransitionDuration='.3s';
-                document.getElementById("noviarrow").style.transform  = 'rotate(270deg)';
+                close("noviarrow","mega-menu","droped","novidades");
             }else if (document.getElementById("mega-menu2").style.display === "grid"){
-                document.getElementById("mega-menu2").style.display = "none";
-                document.getElementById("droped2").style.display = "none";
-                document.getElementById('html').classList.remove('no-scroll');
-                document.getElementById('fixed').style.paddingRight = '';
-            document.getElementById('html').style.paddingRight = '';
-                document.getElementById("esprrow").style.WebkitTransitionDuration='.3s';
-                document.getElementById("esprrow").style.transform  = 'rotate(270deg)';
+                close("esprrow","mega-menu2","droped2","espaços");
+            }else if (document.getElementById("product-menu").style.display === "flex"){
+                close("prodarrow","product-menu","droped-product","produtos");
             }
       }
 }
 
-document.getElementById("familia").onclick = function() {
-    console.log('VIN DIESEL');
+document.getElementById("novidades").onclick = function() {
+    touchHandler("expnovidades");
+    OpenCloseMenu("mega-menu","droped","noviarrow","grid","block","novidades");
 }
+
+document.getElementById("espaços").onclick = function() {
+    touchHandler('expespaços');
+    OpenCloseMenu("mega-menu2","droped2","esprrow","grid","block","espaços");
+}
+
+document.getElementById("produtos").onclick = function() {
+    touchHandler('expprodutos');
+    OpenCloseMenu("product-menu","droped-product","prodarrow","flex","flex","produtos");
+}
+
+document.getElementById("header").addEventListener('click', touchHandler, false);
+
