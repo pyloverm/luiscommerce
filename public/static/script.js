@@ -3,7 +3,7 @@ function mobileAgentsChecking() {
     var scrollHeight = window.innerHeight;
     document.getElementsByClassName('panel')[0].classList.add('active');
     document.getElementsByClassName('familia')[0].classList.add('clicked');
-    if (document.getElementById('html').offsetHeight > scrollHeight) {
+    if (document.getElementsByTagName("html")[0].offsetHeight > scrollHeight) {
         if(navigator.userAgent.toLowerCase().search('mobile') === -1){
             return '15px'
         }else{
@@ -35,17 +35,17 @@ function OpenCloseMenu(nameMenu,nameTab,nameArrow,display,display2,bntName) {
         setTimeout(() => {
             document.getElementById(nameMenu).style.display = "none";
             document.getElementById(nameTab).style.display = "none";
-            document.getElementById('html').classList.remove('no-scroll');
+            document.getElementsByTagName("html")[0].classList.remove('no-scroll');
             document.getElementById('fixed').style.paddingRight = '';
-            document.getElementById('html').style.paddingRight = '';
+            document.getElementsByTagName("html")[0].style.paddingRight = '';
           }, "300")
     }else{
         document.getElementById(bntName).style.fontWeight = 'bold';
         document.getElementById(nameTab).style.display = display2;
         document.getElementById(nameMenu).style.display = display;
-        document.getElementById('html').classList.add('no-scroll');
+        document.getElementsByTagName("html")[0].classList.add('no-scroll');
         document.getElementById('fixed').style.paddingRight = mobileAgentsChecking();
-        document.getElementById('html').style.paddingRight = mobileAgentsChecking();
+        document.getElementsByTagName("html")[0].style.paddingRight = mobileAgentsChecking();
         document.getElementById(nameArrow).style.WebkitTransitionDuration='.3s';
         document.getElementById(nameArrow).style.transform  = 'rotate(90deg)';
         setTimeout(() => {
@@ -58,9 +58,9 @@ function OpenCloseMenu(nameMenu,nameTab,nameArrow,display,display2,bntName) {
 function close(nameArrow,nameMenu,nameTab,bntName) {
     document.getElementById(nameMenu).style.display = "none";
     document.getElementById(nameTab).style.display = "none";
-    document.getElementById('html').classList.remove('no-scroll');
+    document.getElementsByTagName("html")[0].classList.remove('no-scroll');
     document.getElementById('fixed').style.paddingRight = '';
-    document.getElementById('html').style.paddingRight = '';
+    document.getElementsByTagName("html")[0].style.paddingRight = '';
     document.getElementById(bntName).style.fontWeight = '400';
     document.getElementById(nameArrow).style.WebkitTransitionDuration='.3s';
     document.getElementById(nameArrow).style.transform  = 'rotate(270deg)';
@@ -113,4 +113,3 @@ document.getElementById("produtos").onclick = function() {
 }
 
 document.getElementById("header").addEventListener('click', touchHandler, false);
-

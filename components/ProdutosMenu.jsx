@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { urlFor } from '../lib/client'
-import { useState, useEffect } from 'react'
-const ProdutosMenu = () => {
+
+const ProdutosMenu = ({Arbo}) => {
 
   function myScript(id) {
     var id_panel = id+'Panel'
@@ -16,21 +15,9 @@ const ProdutosMenu = () => {
     document.getElementById(id_panel).classList.add("active");
     document.getElementById(id).classList.add("clicked");
   }
-  const [data, setData] = useState(null)
-  const [isLoading, setLoading] = useState(false)
 
-  useEffect(() => {
-    setLoading(true)
-    fetch('/api/products?type=all')
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data)
-        setLoading(false)
-      })
-  }, [])
 
-  if (isLoading) return <p></p>
-  if (!data) return <p></p>
+  const data = Arbo['familias']
   const keys = Object.keys(data['familia']);
   
   return (
@@ -46,11 +33,11 @@ const ProdutosMenu = () => {
                                     {
                                       Object.keys(data['familia'][familia]['subfamilia']).map(sub => 
                                         <div >
-                                          <li class='SubFamilia'><a href="">{sub}</a></li>
+                                          <li class='SubFamilia'><a href={"/search?subfamilia="+sub}>{sub}</a></li>
                                           { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria']).map(cat =>
                                           <div>
                                             <li class='categoria'>{cat.replace("TIPO - ", "")}</li>
-                                            { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria'][cat]['subcategoria']).map(sub => <li class='valor'><a href="">{sub}</a></li>)}
+                                            { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria'][cat]['subcategoria']).map(sub => <li class='valor'><a href={"/search?subcategoria="+sub}>{sub}</a></li>)}
                                           </div>
                                           )}
                                         </div>
@@ -63,4 +50,6 @@ const ProdutosMenu = () => {
     </div>
   )
 }
+
+
 export default ProdutosMenu

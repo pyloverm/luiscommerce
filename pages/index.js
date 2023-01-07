@@ -1,44 +1,39 @@
 import React from 'react'
+import PocketBase from 'pocketbase';
+import { Product } from '../components'
 
-import Head from 'next/head'
-import Script from 'next/script'
+const Home = ({product_1,product_2}) => {
+  
 
-import { getData } from './api/products'
-import { client } from '../lib/client'
-import { Product, FooterBanner , HeroBanner, NovidadesMenu, EspacosMenu, ProdutosMenu } from '../components'
-
-const Home = ({novidades,espacos,product_1}) => {
   return (
     <>
-        <HeroBanner/>
-          <div class="content">
-            <NovidadesMenu NovidadesMenu = {novidades.length && novidades}/>
-            <ProdutosMenu/>
-            <EspacosMenu EspacosMenu = {espacos.length && espacos}/>
-            <div class="placehodling-content">
-              <div class='product-container'>
-                <Product data = {product_1}/>
-              </div>
-              <img src="https://via.placeholder.com/1000x500" class='placehodling-content' alt=""/>
-              <img src="https://via.placeholder.com/1000x500" class='placehodling-content' alt=""/>
+      <div class="placehodling-content">
+            <div class='product-container'>
+              <Product data = {product_1}/>
+              <Product data = {product_2}/>
             </div>
-            <FooterBanner/>
-          </div>
-          <Script src="/static/script.js" />
-          {console.log(novidades)}
+            <img src="https://via.placeholder.com/1000x500" class='placehodling-content' alt=""/>
+            <img src="https://via.placeholder.com/1000x500" class='placehodling-content' alt=""/>
+      </div>
     </>
   )
 }
 
-export const getServerSideProps = async () => {
-  const product_1 = await getData();
-  const query = '*[_type == "novidades"]';
-  const novidades = await client.fetch(query);
 
-  const query2 = '*[_type == "espacos"]';
-  const espacos = await client.fetch(query2);
+
+export const getServerSideProps = async () => {
+
+  const pb = new PocketBase('https://poor-camera.pockethost.io');
+  const records = await pb.collection('products').getFirstListItem('nome ~ "PLACA"');
+  const record = await pb.collection('products').getFirstListItem('nome ~ "FL"');
+  const product_1 = JSON.parse(JSON.stringify(records));
+  const product_2 = JSON.parse(JSON.stringify(record));
   return {
-    props: {novidades,espacos,product_1}
+    props: {product_1,product_2}
   }
 }
+
+
+
+
 export default Home
