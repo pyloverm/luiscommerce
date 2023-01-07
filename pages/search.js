@@ -21,10 +21,11 @@ const search = ({ searched,query ,products,search}) => {
     // Use the useState hook to manage the page state variable
     const [page, setPage] = useState(1);
     const [product_list, setProduct_list] = useState(products);
+    const [isLoading, setIsLoading] = useState(false);
     // ...
 
     async function loadMore() {
-        
+        setIsLoading(true);
         // Increment the page number
         setPage(page + 1);
 
@@ -39,6 +40,7 @@ const search = ({ searched,query ,products,search}) => {
         items: [...prev.items, ...resultList.items],
         }));
         console.log(products)
+        setIsLoading(false);
     }
 
     if(!products){
@@ -61,8 +63,9 @@ const search = ({ searched,query ,products,search}) => {
         {products.items.length < products.totalItems && (
             <div class='load-more'>
                 <p>Já viu {Object.keys(product_list.items).length} produtos de {product_list.totalItems}</p>
-                <button onClick={loadMore}>
+                <button onClick={loadMore} className={isLoading ? 'button loading' : 'button'}>
                     Mais produtos
+                    <div></div>
                 </button>
             </div>
         )}

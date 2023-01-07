@@ -1,26 +1,15 @@
 import React from 'react'
 import { useState } from 'react';
-import Router from 'next/router';
 
 const HerroBanner = () => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
 
-    const handleSearchSubmit = (event) => {
-        event.preventDefault();
-    
-        // Redirect to the search page with the query parameter
-        Router.push({
-          pathname: '/search',
-          query: { nome: searchQuery },
-        });
-    };
   return(
     <div class="fixed" id='fixed'>
         <div class="header" id='header'>
             <div class="search">
-                <form class= 'form-search' onSubmit={handleSearchSubmit} >
-                    <input type="text" class="searchbar" placeholder="Procuro um produto ..." value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)}/>
+                <form class= 'form-search' action="/search" >
+                    <input type="text" name="nome" class="searchbar" placeholder="Procuro um produto ..." value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)}/>
                     <button type="submit" class='search-btn'></button>
                 </form>
             </div>
@@ -38,8 +27,8 @@ const HerroBanner = () => {
             </div>
         </div>
         <div class="search-v2">
-            <form class= 'form-search bar'>
-                    <input type="text" class="searchbar" placeholder="Procuro um produto ..."/>
+            <form class= 'form-search bar' action="/search"  >
+                    <input type="text" name="nome" class="searchbar" placeholder="Procuro um produto ..." value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)}/>
                     <button type="submit" class='search-btn'></button>
             </form>
         </div>
