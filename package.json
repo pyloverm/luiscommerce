@@ -12,6 +12,7 @@
     "@babel/core": "^7.17.9",
     "@next/font": "^13.0.4",
     "@stripe/stripe-js": "^1.25.0",
+    "@vercel/analytics": "^0.1.6",
     "apicache": "^1.6.3",
     "bootstrap": "^5.2.3",
     "canvas-confetti": "^1.5.1",

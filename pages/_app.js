@@ -3,6 +3,7 @@ import { Layout } from '../components'
 import '../styles/family-inter.css'
 import PocketBase from 'pocketbase';
 import React, { useState, useEffect } from 'react'
+import { Analytics } from '@vercel/analytics/react';
 
 function MyApp({ Component, pageProps }) {
 
@@ -13,10 +14,6 @@ function MyApp({ Component, pageProps }) {
     novidades:[],
     last_update:[]
   });
-
-  useEffect(() => {
-    require("bootstrap/dist/js/bootstrap.bundle.min.js");
-  }, []);
 
   useEffect(() => {
     
@@ -81,6 +78,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Layout novidades = {state.novidades}  espacos = {state.espacos} arbo = {state.arbo}>
       <Component {...pageProps} />
+      <Analytics />
     </Layout >
     
   )
