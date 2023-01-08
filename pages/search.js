@@ -58,7 +58,7 @@ const search = ({ searched,query ,products,search}) => {
       <div class="placehodling-content">
         <h1 class="result-of-search">{search}</h1>
         <div class='product-container'>
-            {product_list.items.map(product => <Product data = {product}/>)}
+            {product_list && product_list.items.map(product => <Product data = {product}/>)}
         </div>
         {products.items.length < products.totalItems && (
             <div class='load-more'>
@@ -76,9 +76,18 @@ const search = ({ searched,query ,products,search}) => {
 }
 
 export async function getServerSideProps(context) {
+    
     const pb = new PocketBase('https://poor-camera.pockethost.io');
     if (context.query.nome) { 
         let products = await gather_products('nome ~ "'+context.query.nome+'"',pb);
+        let query = context.query.nome
+        while(query.length > 4 && products.totalItems < 1 ){
+            
+            query = query.slice(0, -1);
+            console.log('searching '+{query})
+            products = await gather_products('nome ~ "'+query+'"',pb);
+        }
+
         if(products.totalItems > 0){
             return {props: {searched:'nome ~ "'+context.query.nome+'"',query:context.query.nome, products, search:products.totalItems+' resultados para a sua pesquisa "'+context.query.nome+'"'}}
         }

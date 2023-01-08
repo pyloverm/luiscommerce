@@ -5,7 +5,7 @@ const FooterBanner = () => {
     <div class='footer' >
       <div class='footerContainer'>
         <div class='footerRow'>
-          <p>© ELECTROMOVEIS 2022</p>
+          <p>© ELECTROMOVEIS 2023</p>
           <a href="#">Créditos e avisos legais</a>
           <a href="#">Condições gerais de venda</a>
           <a href="#">Mapa do site</a>

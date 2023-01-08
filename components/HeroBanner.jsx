@@ -3,14 +3,14 @@ import { useState } from 'react';
 
 const HerroBanner = () => {
     const [searchQuery, setSearchQuery] = useState('');
-
+    
   return(
     <div class="fixed" id='fixed'>
         <div class="header" id='header'>
             <div class="search">
-                <form class= 'form-search' action="/search" >
-                    <input type="text" name="nome" class="searchbar" placeholder="Procuro um produto ..." value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)}/>
-                    <button type="submit" class='search-btn'></button>
+                <form  class= 'form-search' action="/search" autocomplete="off">
+                    <input type="text" name="nome" class="searchbar" placeholder="Procuro um produto ..." value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} required/>
+                    <button type="submit" class='search-btn'  ></button>
                 </form>
             </div>
 
@@ -27,8 +27,8 @@ const HerroBanner = () => {
             </div>
         </div>
         <div class="search-v2">
-            <form class= 'form-search bar' action="/search"  >
-                    <input type="text" name="nome" class="searchbar" placeholder="Procuro um produto ..." value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)}/>
+            <form class= 'form-search bar' action="/search"  autocomplete="off">
+                    <input type="text" name="nome" class="searchbar" placeholder="Procuro um produto ..." value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} oninvalid="this.setCustomValidity(' ')" required/>
                     <button type="submit" class='search-btn'></button>
             </form>
         </div>

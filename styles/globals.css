@@ -722,7 +722,7 @@ h1 {
   /* Just a little styling to make it pretty */
   cursor: pointer;
   border: #333;
-  width: 50px;
+  width: 35px;
   height: 35px;
   background: url("../public/static/ico.png") no-repeat;
   background-size: 35px;
@@ -914,7 +914,8 @@ h1 {
       height: 50px;
   }
   .content{
-      padding-top: 145px;
+    padding: 10px;
+    padding-top: 145px;
   }
   .mega-menu a{
       grid-template-columns: none;
