@@ -18,11 +18,8 @@ function myScript(){
     alert('marche')
 }
 
-function openPanel(){
-    var elements = document.getElementsByClassName("test");
-    for(var i = 0; i < elements.length; i++) {
-        names += elements[i].name;
-    }
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
 }
 
 function OpenCloseMenu(nameMenu,nameTab,nameArrow,display,display2,bntName) {
@@ -113,3 +110,4 @@ document.getElementById("produtos").onclick = function() {
 }
 
 document.getElementById("header").addEventListener('click', touchHandler, false);
+

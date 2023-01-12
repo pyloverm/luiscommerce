@@ -17,6 +17,7 @@
     "autocorrect": "^1.2.0",
     "bootstrap": "^5.2.3",
     "canvas-confetti": "^1.5.1",
+    "gramma": "^0.9.2",
     "memory-cache": "^0.2.0",
     "next": "12.1.0",
     "node-cache": "^5.1.2",

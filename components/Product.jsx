@@ -3,7 +3,6 @@ import React from 'react'
 const Product = ({data}) => {
 
   var link_product = './produto/'+data.id
-  console.log(data.imagem)
   if (data.imagem.includes("macorlux")) {
     data.imagem = data.imagem.replace("_1.jpg", "_destaque1.jpg");
   }
