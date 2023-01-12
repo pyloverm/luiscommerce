@@ -319,16 +319,6 @@ h1 {
   font-weight: 400;
   margin-bottom: 20px;
 }
-.btn-comprar{
-  cursor: pointer;
-  margin-top: 20px;
-  background-color: #3c3c3b;
-  color: #fff;
-  height: 3.75rem;
-  text-transform: none;
-  border: 1px solid #3c3c3b;
-  width: 100%;
-}
 
 .btn-comprar{
   cursor: pointer;
@@ -339,7 +329,7 @@ h1 {
   text-transform: none;
   border: 1px solid #3c3c3b;
   width: 100%;
-  border-radius:  5px;
+  border-radius:5px;
 }
 
 
@@ -1012,4 +1002,86 @@ h1 {
   100% {
     transform: scale(1);
   }
+}
+
+/* The side navigation menu */
+.sidenav {
+  align-content: center;
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 999; /* Stay on top */
+  top: 0; /* Stay at the top */
+  right: 0;
+  background-color: rgb(255, 255, 255); /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.3s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  font-size: 1.5rem;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+.voile {
+  top: 0;
+  z-index: 998;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.527);
+}
+
+.btn-resultados{
+  cursor: pointer;
+  margin-top: 20px;
+  background-color: #3c3c3b;
+  color: #fff;
+  height: 3.75rem;
+  text-transform: none;
+  border: 1px solid #3c3c3b;
+  width: 80%;
+  border-radius:5px;
+  font-size: 0.85rem;
+  transition: 0.3s;
+}
+.btn-resultados:hover{
+  background-color: #000000;
+}
+.filtrar-por{
+  font-size: 1.5rem;
+  font-weight: 700;
+  
+}
+
+.title-settings{
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #000000;
+  transition: 0.3s;
+}
+.closebtn{
+  text-decoration: none;
+  font-size: 25px;
+  color: #000000;
+  transition: 0.3s;
+}
+
+.bnt-open-filter{
+  width: 100%;
+  height: 36px;
 }
