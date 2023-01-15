@@ -136,6 +136,16 @@ const search = ({searched,query ,products,search,prods_infos}) => {
     
     
     function closeNav() {
+        const cat = document.getElementsByClassName('filter-close')
+        const btns = document.getElementsByClassName('closebtn')
+        for (let i = 0; i < cat.length; i++) {
+            const element = cat[i];
+            const btn = btns[i+1];
+            if(element.style.maxHeight != ''){
+                btn.innerHTML = '+'
+                element.style.maxHeight = '';
+            }
+        }
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("voile").classList.remove('voile');
         document.getElementsByTagName("html")[0].classList.remove('no-scroll');
@@ -172,75 +182,98 @@ const search = ({searched,query ,products,search,prods_infos}) => {
     
     async function result_filter(){
         console.log('printing results !')
-
         const preco_min= document.getElementById('input-preco2').value;
+        const preco_min_min = document.getElementById('input-preco2').min;
         const preco_max= document.getElementById('input-preco').value;
+        const preco_max_max= document.getElementById('input-preco').max;
         var filter = ''
+        var sfilter = ''
         const preco_condi = 'preco >= '+preco_min+ '&& preco <= '+ preco_max
-        const marcas = document.getElementById('marca').children;
-        const familias = document.getElementById('familia').children;
-        const subfamilias = document.getElementById('subfamilia').children;
-        const categorias = document.getElementById('categoria').children;
-        const subcategorias = document.getElementById('subcategoria').children;
+        var marcas = document.getElementById('marca');
+        if(marcas){marcas = marcas.children}else{marcas = false}
+        var familias = document.getElementById('familia');
+        if(familias){familias = familias.children}else{familias = false}
+        var subfamilias = document.getElementById('subfamilia');
+        if(subfamilias){subfamilias = subfamilias.children}else{subfamilias = false}
+        var categorias = document.getElementById('categoria');
+        if(categorias){categorias = categorias.children}else{categorias = false}
+        var subcategorias = document.getElementById('subcategoria');
+        if(subcategorias){subcategorias = subcategorias.children}else{subcategorias = false}
         var how_much_marcas = 0
-        var params_num = 0
-        for (let i = 0; i < marcas.length; i++) {
-            if(marcas[i].children[0].checked){
-                how_much_marcas += 1
-                filter = filter +'('+preco_condi + '&& marca  = "'+marcas[i].children[1].innerHTML+ '" '
+
+        if(marcas){
+            for (let i = 0; i < marcas.length; i++) {
+                if(marcas[i].children[0].checked){
+                    how_much_marcas += 1
+                    filter = filter +'('+preco_condi + '&& marca  = "'+marcas[i].children[1].innerHTML+ '" '
+                    if(familias){
                 for (let i = 0; i < familias.length; i++) {
                     if(familias[i].children[0].checked){
-                        params_num ++ 
-                        filter = filter + '&& familia  = "'+ familias[i].children[1].innerHTML+ '" '
+                        sfilter = sfilter + '&& familia  = "'+ familias[i].children[1].innerHTML+ '" '
                     };
                 }
+            }
+            if(subfamilias){
                 for (let i = 0; i < subfamilias.length; i++) {
                     if(subfamilias[i].children[0].checked){
-                        params_num ++ 
-                        filter = filter + '&& subfamilia  = "'+ subfamilias[i].children[1].innerHTML+ '" '
+                        sfilter = sfilter + '&& subfamilia  = "'+ subfamilias[i].children[1].innerHTML+ '" '
                     };
                 }
+            }
+            if(categorias){
                 for (let i = 0; i < categorias.length; i++) {
                     if(categorias[i].children[0].checked){
-                        params_num ++ 
-                        filter = filter + '&& categoria  = "'+ categorias[i].children[1].innerHTML+ '" '
+                        sfilter = sfilter + '&& categoria  = "'+ categorias[i].children[1].innerHTML+ '" '
                     };
                 }
+            }
+            
+            if(subcategorias){
                 for (let i = 0; i < subcategorias.length; i++) {
                     if(subcategorias[i].children[0].checked){
-                        params_num ++ 
-                        filter = filter + '&& subcategoria  = "'+ subcategorias[i].children[1].innerHTML+ '" '
+                        sfilter = sfilter + '&& subcategoria  = "'+ subcategorias[i].children[1].innerHTML+ '" '
                     };
                 }
-                filter = filter + ') || '
-            };
-            
+            }
+                    filter = filter + ') || '
+                };
+                
+            }
         }
-        if(how_much_marcas == 0 && params_num != 0 ){
-
-            filter = filter + preco_condi
+        
+        if(familias){
             for (let i = 0; i < familias.length; i++) {
                 if(familias[i].children[0].checked){
-                    filter = filter + '&& familia  = "'+ familias[i].children[1].innerHTML+ '" '
+                    sfilter = sfilter + '&& familia  = "'+ familias[i].children[1].innerHTML+ '" '
                 };
             }
+        }
+        if(subfamilias){
             for (let i = 0; i < subfamilias.length; i++) {
                 if(subfamilias[i].children[0].checked){
-                    filter = filter + '&& subfamilia  = "'+ subfamilias[i].children[1].innerHTML+ '" '
+                    sfilter = sfilter + '&& subfamilia  = "'+ subfamilias[i].children[1].innerHTML+ '" '
                 };
             }
+        }
+        if(categorias){
             for (let i = 0; i < categorias.length; i++) {
                 if(categorias[i].children[0].checked){
-                    filter = filter + '&& categoria  = "'+ categorias[i].children[1].innerHTML+ '" '
+                    sfilter = sfilter + '&& categoria  = "'+ categorias[i].children[1].innerHTML+ '" '
                 };
             }
+        }
+        
+        if(subcategorias){
             for (let i = 0; i < subcategorias.length; i++) {
                 if(subcategorias[i].children[0].checked){
-                    filter = filter + '&& subcategoria  = "'+ subcategorias[i].children[1].innerHTML+ '" '
+                    sfilter = sfilter + '&& subcategoria  = "'+ subcategorias[i].children[1].innerHTML+ '" '
                 };
             }
-            filter += 'oui'
-            
+        }
+
+        if(how_much_marcas == 0 && ( sfilter != '' || preco_max != preco_max_max || preco_min != preco_min_min) ){
+            setIsLoading(true);
+            filter = filter + preco_condi + sfilter + 'oui'
         }
         
         if (searched +'&& ('+filter.slice(0,-3)+')' != searched + '&& ()'){
@@ -360,7 +393,7 @@ const search = ({searched,query ,products,search,prods_infos}) => {
                 <a href="javascript:void(0)" class="closebtn" onClick={() => closeNav()}>&times;</a>
             </div>
 
-            {marcas_dispo.length && (
+            {marcas_dispo.length > 1 && (
                 <div class='column filter-col'>
                     <div class='row r-no-margin'>
                         <button class='bnt-open-filter'   onClick={() => openSub('marca')}>
@@ -376,7 +409,7 @@ const search = ({searched,query ,products,search,prods_infos}) => {
                     </div>
                 </div>
             )}
-            {familia_dispo.length && (
+            {familia_dispo.length > 1 && (
                 <div class='column filter-col'>
                     <div class='row r-no-margin'>
                         <button class='bnt-open-filter' onClick={() => openSub('familia')}>
@@ -392,7 +425,7 @@ const search = ({searched,query ,products,search,prods_infos}) => {
                     </div>
                 </div>
             )}
-            {subfamilia_dispo.length && (
+            {subfamilia_dispo.length > 1 && (
                 <div class='column filter-col'>
                     <div class='row r-no-margin'>
                         <button class='bnt-open-filter' onClick={() => openSub('subfamilia')}>
@@ -408,7 +441,7 @@ const search = ({searched,query ,products,search,prods_infos}) => {
                     </div>
                 </div>
             )}
-            {categoria_dispo.length && (
+            {categoria_dispo.length > 1 && (
                 <div class='column filter-col'>
                     <div class='row r-no-margin'>
                         <button class='bnt-open-filter'  onClick={() => openSub('categoria')}>
@@ -424,7 +457,7 @@ const search = ({searched,query ,products,search,prods_infos}) => {
                     </div>
                 </div>
             )}
-            {subcategoria_dispo.length && (
+            {subcategoria_dispo.length > 1 && (
                 <div class='column filter-col'>
                     <div class='row r-no-margin'>
                         <button class='bnt-open-filter'   onClick={() => openSub('subcategoria')}>

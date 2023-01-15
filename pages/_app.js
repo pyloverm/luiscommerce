@@ -35,6 +35,7 @@ function MyApp({ Component, pageProps }) {
           espacos:espacos,
           novidades:novidades
         });
+
         // Store data in local storage
         localStorage.setItem('arbo', JSON.stringify(arbo));
         localStorage.setItem('espacos', JSON.stringify(espacos));
@@ -57,7 +58,7 @@ function MyApp({ Component, pageProps }) {
     let month = now.getMonth() + 1;
     let date =  '"'+now.getFullYear()+'-'+month+'-'+now.getDate()+'"'
 
-    if (arbo && espacos && novidades&&last_update === date) {
+    if (arbo && espacos && novidades && last_update === date) {
       setState({
         loading: false,
         arbo: JSON.parse(arbo),
@@ -69,8 +70,7 @@ function MyApp({ Component, pageProps }) {
       fetchData();
     }
   }, []);
-
-
+  
   if (state.loading) {
     return (
       <div class='spinner-wrapper'>
@@ -82,7 +82,7 @@ function MyApp({ Component, pageProps }) {
     <Layout novidades = {state.novidades}  espacos = {state.espacos} arbo = {state.arbo}>
       <Component {...pageProps} />
       <Analytics />
-    </Layout >
+    </Layout>
     
   )
 }

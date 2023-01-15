@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 const Product = ({data}) => {
 
@@ -9,7 +10,9 @@ const Product = ({data}) => {
   return (
     <article class='product'>
       <a href={link_product}>
-        <img class='product-img' src={data.imagem} alt="" />
+
+        {data.imagem && (<Image class='product-img' src={data.imagem} alt="" width={257} height={257} />)}
+
         <div>
           <p></p>
           <p class='desc'>{data.nome}</p>
