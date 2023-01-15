@@ -111,3 +111,70 @@ document.getElementById("produtos").onclick = function() {
 
 document.getElementById("header").addEventListener('click', touchHandler, false);
 
+var range = document.getElementById('range-preco');
+var field = document.getElementById('input-preco');
+var range2 = document.getElementById('range-preco2');
+var field2 = document.getElementById('input-preco2');
+
+if (range && field && range2 && field2){
+    range.addEventListener('input', function (e) {
+        if(parseFloat(e.target.value) < parseFloat(range2.value)){
+            e.target.value = range2.value + 1
+            e.preventDefault();
+            field.value = e.target.value;
+            return false;
+        }
+        field.value = e.target.value;
+        return true;  
+    });
+
+
+    field.addEventListener('input', function (e) {
+        if (e.target.value > parseFloat(range.max)){
+            e.target.value = parseFloat(range.max);
+            e.preventDefault();
+            range.value = e.target.value;
+            return false;
+        }
+        if(e.target.value < field2.value){
+            e.target.value = field2.value + 1
+            e.preventDefault();
+            range.value = e.target.value;
+            return false;
+        }
+        range.value = e.target.value;
+        return true;
+        
+    });
+
+
+
+    range2.addEventListener('input', function (e) {
+        if(parseFloat(e.target.value) > parseFloat(range.value)){
+            e.target.value = range.value + 1
+            e.preventDefault();
+            field2.value = e.target.value;
+            return false;
+        }
+        field2.value = e.target.value;
+        return true;  
+    });
+
+    field2.addEventListener('input', function (e) {
+        if (e.target.value > parseFloat(range.value)){
+            e.target.value = parseFloat(range.value);
+            e.preventDefault();
+            range2.value = e.target.value;
+            return false;
+        }
+        if (e.target.value < parseFloat(e.target.min)){
+            e.target.value = parseFloat(e.target.min);
+            e.preventDefault();
+            range2.value = e.target.value;
+            return false;
+        }
+        range2.value = e.target.value;
+        return true;  
+    });
+}
+
