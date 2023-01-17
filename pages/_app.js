@@ -1,11 +1,16 @@
+import '../styles/cart.css'
 import '../styles/globals.css'
+
 import { Layout } from '../components'
 import '../styles/family-inter.css'
 import PocketBase from 'pocketbase';
 import React, { useState, useEffect } from 'react'
 import { Analytics } from '@vercel/analytics/react';
+import { Toaster } from 'react-hot-toast';
+import { StateContext } from '../context/StateContext';
 
-function MyApp({ Component, pageProps }) {
+
+function MyApp({ Component, pageProps}) {
 
   const [state, setState] = useState({
     loading: true,
@@ -79,13 +84,17 @@ function MyApp({ Component, pageProps }) {
   }
 
   return (
-    <Layout novidades = {state.novidades}  espacos = {state.espacos} arbo = {state.arbo}>
-      <Component {...pageProps} />
-      <Analytics />
-    </Layout>
-    
+    <StateContext>
+      <Layout novidades = {state.novidades}  espacos = {state.espacos} arbo = {state.arbo}>
+        <Toaster />
+        <Component {...pageProps} />
+        <Analytics />
+      </Layout>
+    </StateContext>
   )
 }
+
+
 
 
 export default MyApp

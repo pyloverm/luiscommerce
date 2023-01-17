@@ -1,10 +1,12 @@
 body { overflow: auto; }
+
 *{
   padding: 0;
   margin: 0;
   font-family: inter;
   box-sizing: border-box;
 }
+
 
 .header{
   background-color: #D9D9D9;
@@ -29,16 +31,13 @@ body { overflow: auto; }
   display: flex;
   align-items: center;
   text-align: center;
-  padding-left: 40%;
   justify-content: flex-end;
 }
-.fa-cart{
-  color:#333;
-  text-decoration: none;
-  font-size: 18px;
-  padding-left: 15px;
-  padding-right: 0px;
-  font: normal normal normal 14px/1 FontAwesome;
+
+.fa svg{
+  height: 25px;
+  width: 25px;
+  color: black;
 }
 
 .icons .fa{
@@ -54,7 +53,11 @@ svg{
 }
 
 .name-icon{
-  color:#333;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+  font-weight: 700;
+  color:rgb(0, 0, 0);
   text-decoration: none;
   font-size: 15px;
 }
@@ -595,7 +598,6 @@ h1 {
   flex-direction: column;
   margin-left: -1.11111vw;
   margin-right: -1.11111vw;
-  flex-wrap: wrap;
 }
 .arroww-left {
 	left: 10px;
@@ -747,178 +749,6 @@ h1 {
   margin-bottom: 30px;
 }
 
-@media screen and (max-width: 1200px) {
-  .contain-link{
-      border: 2px solid rgba(158, 158, 158, 0.301);
-      padding: 8px;
-  }
-  .contain-link{
-     width: 80%;
-  }
-  .menu-link{
-    width: 100%;
-  }
-  .panel{
-    column-count: 3;
-  }
-  
-  .menuprod{
-    width: 100%;
-  }
-
-  .mega-menu{
-      padding-bottom: 150px;
-      overflow-y: auto;
-      grid-template-columns: repeat(1,1fr);
-      grid-template-rows: none;
-  }
-  .mega-menu a{
-      display: grid;
-      grid-template-columns: 250px auto;
-      align-items: center;
-      justify-items: center;
-  }
-
-}
-@media screen and (max-width: 1000px) { 
-
-  .all-row{
-    flex-direction: column;
-  }
-  .image-part{
-    max-width: 100%;
-  }
-  .desc-part{
-    max-width: 100%;
-  }
-  .desc-col{
-    margin-top: 30px;
-  }
-  .product{
-    width: 33%;
-  }
-  .current-image{
-    width: 100%;
-    height: 100%;
-  }
-  
-  .more{
-    flex-basis: 65%;
-  }
-  .familias{
-    flex-basis: 35%;
-  }
-  .next-list {
-    position:relative;
-    flex-wrap: wrap;
-    height: 100%;
-    margin-bottom: 30px;
-  }
-
-  .carousel-container {
-    flex-direction: column;
-  }
-  .drop-menus{
-    padding: 10px 20px;
-    height: 60px;
-  }
-  .name-icon {
-    display: none;
-  }
-  .icons{
-    padding-left: 40%
-  }
-  .panel{
-    column-count: 2;
-  }
-  .icons .fa{
-    font-size: 30px;
-  }
-  .fa-cart{
-
-    font-size: 30px;
-  }
-  .header .logo{
-    grid-row: 1;
-  }
-  .header {
-    grid-template-columns: repeat(3,1fr);
-    height: 80px;
-  }
-  .logo{
-      font-size: 15px;
-      font-weight: bold;
-      margin: auto;
-  }
-  .search input{
-      width: 100%;
-  }
-  .content{
-      padding-top: 140px;
-  }
-}
-
-
-@media screen and (max-width: 700px) {
-  .product{
-    width: 50%;
-  }
-  .more{
-    flex-basis: 50%;
-  }
-  .familias{
-    flex-basis: 50%;
-  }
-  .header {
-      padding: 0 0;
-      padding-right: 2%;
-      grid-template-columns: repeat(2,1fr);
-      height: 60px;
-  }
-  .header .search{
-      display: none;
-  }
-
-  .search-v2{
-    display: block;
-  }
-  .panel{
-    column-count: 1;
-  }
-  .logo{
-      font-size: 12px;
-      font-weight: bold;
-      margin: auto;
-  }
-  #navbar button {
-      display: block;
-      height: 20px;
-      padding: 0px 5px;
-  }
-  .drop-menus{
-      padding: 10px 20px;
-      height: 50px;
-  }
-  .content{
-    padding: 10px;
-    padding-top: 145px;
-  }
-  .mega-menu a{
-      grid-template-columns: none;
-  }
-  .contain-link{
-      padding: 8px;
-      border: 2px solid rgba(158, 158, 158, 0.301);
-      width: 300px;
-      height: 100%;
-  }
-  
-}
-
-@media screen and (max-width: 500px) {
-  .product{
-    width: 100%;
-  }}
 
 .spinner-wrapper {
   height: 100vh;
@@ -1020,12 +850,6 @@ h1 {
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
   font-size: 1.5rem;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
 }
 
 
@@ -1411,3 +1235,251 @@ input[type=number] {
   justify-content: space-around;
   align-items: center;
 }
+
+
+.btn-return-menu{
+  cursor: pointer;
+  margin-top: 20px;
+  background-color: #333;
+  color: #fff;
+  height: 3.75rem;
+  text-transform: none;
+  border: 1px solid #333;
+  width: 250px;
+  border-radius:5px;
+  font-size: 0.85rem;
+  margin-bottom: 20px; 
+}
+.btn-return-menu:hover{
+  background-color: rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
+}
+ 
+.btn-return-menu a{
+  font-size: 1rem;
+  display: flex;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.after-input{
+  display: flex;
+  align-items: center;
+}
+
+.cart-item-qty {
+  position: absolute;
+  right: -4px;
+  top: -1px;
+  font-size: 12px;
+  color: #eee;
+  background-color: #f02d34;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: 600;
+}
+
+.cart-icon{
+  font-size: 25px;
+  padding-left: 15px;
+  cursor: pointer;
+  position: relative;
+  transition: transform .4s ease;
+  border: none;
+  background-color: transparent;
+}
+
+.cart-icon svg{
+  height: 25px;
+  width: 25px;
+}
+@media screen and (max-width: 1200px) {
+  .contain-link{
+      border: 2px solid rgba(158, 158, 158, 0.301);
+      padding: 8px;
+  }
+  .contain-link{
+     width: 80%;
+  }
+  .menu-link{
+    width: 100%;
+  }
+  .panel{
+    column-count: 3;
+  }
+  
+  .menuprod{
+    width: 100%;
+  }
+
+  .mega-menu{
+      padding-bottom: 150px;
+      overflow-y: auto;
+      grid-template-columns: repeat(1,1fr);
+      grid-template-rows: none;
+  }
+  .mega-menu a{
+      display: grid;
+      grid-template-columns: 250px auto;
+      align-items: center;
+      justify-items: center;
+  }
+
+}
+@media screen and (max-width: 1000px) { 
+
+  .all-row{
+    flex-direction: column;
+  }
+  .image-part{
+    max-width: 100%;
+  }
+  .desc-part{
+    max-width: 100%;
+  }
+  .desc-col{
+    margin-top: 30px;
+  }
+  .product{
+    width: 33%;
+  }
+  .current-image{
+    width: 100%;
+    height: 100%;
+  }
+  
+  .more{
+    flex-basis: 65%;
+  }
+  .familias{
+    flex-basis: 35%;
+  }
+  .next-list {
+    position:relative;
+    flex-wrap: wrap;
+    height: 100%;
+    margin-bottom: 30px;
+  }
+
+  .carousel-container {
+    flex-direction: column;
+  }
+  .drop-menus{
+    padding: 10px 20px;
+    height: 60px;
+  }
+  .name-icon {
+    display: none;
+  }
+  .icons{
+    justify-content: flex-end
+  }
+  .panel{
+    column-count: 2;
+  }
+  .icons .fa{
+    font-size: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .cart-icon{
+    padding-left: 5px;
+  }
+  .header .logo{
+    grid-row: 1;
+  }
+  .header {
+    grid-template-columns: repeat(3,1fr);
+    height: 80px;
+  }
+  .logo{
+      font-size: 15px;
+      font-weight: bold;
+      margin: auto;
+  }
+  .search input{
+      width: 100%;
+  }
+  .content{
+      padding-top: 140px;
+  }
+}
+
+
+@media screen and (max-width: 700px) {
+  .product{
+    width: 50%;
+  }
+  .more{
+    flex-basis: 50%;
+  }
+  .familias{
+    flex-basis: 50%;
+  }
+  .header {
+      padding: 0 0;
+      padding-right: 2%;
+      grid-template-columns: repeat(2,1fr);
+      height: 60px;
+  }
+  .header .search{
+      display: none;
+  }
+
+  .search-v2{
+    display: block;
+  }
+  .panel{
+    column-count: 1;
+  }
+  .logo{
+      font-size: 12px;
+      font-weight: bold;
+      margin: auto;
+  }
+  #navbar button {
+      display: block;
+      height: 20px;
+      padding: 0px 5px;
+  }
+  .drop-menus{
+      padding: 10px 20px;
+      height: 50px;
+  }
+  .content{
+    padding: 10px;
+    padding-top: 145px;
+  }
+  .mega-menu a{
+      grid-template-columns: none;
+  }
+  .contain-link{
+      padding: 8px;
+      border: 2px solid rgba(158, 158, 158, 0.301);
+      width: 300px;
+      height: 100%;
+  }
+  
+}
+
+@media screen and (max-width: 500px) {
+  .product{
+    width: 100%;
+  }}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+/* import */
+
+/* end of import */

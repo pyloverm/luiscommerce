@@ -52,7 +52,7 @@ function gather_prods_infos(fullpdts){
     return ([minpreco,maxpreco,marcas_dispo,familia_dispo,subfamilia_dispo,categoria_dispo,subcategoria_dispo])
 }
 
-const search = ({searched,query ,products,search,prods_infos}) => {
+const search = ({searched,query ,products,prods_infos}) => {
     const pb = new PocketBase('https://poor-camera.pockethost.io');
     // Use the useState hook to manage the page state variable
     const [page, setPage] = useState(1);
@@ -109,12 +109,7 @@ const search = ({searched,query ,products,search,prods_infos}) => {
     
     useEffect(() => {(
         async()=>{
-            console.log('1st')
             setPage(1);
-            console.log('loading page '+(page+ 1))
-            // Fetch more products from the API
-            
-            
             if(!firstrender){
                 const resultList = await pb.collection('products').getList(1, 40, {
                         filter: searched+filter,
@@ -153,7 +148,6 @@ const search = ({searched,query ,products,search,prods_infos}) => {
     
     function openNav() {
         document.getElementById("voile").addEventListener('click', closeNav, false);
-        console.log('opening...')
         if(document.getElementsByTagName("html")[0].offsetWidth >  1200){
             document.getElementById("mySidenav").style.width = "500px";
         }else if(document.getElementsByTagName("html")[0].offsetWidth >  700){
@@ -167,21 +161,17 @@ const search = ({searched,query ,products,search,prods_infos}) => {
 
     function openSub(t) {
         const pageBottom = document.getElementById('bottom')
-
-        console.log(document.getElementById(t).style.maxHeight)
         if(document.getElementById(t).style.maxHeight == ''){
             document.getElementById(t+'-btn').innerHTML = '-'
             document.getElementById(t).style.maxHeight = '100%';
             pageBottom.scrollIntoView({ block: 'end',  behavior: 'smooth' });
         }else{
             document.getElementById(t+'-btn').innerHTML = '+'
-            console.log(document.getElementById(t).style.maxHeight)
             document.getElementById(t).style.maxHeight = '';
         };
     }
     
     async function result_filter(){
-        console.log('printing results !')
         const preco_min= document.getElementById('input-preco2').value;
         const preco_min_min = document.getElementById('input-preco2').min;
         const preco_max= document.getElementById('input-preco').value;
@@ -198,7 +188,7 @@ const search = ({searched,query ,products,search,prods_infos}) => {
         var categorias = document.getElementById('categoria');
         if(categorias){categorias = categorias.children}else{categorias = false}
         var subcategorias = document.getElementById('subcategoria');
-        if(subcategorias){subcategorias = subcategorias.children}else{subcategorias = false}
+        if(subcategorias){subcategorias = subcategorias.children}else{subcategorias = null}
         var how_much_marcas = 0
 
         if(marcas){
@@ -283,9 +273,6 @@ const search = ({searched,query ,products,search,prods_infos}) => {
             const filt = searched +'&& ('+filter.slice(0,-3)+')'
             setfiltering(filt);
             setPage(1);
-            console.log('loading page '+(page)+' whith filter')
-            console.log('filter:')
-            console.log(filt)
             // Fetch more products from the API
             var resultList =  pb.collection('products').getList(1, 40, {
             filter: filt,
@@ -306,7 +293,6 @@ const search = ({searched,query ,products,search,prods_infos}) => {
             let promises = pages.map(page =>  pb.collection('productsmin').getList(page,40, {filter: filt,sort:sort,'$autoCancel':false}));
             
             await Promise.all([resultList,promises]).then(values => {
-                console.log("end")
                 resultList = values[0]
                 values[1].forEach(element => {
                     element.then(values => {values.items.forEach(elem => {items.push(elem)
@@ -315,11 +301,7 @@ const search = ({searched,query ,products,search,prods_infos}) => {
                 });
             })
 
-            console.log(full_list_infos)
-            console.log("tt les items")
-            console.log(items)
             full_list_infos.items = items
-            console.log(full_list_infos)
             const infos = gather_prods_infos(JSON.parse(JSON.stringify(items)))
             
             setnew_prods_infos(infos)
@@ -346,11 +328,7 @@ const search = ({searched,query ,products,search,prods_infos}) => {
 
     async function loadMore() {
         setIsLoading(true);
-        // Increment the page number
         setPage(page + 1);
-        console.log('loading page '+(page+ 1))
-        // Fetch more products from the API
-
         if(filtering == ''){
             var resultList = await pb.collection('products').getList((page + 1), 40, {
                 filter: searched,
@@ -466,7 +444,7 @@ const search = ({searched,query ,products,search,prods_infos}) => {
                         </button>
                     </div>
                     <div class='column filter-close' id='subcategoria'>
-                        {subcategoria_dispo.length  && subcategoria_dispo.map(subcategoria => <div class='row row-marca'>
+                        {subcategoria_dispo.length && subcategoria_dispo.map(subcategoria => <div class='row row-marca'>
                             <input type="checkbox"  class='check-box'id={subcategoria} name={subcategoria} value={subcategoria}/>
                             <p>{subcategoria}</p>
                         </div>)}
@@ -510,21 +488,29 @@ const search = ({searched,query ,products,search,prods_infos}) => {
         <div id='voile'></div>
 
         
-
-        <h1 class="result-of-search">{search}</h1>
+        
+        
         {product_list.totalItems > 1 && (
-            <div class='row space'>
-                <select name="sorting" class='sorting' onChange={sort_change} id="sort" >
-                    <option value="select">Ordenar</option>
-                    <option value="preco">Preco</option>
-                    <option value="nome">Nome</option>
-                </select>
-                <button class='btn-filters' onClick={() => openNav()}>Filtrar</button>
-            </div>
+            <>
+                <h1 class="result-of-search">{product_list.totalItems} resultados para a sua pesquisa "{query}"</h1>
+                <div class='row space'>
+                    <select name="sorting" class='sorting' onChange={sort_change} id="sort" >
+                        <option value="select">Ordenar</option>
+                        <option value="preco">Preco</option>
+                        <option value="nome">Nome</option>
+                    </select>
+                    {(marcas_dispo.length > 1 || familia_dispo.length > 1 || subfamilia_dispo.length > 1 || categoria_dispo.length > 1  || subcategoria_dispo.length > 1  || minpreco != maxpreco) && (<button class='btn-filters' onClick={() => openNav()}>Filtrar</button>)}
+                </div>
+            </>
         )}
-        
-        
-        <p>sort is to {sort}</p>
+
+        {product_list.totalItems <= 1 && (
+            <>
+                <h1 class="result-of-search">{product_list.totalItems} resultado para a sua pesquisa "{query}"</h1>
+                {product_list.totalItems < 1 && (<div class='btn-return-menu' ><a href='/' >Voltar à inspiração</a></div>)}
+            </>
+        )}
+
         <div class='product-container'>
             {product_list && product_list.items.map(product => <Product data = {product}/>)}
         </div>
@@ -575,16 +561,68 @@ export async function getServerSideProps(context) {
 
         let fullpdts = JSON.parse(JSON.stringify(items))
         let prods_infos =  gather_prods_infos(fullpdts)
-        return {props: {searched:'nome ~ "'+context.query.nome+'"',query:context.query.nome, products, search:products.totalItems+' resultados para a sua pesquisa "'+context.query.nome+'"', prods_infos}}
+        return {props: {searched:'nome ~ "'+context.query.nome+'"',query:context.query.nome, products, prods_infos}}
     }
+
     if (context.query.subfamilia) { 
+        var pages = [];
+        const items = []
         let products = await gather_products('subfamilia = "'+context.query.subfamilia+'"',pb);
-        return {props: {searched:'subfamilia = "'+context.query.subfamilia+'"',query:context.query.subfamilia, products, search:context.query.subfamilia}}
+        var full_list_infos = await pb.collection('productsmin').getList(1,40, {filter: 'subfamilia = "'+context.query.subfamilia+'"','$autoCancel':false});
+        full_list_infos.items.forEach(element => {
+            items.push(element)                
+        });
+        for (let i = 2; i <= full_list_infos.totalPages; i++) {
+            pages.push(i)
+        }
+        
+        let promises = pages.map(page =>  pb.collection('productsmin').getList(page,40, {filter: 'subfamilia = "'+context.query.subfamilia+'"','$autoCancel':false}));
+        var subPromise;
+
+        await Promise.all([products,promises]).then(values => {
+            products = values[0]
+            subPromise = values[1]
+            values[1].forEach( element => {
+                element.then(values => { 
+                values.items.forEach(elem => {items.push(elem)});})});
+        })
+        await Promise.all(subPromise)
+
+        let fullpdts = JSON.parse(JSON.stringify(items))
+        let prods_infos =  gather_prods_infos(fullpdts)
+        
+
+        return {props: {searched:'subfamilia = "'+context.query.subfamilia+'"',query:context.query.subfamilia, products, search:context.query.subfamilia,prods_infos}}
     }
+
     if (context.query.subcategoria) { 
+        var pages = [];
+        const items = []
         let products = await gather_products('subcategoria = "'+context.query.subcategoria+'"',pb);
-        return {props: {searched:'subcategoria = "'+context.query.subcategoria+'"',query:context.query.subcategoria, products, search:context.query.subcategoria}}
+        var full_list_infos = await pb.collection('productsmin').getList(1,40, {filter: 'subcategoria = "'+context.query.subcategoria+'"','$autoCancel':false});
+        full_list_infos.items.forEach(element => {
+            items.push(element)                
+        });
+        for (let i = 2; i <= full_list_infos.totalPages; i++) {
+            pages.push(i)
+        }
+        
+        let promises = pages.map(page =>  pb.collection('productsmin').getList(page,40, {filter: 'subcategoria = "'+context.query.subcategoria+'"','$autoCancel':false}));
+        var subPromise;
+
+        await Promise.all([products,promises]).then(values => {
+            products = values[0]
+            subPromise = values[1]
+            values[1].forEach( element => {
+                element.then(values => { 
+                values.items.forEach(elem => {items.push(elem)});})});
+        })
+        await Promise.all(subPromise)
+
+        let fullpdts = JSON.parse(JSON.stringify(items))
+        let prods_infos =  gather_prods_infos(fullpdts)
+        return {props: {searched:'subcategoria = "'+context.query.subcategoria+'"',query:context.query.subcategoria, products, prods_infos}}
     }
-    return {props: {query:null, products: null , search:'0 resultado'}}       
+    return {props: {query:null, products: null , search:null,prods_infos: null}}       
 }
 export default search

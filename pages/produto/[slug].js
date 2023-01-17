@@ -1,12 +1,14 @@
-import React from 'react'
-import {useRouter} from 'next/router'
+import React, { useState } from 'react';
 import PocketBase from 'pocketbase';
 import Script from 'next/script'
 import { Product, FooterBanner , HeroBanner, NovidadesMenu, EspacosMenu, ProdutosMenu } from '../../components'
 import Head from 'next/head';
+import { useStateContext } from '../../context/StateContext';
 
 function productPage({product}) {
-
+  const [index, setIndex] = useState(0);
+  const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+  
   function testing(){
     console.log('clicked');
   }
@@ -67,7 +69,7 @@ function productPage({product}) {
             <h1 class = 'product-nome'>{toTitleCase(product.nome)}</h1>
             <strong class="base-price">{Math.round(product.preco)}&nbsp;€</strong>
             <hr data-v-6cc9fd2c=""></hr>
-            <button id="Add_cart" type="button" onClick={testing} class="btn-comprar">
+            <button id="Add_cart" type="button" onClick={() => onAdd(product, 1)} class="btn-comprar">
               Adicionar ao carrinho
             </button>
             <div class='preco-atributes'>
