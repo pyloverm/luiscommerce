@@ -10,7 +10,7 @@ import { Toaster } from 'react-hot-toast';
 import { StateContext } from '../context/StateContext';
 
 
-function MyApp({ Component, pageProps}) {
+function MyApp({ Component, pageProps, ...appProps}) {
 
   const [state, setState] = useState({
     loading: true,
@@ -83,6 +83,8 @@ function MyApp({ Component, pageProps}) {
     );
   }
 
+  if (appProps.router.asPath.includes('/maintenance'))
+    return <Component {...pageProps}/>;
   return (
     <StateContext>
       <Layout novidades = {state.novidades}  espacos = {state.espacos} arbo = {state.arbo}>

@@ -1,32 +1,34 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import Cookies from 'js-cookie'
+import PocketBase from 'pocketbase';
 
-import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
 const Context = createContext();
 
-export const StateContext = ({ children , req,res}) => {
-  const cookies = getCookies({ req, res });
-  console.log()
+export const  StateContext =  ({children}) => {
   const [showCart, setShowCart] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(Number(cookies.totalPrice));
-  const [totalQuantities, setTotalQuantities] = useState(cookies.totalQuantities != 'NaN' && cookies.totalQuantities != null ? Number(cookies.totalQuantities) : 0);
+  const [cartItems, setCartItems] = useState((localStorage.getItem('cartItems')) ? JSON.parse(localStorage.getItem('cartItems')) : []);
+  const [totalPrice, setTotalPrice] = useState((localStorage.getItem('totalPrice')) ? Number(localStorage.getItem('totalPrice')) : 0);
+  const [totalQuantities, setTotalQuantities] = useState((localStorage.getItem('totalQuantities')) ? Number(localStorage.getItem('totalQuantities')) : 0);
   const [qty, setQty] = useState(1);
-  console.log(decodeURIComponent( escape( JSON.stringify(cookies.cartItems) ) ))
+  
 
- 
+  
   let foundProduct;
   let index;
-
+  function addtostorage(cartits , totalpri , totalquant){
+    localStorage.setItem('totalPrice', (totalpri))
+    localStorage.setItem('totalQuantities', (totalquant))
+    localStorage.setItem('cartItems', JSON.stringify(cartits))
+  }
   const onAdd = (product, quantity) => {
-    console.log(product)
+
     const checkProductInCart = cartItems.find((item) => item.id === product.id);
     
     setTotalPrice((prevTotalPrice) => prevTotalPrice + product.preco * quantity);
-    
+    localStorage.setItem('totalPrice', (totalPrice + product.preco * quantity))
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
-    setCookie('totalPrice', totalPrice + product.preco * quantity, { req, res, maxAge: 60 * 60 * 24 * 30});
-    setCookie('totalQuantities', totalQuantities+quantity, { req, res, maxAge: 60 * 60 * 24 * 30});
+    localStorage.setItem('totalQuantities', (totalQuantities + quantity))
 
     if(checkProductInCart) {
       const updatedCartItems = cartItems.map((cartProduct) => {
@@ -35,18 +37,18 @@ export const StateContext = ({ children , req,res}) => {
           quantity: cartProduct.quantity + quantity
         }
       })
-
       setCartItems(updatedCartItems);
+      localStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
     } else {
       product.quantity = quantity;
-      
+      localStorage.setItem('cartItems', JSON.stringify([...cartItems, { ...product }]))
       setCartItems([...cartItems, { ...product }]);
     }
     
-    console.log(JSON.stringify([...cartItems, { ...product }]))
-    setCookie('cartItems', JSON.stringify([...cartItems, { ...product }]), { req, res, maxAge: 60 * 60 * 24 * 30});
     toast.success(`${qty} ${product.name} added to the cart.`);
   } 
+
+
 
   const onRemove = (product) => {
     foundProduct = cartItems.find((item) => item.id === product.id);
@@ -55,7 +57,9 @@ export const StateContext = ({ children , req,res}) => {
     setTotalPrice((prevTotalPrice) => prevTotalPrice -foundProduct.preco * foundProduct.quantity);
     setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
     setCartItems(newCartItems);
+    addtostorage(newCartItems,(totalPrice -foundProduct.preco * foundProduct.quantity),(totalQuantities - foundProduct.quantity))
   }
+
 
   const toggleCartItemQuanitity = (id, value) => {
     foundProduct = cartItems.find((item) => item.id === id)
@@ -66,11 +70,14 @@ export const StateContext = ({ children , req,res}) => {
       setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 } ]);
       setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.preco)
       setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
+      addtostorage([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 } ] ,  totalPrice + foundProduct.preco,totalQuantities + 1)
+      
     } else if(value === 'dec') {
       if (foundProduct.quantity > 1) {
         setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 } ]);
         setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.preco)
         setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)
+        addtostorage([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 } ] ,  totalPrice - foundProduct.preco,totalQuantities - 1)
       }
     }
   }
@@ -110,6 +117,5 @@ export const StateContext = ({ children , req,res}) => {
     </Context.Provider>
   )
 }
-
 
 export const useStateContext = () => useContext(Context);

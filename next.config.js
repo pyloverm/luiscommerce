@@ -7,4 +7,21 @@ const nextConfig = {
   }
 }
 
-module.exports = nextConfig
+
+/* --- module.exports = nextConfig */
+
+module.exports = {
+  reactStrictMode: true,
+  swcMinify: true,
+  images:{
+    domains:['www.macorlux.pt'],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/((?!maintenance).*)",
+        destination: "/maintenance",
+        permanent: false, //!!!IMPORTANT!!!
+      },
+    ];}
+};
