@@ -58,7 +58,7 @@ function ProductPage({product}) {
               <img src={product.imagem} alt="" class="current-image"/>
               <ul class="next-list">
                 {product.iternal_product && product.imagem.map(imagem =>
-                  <li><img src={imagem} alt="" class="image-of-list current-image-list"/></li>
+                  <li key={product.id}><img src={imagem} alt="" class="image-of-list current-image-list"/></li>
                 )}
               </ul>
             </section>
@@ -81,8 +81,8 @@ function ProductPage({product}) {
               </div>
               <p class='dispo'>Disponível</p>
               <hr data-v-6cc9fd2c=""></hr>
-              <li><a href='/devulocoes'>Devoluções</a></li>
-              <li><a href='/Pagamento'>Pagamento 100% seguro</a></li>
+              <li key={product.id} ><a href='/devulocoes'>Devoluções</a></li>
+              <li key={product.id}><a href='/Pagamento'>Pagamento 100% seguro</a></li>
             </div>
           </div>
         </div>
