@@ -508,8 +508,9 @@ const Search = ({searched,query ,products,prods_infos}) => {
         )}
 
         <div class='product-container'>
-            {product_list && product_list.items.map(product => <Product data = {product}/>)}
+            {product_list && product_list.items.map(product => <Product key={product.id} data = {product}/>)}
         </div>
+        
         {product_list.items.length < product_list.totalItems && (
             <div class='load-more'>
                 <p>Já viu {Object.keys(product_list.items).length} produtos de {product_list.totalItems}</p>
