@@ -1,6 +1,6 @@
 import React from 'react'
 
-const lojas = () => {
+const Lojas = () => {
   return (
     <>
       <div class="placehodling-content">
@@ -11,4 +11,4 @@ const lojas = () => {
   )
 }
 
-export default lojas
+export default Lojas

@@ -1,7 +1,7 @@
 import React from 'react'
 import PocketBase from 'pocketbase';
 
-const contactos = ({data}) => {
+const Contactos = ({data}) => {
     return(
         <p>{data.items[0].nome}</p>
     )
@@ -16,4 +16,4 @@ export const getServerSideProps = async () => {
       props: {data}
     }
   }
-export default contactos
+export default Contactos
