@@ -29,7 +29,7 @@ const ProdutosMenu = ({Arbo}) => {
                             </ul>
                             <div class='more'>
                             {Object.keys(data['familia']).map(familia => 
-                              <div class='panel' id={familia.replace(/[.,\s/-]/g, '').toLowerCase().concat('Panel')}>
+                              <div key={familia} class='panel' id={familia.replace(/[.,\s/-]/g, '').toLowerCase().concat('Panel')}>
                                     {
                                       Object.keys(data['familia'][familia]['subfamilia']).map(sub => 
                                         <div >
@@ -37,7 +37,7 @@ const ProdutosMenu = ({Arbo}) => {
                                           { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria']).map(cat =>
                                           <div>
                                             <li key={cat} class='categoria'>{cat.replace("TIPO - ", "")}</li>
-                                            { Object.keys(data['famia'][famia]['subfamia'][sub]['categoria'][cat]['subcategoria']).map(sub => <li key={sub} class='valor'><a href={"/search?subcategoria="+sub}>{sub}</a></li>)}
+                                            { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria'][cat]['subcategoria']).map(sub => <li key={sub} class='valor'><a href={"/search?subcategoria="+sub}>{sub}</a></li>)}
                                           </div>
                                           )}
                                         </div>
