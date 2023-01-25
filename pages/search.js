@@ -52,7 +52,7 @@ function gather_prods_infos(fullpdts){
     return ([minpreco,maxpreco,marcas_dispo,familia_dispo,subfamilia_dispo,categoria_dispo,subcategoria_dispo])
 }
 
-const search = ({searched,query ,products,prods_infos}) => {
+const Search = ({searched,query ,products,prods_infos}) => {
     const pb = new PocketBase('https://poor-camera.pockethost.io');
     // Use the useState hook to manage the page state variable
     const [page, setPage] = useState(1);
@@ -621,4 +621,4 @@ export async function getServerSideProps(context) {
     }
     return {props: {query:null, products: null , search:null,prods_infos: null}}       
 }
-export default search
+export default Search
