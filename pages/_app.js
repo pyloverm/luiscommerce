@@ -1,5 +1,6 @@
 import '../styles/cart.css'
 import '../styles/globals.css'
+import CookieConsent, { Cookies, getCookieConsentValue } from "react-cookie-consent";
 
 import { Layout } from '../components'
 import '../styles/family-inter.css'
@@ -85,6 +86,7 @@ function MyApp({ Component, pageProps, ...appProps}) {
 
   if (appProps.router.asPath.includes('/maintenance'))
     return <Component {...pageProps}/>;
+  
   return (
     <StateContext>
       <Layout novidades = {state.novidades}  espacos = {state.espacos} arbo = {state.arbo}>

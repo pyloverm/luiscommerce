@@ -1,17 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect} from 'react';
 import Link from 'next/link';
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft, AiOutlineShopping } from 'react-icons/ai';
-import { TiDeleteOutline } from 'react-icons/ti';
+import { FiTrash2 } from 'react-icons/fi';
+
 import toast from 'react-hot-toast';
 
 import { useStateContext } from '../context/StateContext';
+import getStripe from '../pages/api/auth/getStripe';
+
 
 
 const Cart = () => {
-  const cartRef = useRef();
-  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
 
+  const cartRef = useRef();
+  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove ,showCart,fee } = useStateContext();
+  
   const handleCheckout = async () => {
+    const stripe = await getStripe();
 
     const response = await fetch('/api/stripe', {
       method: 'POST',
@@ -27,7 +32,24 @@ const Cart = () => {
 
     toast.loading('Redirecting...');
 
+    stripe.redirectToCheckout({ sessionId: data.id });
   }
+  
+  useEffect(() => {
+    if(showCart){
+      document.getElementsByTagName("html")[0].classList.add('no-scroll')
+    }
+  }, [showCart])
+  
+
+  function closesidenav(){
+    setShowCart(false)
+    document.getElementsByTagName("html")[0].classList.remove('no-scroll')
+  }
+  var peso = 0
+  cartItems.forEach(element => {
+    peso += element.peso * element.quantity
+  })
 
   return (
     <div className="cart-wrapper" ref={cartRef}>
@@ -35,7 +57,7 @@ const Cart = () => {
         <button
         type="button"
         className="cart-heading"
-        onClick={() => setShowCart(false)}>
+        onClick={() => closesidenav()}>
           <AiOutlineLeft />
           <span className="heading">O seu carrinho</span>
           <span className="cart-num-items">({totalQuantities} artigos)</span>
@@ -48,7 +70,7 @@ const Cart = () => {
             <Link href="/">
               <button
                 type="button"
-                onClick={() => setShowCart(false)}
+                onClick={() => closesidenav()}
                 className="btn"
               >
                 Voltar à inspiração
@@ -57,42 +79,58 @@ const Cart = () => {
           </div>
         )}
 
-        <div className="product-container">
+        <div className="product-container-bi">
           {cartItems.length >= 1 && cartItems.map((item) => (
-            <div className="product" key={item.id}>
-              <img src={item?.imagem} className="cart-product-image" />
-              <div className="item-desc">
-                <div className="flex top">
-                  <h5>{item.nome}</h5>
-                  <h4>{item.preco}€</h4>
-                </div>
-                <div className="flex bottom">
-                  <div>
-                  <p className="quantity-desc">
-                    <span className="minus" onClick={() => toggleCartItemQuanitity(item.id, 'dec') }>
-                    <AiOutlineMinus />
-                    </span>
-                    <span className="num" onClick="">{item.quantity}</span>
-                    <span className="plus" onClick={() => toggleCartItemQuanitity(item.id, 'inc') }><AiOutlinePlus /></span>
-                  </p>
+            <div className="productcart-cont" >
+              <div className="productcart" key={item.id}>
+                <img src={item?.imagem} className="cart-product-image" />
+                <div className="item-desc">
+                  <div className="desc-price">
+                    <h5>{item.nome}</h5>
+                    <h4>ref. {item.ref}</h4>
+                    <div className='price-and-bnt'>
+                      <p>{Math.round(item.preco*100)/100}€</p>
+                      <div className="quantity-desc">
+                        <span className="minus" onClick={() => toggleCartItemQuanitity(item.id, 'dec') }>
+                        <AiOutlineMinus />
+                        </span>
+                        <span className="num">{item.quantity}</span>
+                        <span className="plus" onClick={() => toggleCartItemQuanitity(item.id, 'inc') }><AiOutlinePlus /></span>
+                      </div>
+                    </div>
                   </div>
-                  <button
-                    type="button"
-                    className="remove-item"
-                    onClick={() => onRemove(item)}
-                  >
-                    <TiDeleteOutline />
-                  </button>
                 </div>
+                <div className="suppr-totalprice">
+                  <p>{(Math.round((item.preco * item.quantity)*100)/100) }€</p>
+                  <button
+                        type="button"
+                        className="remove-item"
+                        onClick={() => onRemove(item)}
+                      >
+                    <FiTrash2/>
+                  </button>
+                  </div>
               </div>
             </div>
           ))}
         </div>
         {cartItems.length >= 1 && (
           <div className="cart-bottom">
+            <div className='resumo'> 
+              <h2>Resumo</h2>
+            </div>
             <div className="total">
+              <h3>Subtotal:</h3>
+              <h3>{Math.round(totalPrice*100)/100}€</h3>
+            </div>
+            <div className="total">
+              <a href="/envios"><h3>Custos de envio:</h3></a>
+              <h3>{Math.round(fee*100)/100}€</h3>
+            </div>
+            
+            <div className="total final">
               <h3>Total:</h3>
-              <h3>${totalPrice}</h3>
+              <h3>{Math.round((Math.round(totalPrice*100)/100 + Math.round(fee*100)/100)*100)/100}€</h3>
             </div>
             <div className="btn-container">
               <button type="button" className="btn" onClick={handleCheckout}>
@@ -105,5 +143,6 @@ const Cart = () => {
     </div>
   )
 }
+
 
 export default Cart

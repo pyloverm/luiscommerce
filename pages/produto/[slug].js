@@ -57,11 +57,9 @@ function productPage({product}) {
             <section class="carousel-container">
               <img src={product.imagem} alt="" class="current-image"/>
               <ul class="next-list">
-                <li><img src={product.imagem} alt="" class="image-of-list current-image-list"/></li>
-                <li><img src={product.imagem} alt="" class="image-of-list current-image-list"/></li>
-                <li><img src={product.imagem} alt="" class="image-of-list current-image-list"/></li>
-                <li><img src={product.imagem} alt="" class="image-of-list current-image-list"/></li>
-                <li><img src={product.imagem} alt="" class="image-of-list current-image-list"/></li>
+                {product.iternal_product && product.imagem.map(imagem =>
+                  <li><img src={imagem} alt="" class="image-of-list current-image-list"/></li>
+                )}
               </ul>
             </section>
           </div>
@@ -79,12 +77,12 @@ function productPage({product}) {
                     <path d="M824 824 c-6 -3 -96 -135 -200 -294 -104 -160 -192 -290 -195 -290 -3 0 -57 44 -120 98 -132 114 -148 124 -172 111 -39 -22 -20 -52 110 -164 156 -135 186 -157 204 -150 16 6 419 618 427 648 3 12 -2 25 -13 33 -20 15 -23 15 -41 8z"/>
                   </g>
                 </svg>
-                <p>Envio ao domicílio — 14,90 €</p>
+                <a href='/envios'><p>Envio ao domicílio</p></a>
               </div>
               <p class='dispo'>Disponível</p>
               <hr data-v-6cc9fd2c=""></hr>
-              <li>Devoluções prolongadas para 30 dias</li>
-              <li>Pagamento 100% seguro</li>
+              <li><a href='/devulocoes'>Devoluções</a></li>
+              <li><a href='/Pagamento'>Pagamento 100% seguro</a></li>
             </div>
           </div>
         </div>

@@ -141,20 +141,14 @@ const search = ({searched,query ,products,prods_infos}) => {
                 element.style.maxHeight = '';
             }
         }
-        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("mySidenav").classList.remove('open-side')
         document.getElementById("voile").classList.remove('voile');
         document.getElementsByTagName("html")[0].classList.remove('no-scroll');
     }
     
     function openNav() {
         document.getElementById("voile").addEventListener('click', closeNav, false);
-        if(document.getElementsByTagName("html")[0].offsetWidth >  1200){
-            document.getElementById("mySidenav").style.width = "500px";
-        }else if(document.getElementsByTagName("html")[0].offsetWidth >  700){
-            document.getElementById("mySidenav").style.width = "350px";
-        }else{
-            document.getElementById("mySidenav").style.width = "100%";
-        }
+        document.getElementById("mySidenav").classList.add('open-side')
         document.getElementById("voile").classList.add('voile');
         document.getElementsByTagName("html")[0].classList.add('no-scroll');
     }
@@ -495,9 +489,11 @@ const search = ({searched,query ,products,prods_infos}) => {
                 <h1 class="result-of-search">{product_list.totalItems} resultados para a sua pesquisa "{query}"</h1>
                 <div class='row space'>
                     <select name="sorting" class='sorting' onChange={sort_change} id="sort" >
-                        <option value="select">Ordenar</option>
-                        <option value="preco">Preco</option>
-                        <option value="nome">Nome</option>
+                        <option value="">Ordenar</option>
+                        <option value="preco">Preco Asc.</option>
+                        <option value="-preco">Preco Desc.</option>
+                        <option value="nome">Alfabética A-Z</option>
+                        <option value="-nome">Alfabética Z-A</option>
                     </select>
                     {(marcas_dispo.length > 1 || familia_dispo.length > 1 || subfamilia_dispo.length > 1 || categoria_dispo.length > 1  || subcategoria_dispo.length > 1  || minpreco != maxpreco) && (<button class='btn-filters' onClick={() => openNav()}>Filtrar</button>)}
                 </div>

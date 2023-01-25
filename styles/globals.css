@@ -653,7 +653,16 @@ h1 {
   display: flex;
   font-size: 0.875erm;
  }
-
+ .portes a {
+  color: #333;
+  text-decoration:dashed;
+  font-size: 0.875erm;
+ }
+ .preco-atributes a {
+  color: #333;
+  text-decoration:dashed;
+  font-size: 0.875erm;
+ }
  .all-row {
   display: flex;
   flex-direction: row;
@@ -1299,7 +1308,12 @@ input[type=number] {
   height: 25px;
   width: 25px;
 }
+
+.open-side{
+  width: 500px;
+}
 @media screen and (max-width: 1200px) {
+  
   .contain-link{
       border: 2px solid rgba(158, 158, 158, 0.301);
       padding: 8px;
@@ -1333,7 +1347,9 @@ input[type=number] {
 
 }
 @media screen and (max-width: 1000px) { 
-
+  .open-side{
+    width: 100%;
+  }
   .all-row{
     flex-direction: column;
   }
@@ -1413,6 +1429,9 @@ input[type=number] {
 
 
 @media screen and (max-width: 700px) {
+  .open-side{
+    width: 100%;
+  }
   .product{
     width: 50%;
   }
@@ -1483,9 +1502,30 @@ input[type=number] {
 /* import */
 
 /* end of import */
-body { text-align: center; padding: 150px; }
+.mnt body { text-align: center; padding: 150px; }
 .mnt h1 { font-size: 50px; }
-body { font: 20px Helvetica, sans-serif; color: #333; }
+.mnt body { font: 20px Helvetica, sans-serif; color: #333; }
 .mnt { display: block; text-align: left; width: 650px; margin: 0 auto; }
 .mnt a { color: #dc8100; text-decoration: none; }
-.mnta:hover { color: #333; text-decoration: none; }
+.mnt a:hover { color: #333; text-decoration: none; }
+.hidden{
+  display: none;
+}
+.mail-user-fail{
+  color: red;
+}
+.column-fl{
+  display: flex;
+  justify-content: center;
+}
+.form-us {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  align-items: center;
+  padding-top: 50px;
+}
+.form-us input{
+  width: 80%;
+
+}
