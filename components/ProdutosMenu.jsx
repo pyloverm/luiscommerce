@@ -25,7 +25,7 @@ const ProdutosMenu = ({Arbo}) => {
                 <div class="menuprod" id="product-menu">
                     <div class="menu-link">
                             <ul class="familias">
-                                {keys.map(familia => <li><a class='familia' id={familia.replace(/[.,\s/-]/g, '').toLowerCase()} onClick={() => myScript(familia.replace(/[.,\s/-]/g, '').toLowerCase())} >{familia}</a></li>)}
+                                {keys.map(familia => <li key={familia}><a class='familia' id={familia.replace(/[.,\s/-]/g, '').toLowerCase()} onClick={() => myScript(familia.replace(/[.,\s/-]/g, '').toLowerCase())} >{familia}</a></li>)}
                             </ul>
                             <div class='more'>
                             {Object.keys(data['familia']).map(familia => 
@@ -33,11 +33,11 @@ const ProdutosMenu = ({Arbo}) => {
                                     {
                                       Object.keys(data['familia'][familia]['subfamilia']).map(sub => 
                                         <div >
-                                          <li class='SubFamilia'><a href={"/search?subfamilia="+sub}>{sub}</a></li>
+                                          <li key={sub} class='SubFamilia'><a href={"/search?subfamilia="+sub}>{sub}</a></li>
                                           { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria']).map(cat =>
                                           <div>
-                                            <li class='categoria'>{cat.replace("TIPO - ", "")}</li>
-                                            { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria'][cat]['subcategoria']).map(sub => <li class='valor'><a href={"/search?subcategoria="+sub}>{sub}</a></li>)}
+                                            <li key={cat} class='categoria'>{cat.replace("TIPO - ", "")}</li>
+                                            { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria'][cat]['subcategoria']).map(sub => <li key={sub} class='valor'><a href={"/search?subcategoria="+sub}>{sub}</a></li>)}
                                           </div>
                                           )}
                                         </div>
