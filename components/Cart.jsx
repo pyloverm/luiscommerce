@@ -81,7 +81,7 @@ const Cart = () => {
 
         <div className="product-container-bi">
           {cartItems.length >= 1 && cartItems.map((item) => (
-            <div className="productcart-cont" >
+            <div key={item.id} className="productcart-cont" >
               <div className="productcart" key={item.id}>
                 <img src={item?.imagem} className="cart-product-image" />
                 <div className="item-desc">

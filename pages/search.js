@@ -374,7 +374,7 @@ const Search = ({searched,query ,products,prods_infos}) => {
                         </button>
                     </div>
                     <div class='column filter-close' id='marca'>
-                        {marcas_dispo.length  && marcas_dispo.map(marca => <div class='row row-marca'>
+                        {marcas_dispo.length  && marcas_dispo.map(marca => <div key={marca} class='row row-marca'>
                             <input type="checkbox"  class='check-box'id={marca} name={marca} value={marca}/>
                             <p>{marca}</p>
                         </div>)}
@@ -390,7 +390,7 @@ const Search = ({searched,query ,products,prods_infos}) => {
                         </button>
                     </div>
                     <div class='column filter-close' id='familia'>
-                        {familia_dispo.length  && familia_dispo.map(familia => <div class='row row-marca'>
+                        {familia_dispo.length  && familia_dispo.map(familia => <div key={familia} class='row row-marca'>
                             <input type="checkbox"  class='check-box'id={familia} name={familia} value={familia}/>
                             <p>{familia}</p>
                         </div>)}
@@ -406,7 +406,7 @@ const Search = ({searched,query ,products,prods_infos}) => {
                         </button>
                     </div>
                     <div class='column filter-close' id='subfamilia'>
-                        {subfamilia_dispo.length  && subfamilia_dispo.map(subfamilia => <div class='row row-marca'>
+                        {subfamilia_dispo.length  && subfamilia_dispo.map(subfamilia => <div key={subfamilia} class='row row-marca'>
                             <input type="checkbox"  class='check-box'id={subfamilia} name={subfamilia} value={subfamilia}/>
                             <p>{subfamilia}</p>
                         </div>)}
@@ -422,7 +422,7 @@ const Search = ({searched,query ,products,prods_infos}) => {
                         </button>
                     </div>
                     <div class='column filter-close' id='categoria'>
-                        {categoria_dispo.length  && categoria_dispo.map(categoria => <div class='row row-marca'>
+                        {categoria_dispo.length  && categoria_dispo.map(categoria => <div key={categoria} class='row row-marca'>
                             <input type="checkbox"  class='check-box'id={categoria} name={categoria} value={categoria}/>
                             <p>{categoria}</p>
                         </div>)}
@@ -438,7 +438,7 @@ const Search = ({searched,query ,products,prods_infos}) => {
                         </button>
                     </div>
                     <div class='column filter-close' id='subcategoria'>
-                        {subcategoria_dispo.length && subcategoria_dispo.map(subcategoria => <div class='row row-marca'>
+                        {subcategoria_dispo.length && subcategoria_dispo.map(subcategoria => <div key={subcategoria} class='row row-marca'>
                             <input type="checkbox"  class='check-box'id={subcategoria} name={subcategoria} value={subcategoria}/>
                             <p>{subcategoria}</p>
                         </div>)}
