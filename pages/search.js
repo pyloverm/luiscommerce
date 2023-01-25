@@ -486,7 +486,7 @@ const Search = ({searched,query ,products,prods_infos}) => {
         
         {product_list.totalItems > 1 && (
             <>
-                <h1 class="result-of-search">{product_list.totalItems} resultados para a sua pesquisa "{query}"</h1>
+                <h1 class="result-of-search">{product_list.totalItems} resultados para a sua pesquisa &quot;{query}&quot;</h1>
                 <div class='row space'>
                     <select name="sorting" class='sorting' onChange={sort_change} id="sort" >
                         <option value="">Ordenar</option>
@@ -502,7 +502,7 @@ const Search = ({searched,query ,products,prods_infos}) => {
 
         {product_list.totalItems <= 1 && (
             <>
-                <h1 class="result-of-search">{product_list.totalItems} resultado para a sua pesquisa "{query}"</h1>
+                <h1 class="result-of-search">{product_list.totalItems} resultado para a sua pesquisa &quot;{query}&quot;</h1>
                 {product_list.totalItems < 1 && (<div class='btn-return-menu' ><a href='/' >Voltar à inspiração</a></div>)}
             </>
         )}
