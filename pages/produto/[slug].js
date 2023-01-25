@@ -5,7 +5,7 @@ import { Product, FooterBanner , HeroBanner, NovidadesMenu, EspacosMenu, Produto
 import Head from 'next/head';
 import { useStateContext } from '../../context/StateContext';
 
-function productPage({product}) {
+function ProductPage({product}) {
   const [index, setIndex] = useState(0);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
   
@@ -107,4 +107,4 @@ export const getServerSideProps = async (context) => {
   }
 }
 
-export default productPage
+export default ProductPage
