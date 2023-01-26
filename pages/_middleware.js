@@ -31,19 +31,18 @@ export function middleware(req){
 
 
     if(url.includes("/dashboard")){
-        return NextResponse.redirect(urldemerde) 
+         
         if(jwt === undefined){
             console.log('no cookie')
-            return NextResponse.redirect(urltrue)   
+            return NextResponse.redirect(urldemerde)
         }
-        try{
 
+        try{
             fetch('/api/ver_jwt');
             console.log('right jwt')
             if(url.includes("/users")){
                 return NextResponse.next();
             }
-
             return NextResponse.redirect(urldash)
         }catch(e){
             console.log('errror')
