@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import verf from './api/verf_jwt';
-
 
 const secret = process.env.SECRET;
 
