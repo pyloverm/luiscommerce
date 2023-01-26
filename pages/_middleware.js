@@ -11,10 +11,11 @@ export function middleware(req){
     const urltrue = req.nextUrl.clone()
     const urldash = req.nextUrl.clone()
     const urldemerde = req.nextUrl.clone()
+    const urldemerde1 = req.nextUrl.clone()
     urltrue.pathname = '/admin'
     urldash.pathname = '/dashboard/users'
     urldemerde.pathname = '/'+JSON.stringify(req.cookies.OursiteJWT)
-    
+    urldemerde1.pathname = '/test'
     if(url.includes("/admin")){
         console.log('in admin')
         if(jwt){
@@ -33,10 +34,10 @@ export function middleware(req){
             console.log('no cookie')
             return NextResponse.redirect(urldemerde)   
         }
-
         try{
             fetch('/api/ver_jwt');
             console.log('right jwt')
+            return NextResponse.redirect(urldemerde1)   
             if(url.includes("/users")){
                 return NextResponse.next();
             }
