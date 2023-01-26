@@ -23,9 +23,6 @@ export default async function (req, res) {
                         .setExpirationTime('30d')
                         .sign(new TextEncoder().encode(secret));
 
-    console.log('secret loging ')
-    console.log(secret)
-    console.log(token)
     const serialised = serialize("OursiteJWT", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",

@@ -9,11 +9,12 @@ export default async function (req, res) {
   if (!jwt) {
     return res.json({ message: "Bro you are already not logged in..." });
   } else {
+    
     const serialised = serialize("OursiteJWT", null, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
       sameSite: "strict",
-      maxAge: -1,
+      maxAge: 1,
       path: "/",
     });
 
