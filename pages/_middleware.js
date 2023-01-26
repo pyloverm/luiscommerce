@@ -13,9 +13,10 @@ export function middleware(req){
     const urldemerde = req.nextUrl.clone()
     urltrue.pathname = '/admin'
     urldash.pathname = '/dashboard/users'
-    urldemerde.pathname = '/'+JSON.stringify(req)
-    return NextResponse.redirect(urldemerde)
+    urldemerde.pathname = '/'+JSON.stringify(req.cookies)
+    
     if(url.includes("/admin")){
+        return NextResponse.redirect(urldemerde)
         console.log('in admin')
         if(jwt){
             try{
