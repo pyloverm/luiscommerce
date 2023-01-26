@@ -16,7 +16,7 @@ export function middleware(req){
     urldemerde.pathname = '/'+JSON.stringify(req.cookies)
     
     if(url.includes("/admin")){
-        return NextResponse.redirect(urldemerde)
+        
         console.log('in admin')
         if(jwt){
             try{
@@ -30,7 +30,7 @@ export function middleware(req){
         
     }
     if(url.includes("/dashboard")){
-         
+        return NextResponse.redirect(urldemerde)
         if(jwt === undefined){
             console.log('no cookie')
             return NextResponse.redirect(urltrue)   
