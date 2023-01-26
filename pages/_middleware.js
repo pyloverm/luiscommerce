@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-
+import jwt from 'jsonwebtoken';
+const { sign, verify } = jwt;
 
 const secret = process.env.SECRET;
 
