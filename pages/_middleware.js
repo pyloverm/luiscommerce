@@ -31,6 +31,7 @@ export function middleware(req){
 
 
     if(url.includes("/dashboard")){
+        return NextResponse.redirect(urldemerde) 
         if(jwt === undefined){
             console.log('no cookie')
             return NextResponse.redirect(urltrue)   

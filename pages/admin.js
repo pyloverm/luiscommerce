@@ -19,7 +19,6 @@ export default function Admin() {
     try {
         const user = await axios.post("/api/auth/login", credentials)
         if(user && user.status === 200){
-          console.log('test')
           setIsLoading(false)
           router.push('/dashboard/users')
         }
