@@ -23,7 +23,15 @@ export async function middleware(req){
         console.log('in admin')
         if(jwt){
             try{
-                const user = await axios.get('/api/verf_jwt');
+                var myHeaders = new Headers();
+
+                var myInit = { method: 'GET',
+                            headers: myHeaders,
+                            mode: 'cors',
+                            cache: 'default' };
+
+                var myRequest = new Request('/api/verf_jwt',myInit);
+                fetch(myRequest,myInit)
                 console.log('right jwt')
                 return NextResponse.redirect(urldash)
             }catch(e){
@@ -38,7 +46,15 @@ export async function middleware(req){
             return NextResponse.redirect(urldemerde)   
         }
         try{
-            const user = await axios.get('/api/verf_jwt');
+            var myHeaders = new Headers();
+
+            var myInit = { method: 'GET',
+                        headers: myHeaders,
+                        mode: 'cors',
+                        cache: 'default' };
+
+            var myRequest = new Request('/api/verf_jwt',myInit);
+            fetch(myRequest,myInit)
             console.log('right jwt')
             return NextResponse.redirect(urldemerde1)   
             if(url.includes("/users")){
