@@ -19,10 +19,8 @@ export async function middleware(req){
     urldemerde1.pathname = '/test'
     urldemerde2.pathname = '/test2'
     if(url.includes("/admin")){
-        console.log('in admin')
         if(jwt){
             try{
-    
                 await jose.jwtVerify(
                     jwt, new TextEncoder().encode(secret)
                 );
@@ -32,12 +30,12 @@ export async function middleware(req){
                 return NextResponse.next();
             }
         }
-        
     }
+    
     if(url.includes("/dashboard")){
         if(jwt === undefined){
             console.log('no cookie')
-            return NextResponse.redirect(urldemerde)   
+            return NextResponse.redirect(urltrue)   
         }
         try{
             const test = await jose.jwtVerify(jwt, new TextEncoder().encode(secret));
@@ -49,7 +47,7 @@ export async function middleware(req){
             return NextResponse.redirect(urldash)
         }catch(e){
             console.log('errror')
-            return NextResponse.redirect(urldemerde2)
+            return NextResponse.redirect(urltrue)
         }
     }
     return NextResponse.next()
