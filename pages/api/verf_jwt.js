@@ -7,9 +7,9 @@ export default async function (req, res) {
     const jwt = cookies.OursiteJWT;
     try {
         verify(jwt,secret)
-        res.status(200).json(session);
+        res.status(200);
     } catch (error) {
-        res.status(400).json(session);
+        res.status(400);
     }
 }
   
