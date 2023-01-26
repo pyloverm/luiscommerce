@@ -9,15 +9,10 @@ export async function middleware(req){
     const url = req.url;
     const urltrue = req.nextUrl.clone()
     const urldash = req.nextUrl.clone()
-    const urldemerde = req.nextUrl.clone()
-    const urldemerde1 = req.nextUrl.clone()
-    const urldemerde2 = req.nextUrl.clone()
+
     urltrue.pathname = '/admin'
     urldash.pathname = '/dashboard/users'
-    urldemerde.pathname = '/'+JSON.stringify(req.cookies.OursiteJWT)
-    
-    urldemerde1.pathname = '/test'
-    urldemerde2.pathname = '/test2'
+
     if(url.includes("/admin")){
         if(jwt){
             try{
@@ -31,7 +26,7 @@ export async function middleware(req){
             }
         }
     }
-    
+
     if(url.includes("/dashboard")){
         if(jwt === undefined){
             console.log('no cookie')
