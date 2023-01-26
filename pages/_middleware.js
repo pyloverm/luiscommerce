@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { sign } from "jsonwebtoken";
+import verf from './api/verf_jwt';
+
 
 const secret = process.env.SECRET;
 
@@ -18,7 +19,7 @@ export function middleware(req){
         console.log('in admin')
         if(jwt){
             try{
-                verify(jwt,secret);
+                fetch('/api/ver_jwt');
                 return NextResponse.redirect(urldash)
             }catch(e){
                 return NextResponse.next();
@@ -35,7 +36,7 @@ export function middleware(req){
         }
         try{
 
-            verify(jwt,secret);
+            fetch('/api/ver_jwt');
             if(url.includes("/users")){
                 return NextResponse.next();
             }
