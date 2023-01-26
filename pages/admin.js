@@ -19,11 +19,10 @@ export default function Admin() {
     try {
         const user = await axios.post("/api/auth/login", credentials)
         if(user && user.status === 200){
-            setIsLoading(false)
-            router.push('/dashboard/users')
+          console.log('test')
+          setIsLoading(false)
+          router.push('/dashboard/users')
         }
-        console.log(user);
-        console.log(error);
     } catch (e) {
         setError(true)
         setIsLoading(false)
