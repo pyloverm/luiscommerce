@@ -10,8 +10,10 @@ export function middleware(req){
     const url = req.url;
     const urltrue = req.nextUrl.clone()
     const urldash = req.nextUrl.clone()
+    const urldemerde = req.nextUrl.clone()
     urltrue.pathname = '/admin'
     urldash.pathname = '/dashboard/users'
+    urldemerde.pathname = '/merde'
 
     if(url.includes("/admin")){
         console.log('in admin')
@@ -44,7 +46,7 @@ export function middleware(req){
             return NextResponse.redirect(urldash)
         }catch(e){
             console.log('errror')
-            return NextResponse.redirect(urltrue)
+            return NextResponse.redirect(urldemerde)
         }
     }
     return NextResponse.next()
