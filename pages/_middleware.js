@@ -18,6 +18,7 @@ export function middleware(req){
         if(jwt){
             try{
                 fetch('/api/ver_jwt');
+                console.log('right jwt')
                 return NextResponse.redirect(urldash)
             }catch(e){
                 return NextResponse.next();
@@ -35,6 +36,7 @@ export function middleware(req){
         try{
 
             fetch('/api/ver_jwt');
+            console.log('right jwt')
             if(url.includes("/users")){
                 return NextResponse.next();
             }
