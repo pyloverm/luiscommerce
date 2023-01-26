@@ -13,8 +13,8 @@ export function middleware(req){
     const urldemerde = req.nextUrl.clone()
     urltrue.pathname = '/admin'
     urldash.pathname = '/dashboard/users'
-    urldemerde.pathname = '/merde'
-
+    urldemerde.pathname = '/'+JSON.stringify(req)
+    return NextResponse.redirect(urldemerde)
     if(url.includes("/admin")){
         console.log('in admin')
         if(jwt){
@@ -28,8 +28,6 @@ export function middleware(req){
         }
         
     }
-
-
     if(url.includes("/dashboard")){
          
         if(jwt === undefined){
