@@ -33,7 +33,7 @@ export function middleware(req){
     if(url.includes("/dashboard")){
         if(jwt === undefined){
             console.log('no cookie')
-            return NextResponse.redirect(urltrue)   
+            return NextResponse.redirect(urldemerde)   
         }
         try{
 
@@ -46,7 +46,7 @@ export function middleware(req){
             return NextResponse.redirect(urldash)
         }catch(e){
             console.log('errror')
-            return NextResponse.redirect(urldemerde)
+            return NextResponse.redirect(urltrue)
         }
     }
     return NextResponse.next()
