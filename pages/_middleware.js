@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
-import { verify } from "jsonwebtoken";
 
 const secret = process.env.SECRET;
 
 
 export function middleware(req){
     const { cookies } = req;
-    const jwt = cookies.OursiteJWT;
+    const jwt ="test"
     
     const url = req.url;
     const urltrue = req.nextUrl.clone()
