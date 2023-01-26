@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 
+
 const secret = process.env.SECRET;
 
 
 export function middleware(req){
     const { cookies } = req;
-    const jwt ="test"
+    const jwt = cookies.OursiteJWT;
     
     const url = req.url;
     const urltrue = req.nextUrl.clone()
