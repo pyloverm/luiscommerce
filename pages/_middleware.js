@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
-import axios from "axios";
-const secret = process.env.SECRET;
-
+import * as jose from 'jose';
 
 export async function middleware(req){
     const { cookies } = req;
     const jwt = req.cookies.OursiteJWT;
-    
+    const secret = process.env.SECRET;
+
     const url = req.url;
     const urltrue = req.nextUrl.clone()
     const urldash = req.nextUrl.clone()
@@ -23,15 +22,10 @@ export async function middleware(req){
         console.log('in admin')
         if(jwt){
             try{
-                var myHeaders = new Headers();
-
-                var myInit = { method: 'GET',
-                            headers: myHeaders,
-                            mode: 'cors',
-                            cache: 'default' };
-
-                var myRequest = new Request('/api/verf_jwt',myInit);
-                fetch(myRequest,myInit)
+    
+                await jose.jwtVerify(
+                    jwt, new TextEncoder().encode(secret)
+                );
                 console.log('right jwt')
                 return NextResponse.redirect(urldash)
             }catch(e){
@@ -46,17 +40,9 @@ export async function middleware(req){
             return NextResponse.redirect(urldemerde)   
         }
         try{
-            var myHeaders = new Headers();
-
-            var myInit = { method: 'GET',
-                        headers: myHeaders,
-                        mode: 'cors',
-                        cache: 'default' };
-
-            var myRequest = new Request('/api/verf_jwt',myInit);
-            fetch(myRequest,myInit)
+            const test = await jose.jwtVerify(jwt, new TextEncoder().encode(secret));
             console.log('right jwt')
-            return NextResponse.redirect(urldemerde1)   
+            NextResponse.next()  
             if(url.includes("/users")){
                 return NextResponse.next();
             }

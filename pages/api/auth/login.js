@@ -2,6 +2,7 @@
 import { sign } from "jsonwebtoken";
 import { serialize } from "cookie";
 import PocketBase from 'pocketbase';
+import * as jose from 'jose';
 
 const pb = new PocketBase('https://poor-camera.pockethost.io');
 
@@ -16,15 +17,12 @@ export default async function (req, res) {
 
   const authData = await pb.collection('users').authWithPassword(username, password);
   if (pb.authStore.isValid) {
-    const token = sign(
-      {
-        algorithm: "HS256",
-        expiresIn: 60 * 60 * 24 * 30, // 30 days
-        username: username,
-      },
-      secret
-    );
-    
+    const token = await new jose.SignJWT({ userId: username })
+                        .setProtectedHeader({ alg: 'HS256' })
+                        .setIssuedAt()
+                        .setExpirationTime('30d')
+                        .sign(new TextEncoder().encode(secret));
+
     console.log('secret loging ')
     console.log(secret)
     console.log(token)
@@ -35,6 +33,7 @@ export default async function (req, res) {
       maxAge: 60 * 60 * 24 * 30,
       path: "/",
     });
+    
 
     res.setHeader("Set-Cookie", serialised);
 
