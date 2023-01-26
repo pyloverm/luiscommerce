@@ -13,7 +13,7 @@ export const  StateContext =  ({children}) => {
   const [totalQuantities, setTotalQuantities] = useState((localStorage.getItem('totalQuantities')) ? Number(localStorage.getItem('totalQuantities')) : 0);
   const [fee, setFee] = useState(0)
   const [qty, setQty] = useState(1);
-
+  
 
   let foundProduct;
   let index;

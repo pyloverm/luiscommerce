@@ -1,7 +1,9 @@
 import '../styles/cart.css'
 import '../styles/globals.css'
-import CookieConsent, { Cookies, getCookieConsentValue } from "react-cookie-consent";
 
+import CookieConsent, { Cookies, getCookieConsentValue } from "react-cookie-consent";
+import { useRouter } from 'next/router';
+import Router from "next/router";
 import { Layout } from '../components'
 import '../styles/family-inter.css'
 import PocketBase from 'pocketbase';
@@ -20,9 +22,10 @@ function MyApp({ Component, pageProps, ...appProps}) {
     novidades:[],
     last_update:[]
   });
-
+  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter()
+  
   useEffect(() => {
-    
     const fetchData = async () => {
       try {
 
@@ -54,7 +57,6 @@ function MyApp({ Component, pageProps, ...appProps}) {
         console.error(error);
       }
     }
-
     const arbo = localStorage.getItem('arbo');
     const espacos = localStorage.getItem('espacos');
     const novidades = localStorage.getItem('novidades');
@@ -76,6 +78,10 @@ function MyApp({ Component, pageProps, ...appProps}) {
       fetchData();
     }
   }, []);
+
+  useEffect(() => {
+    Router.isReady && setIsLoading(false)
+  }, []);
   
   if (state.loading) {
     return (
@@ -91,10 +97,10 @@ function MyApp({ Component, pageProps, ...appProps}) {
     <StateContext>
       <Layout novidades = {state.novidades}  espacos = {state.espacos} arbo = {state.arbo}>
         <Toaster />
-        <Component {...pageProps} />
+        {isLoading ? <>loading...</> : <Component {...pageProps} />}
         <Analytics />
       </Layout>
-    </StateContext>
+    </StateContext> 
   )
 }
 

@@ -16,7 +16,7 @@ const HerroBanner = () => {
             <div class="search">
                 <form  class= 'form-search' action="/search" autocomplete="off">
                     <input type="text" name="nome" class="searchbar" placeholder="Procuro um produto ..." value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} required/>
-                    <button type="submit" class='search-btn'  ></button>
+                    <button type="submit" class='search-btn'></button>
                 </form>
             </div>
 

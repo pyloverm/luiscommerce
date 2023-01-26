@@ -3,8 +3,6 @@ import PocketBase from 'pocketbase';
 import { Product } from '../components'
 
 const Home = ({product_1,product_2}) => {
-  
-
   return (
     <>
       <div class="placehodling-content">
@@ -19,10 +17,7 @@ const Home = ({product_1,product_2}) => {
   )
 }
 
-
-
 export const getServerSideProps = async () => {
-
   const pb = new PocketBase('https://poor-camera.pockethost.io');
   const records = await pb.collection('products').getFirstListItem('nome ~ "PLACA"');
   const record = await pb.collection('products').getFirstListItem('nome ~ "FL"');
@@ -32,8 +27,5 @@ export const getServerSideProps = async () => {
     props: {product_1,product_2}
   }
 }
-
-
-
 
 export default Home

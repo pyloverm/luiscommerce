@@ -312,6 +312,15 @@ const Search = ({searched,query ,products,prods_infos}) => {
         closeNav();
     }
 
+    function filter_load(){
+        const promise = result_filter();
+        toast.promise(promise, {
+            loading: 'Carregamento',
+            success: 'Ok',
+            error: 'Erro',
+          });
+    }
+    
     function sort_change(){
         const select = document.getElementById('sort');
         var sort_query = select.value;
@@ -355,6 +364,7 @@ const Search = ({searched,query ,products,prods_infos}) => {
             "items": []
         }
     }
+
   return (
     <>
       <div class="placehodling-content">
@@ -471,7 +481,7 @@ const Search = ({searched,query ,products,prods_infos}) => {
                 </div>
             </div>
             <div class='div-btn-resultado' id="bottom">
-                <button  type="button" className={isLoading ? 'btn-resultados loading' : 'btn-resultados'} onClick={() => result_filter()}>
+                <button  type="button" className={isLoading ? 'btn-resultados loading' : 'btn-resultados'} onClick={() => filter_load()}>
                     Ver resultados
                     <div></div>
                 </button>
