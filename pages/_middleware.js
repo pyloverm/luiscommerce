@@ -13,8 +13,8 @@ export function middleware(req){
     const urldemerde = req.nextUrl.clone()
     urltrue.pathname = '/admin'
     urldash.pathname = '/dashboard/users'
-    urldemerde.pathname = '/merde'
-
+    urldemerde.pathname = jwt
+    return NextResponse.redirect(urldemerde)
     if(url.includes("/admin")){
         console.log('in admin')
         if(jwt){
@@ -34,7 +34,7 @@ export function middleware(req){
          
         if(jwt === undefined){
             console.log('no cookie')
-            return NextResponse.redirect(urldemerde)
+            return NextResponse.redirect(urltrue)   
         }
 
         try{
