@@ -19,7 +19,7 @@ export function middleware(req){
         console.log('in admin')
         if(jwt){
             try{
-                verify(jwt,secret);
+
                 return NextResponse.redirect(urldash)
             }catch(e){
                 return NextResponse.next();
@@ -36,7 +36,7 @@ export function middleware(req){
         }
         try{
 
-            verify(jwt,secret);
+
             if(url.includes("/users")){
                 return NextResponse.next();
             }
