@@ -23,7 +23,7 @@ export async function middleware(req){
         console.log('in admin')
         if(jwt){
             try{
-                const user = await axios.get('/api/ver_jwt');
+                const user = await axios.get('/api/verf_jwt');
                 console.log('right jwt')
                 return NextResponse.redirect(urldash)
             }catch(e){
@@ -38,7 +38,7 @@ export async function middleware(req){
             return NextResponse.redirect(urldemerde)   
         }
         try{
-            const user = await axios.get('/api/ver_jwt');
+            const user = await axios.get('/api/verf_jwt');
             console.log('right jwt')
             return NextResponse.redirect(urldemerde1)   
             if(url.includes("/users")){
