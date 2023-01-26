@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-
+import axios from "axios";
 const secret = process.env.SECRET;
 
 
-export function middleware(req){
+export async function middleware(req){
     const { cookies } = req;
     const jwt = req.cookies.OursiteJWT;
     
@@ -20,7 +20,7 @@ export function middleware(req){
         console.log('in admin')
         if(jwt){
             try{
-                fetch('/api/ver_jwt');
+                const user = await axios.post('/api/ver_jwt');
                 console.log('right jwt')
                 return NextResponse.redirect(urldash)
             }catch(e){
@@ -35,7 +35,7 @@ export function middleware(req){
             return NextResponse.redirect(urldemerde)   
         }
         try{
-            fetch('/api/ver_jwt');
+            const user = await axios.post('/api/ver_jwt');
             console.log('right jwt')
             return NextResponse.redirect(urldemerde1)   
             if(url.includes("/users")){
