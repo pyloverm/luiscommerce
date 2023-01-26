@@ -5,7 +5,7 @@ const secret = process.env.SECRET;
 
 export function middleware(req){
     const { cookies } = req;
-    const jwt = cookies.OursiteJWT;
+    const jwt = req.cookies.OursiteJWT;
     
     const url = req.url;
     const urltrue = req.nextUrl.clone()
@@ -13,10 +13,9 @@ export function middleware(req){
     const urldemerde = req.nextUrl.clone()
     urltrue.pathname = '/admin'
     urldash.pathname = '/dashboard/users'
-    urldemerde.pathname = '/'+JSON.stringify(req.cookies)
+    urldemerde.pathname = '/'+JSON.stringify(req.cookies.OursiteJWT)
     
     if(url.includes("/admin")){
-        
         console.log('in admin')
         if(jwt){
             try{
@@ -30,10 +29,9 @@ export function middleware(req){
         
     }
     if(url.includes("/dashboard")){
-        return NextResponse.redirect(urldemerde)
         if(jwt === undefined){
             console.log('no cookie')
-            return NextResponse.redirect(urltrue)   
+            return NextResponse.redirect(urldemerde)   
         }
 
         try{
