@@ -1,5 +1,6 @@
 import '../styles/cart.css'
 import '../styles/globals.css'
+import '../styles/form.css'
 
 import CookieConsent, { Cookies, getCookieConsentValue } from "react-cookie-consent";
 import { useRouter } from 'next/router';
