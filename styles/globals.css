@@ -380,6 +380,11 @@ h1 {
   padding-bottom: 15px;
 }
 
+.imagecenter{
+  display: flex;
+  justify-content: center;
+}
+
 .desc{
   color: #333333bf;
   padding-bottom: 15px;

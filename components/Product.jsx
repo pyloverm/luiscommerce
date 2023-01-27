@@ -10,9 +10,10 @@ const Product = ({data}) => {
   return (
     <article class='product'>
       <a href={link_product}>
-
-        {data.imagem && (<Image class='product-img' src={data.imagem} alt="" width={257} height={257} />)}
-
+        <div className='imagecenter'>
+          {data.imagem && (<Image class='product-img' src={data.imagem} alt="" width={257} height={257} />)}
+        </div>
+      
         <div>
           <p></p>
           <p class='desc'>{data.nome}</p>

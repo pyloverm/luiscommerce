@@ -37,8 +37,6 @@ export default function User({prod}){
         const resumo = event.target.resumo.value;
         const descricao = event.target.descricao.value;
         const peso = event.target.peso.value;
-        
-        const imagem = event.target.logo.value;
 
         const obj = {'ref' : ref ,'ean' : ean ,'nome' : nome ,
         'preco' : preco ,'marca' : marca ,'familia' : familia ,
@@ -142,11 +140,6 @@ export default function User({prod}){
                 <div className="row-form-unique">
                     <label>descrição</label>
                     <input type="text" id='descricao'/>
-                </div>
-
-                <div className="row-form-unique">
-                    <label>imagem</label>
-                    <input type="file" multiple id='imagem' accept="image/png, image/jpg, image/gif, image/jpeg"/>
                 </div>
 
                 <div class="image-upload" id='admin'>
