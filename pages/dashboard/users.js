@@ -118,7 +118,7 @@ export default function User({prod}){
                 </div>
                 
 
-                {lines.map(element => <div id={element} className="row-form">
+                {lines.map(element => <div key={element} className="row-form">
                     <li >
                         <label>{element}</label>
                         <input type="text" id={element}/>
@@ -164,7 +164,7 @@ export default function User({prod}){
 
                 <div className="images-container" id="">
                     {images.length > 0 && images.map( image =>
-                            <div id={image[0]} class="file-thumbnail-cont">
+                            <div key={image[0]} class="file-thumbnail-cont">
                                 <img id="image-preview" className="up-images" src={window.URL.createObjectURL(image[0])} alt=""/>
                                 <button  type="button" className="remove-bt" onClick={() => removeImgupload(image)}><FiTrash2></FiTrash2></button>
                             </div>
@@ -183,7 +183,6 @@ export default function User({prod}){
             </ul>
             <button onClick={() => setShowNew(false)} className="btnform"><AiOutlineClose></AiOutlineClose></button>
         </form>
-        
         <button onClick={() => handleLogOut()} className="btn">Sair</button>
     </>
     
