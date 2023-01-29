@@ -2,29 +2,88 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import PocketBase from 'pocketbase';
-import { FiTrash2 } from 'react-icons/fi';
+import { FiTrash2 ,FiLogOut } from 'react-icons/fi';
 import {AiOutlineClose} from 'react-icons/ai';
 import {GrAdd} from 'react-icons/gr';
 import toast from "react-hot-toast";
+import { blobToURL, fromBlob } from 'image-resize-compress';
+import Router from "next/router";
 
-export default function User({prod}){
-    console.log(JSON.parse(prod).imagems[0])
+function User({prods}){
     const pb = new PocketBase('https://poor-camera.pockethost.io');  
     const [images, setimages] = useState([])
     const [showNew, setShowNew] = useState(false)
-
+    const [isLoading, setisLoading] = useState(false)
+    
+    prods = JSON.parse(prods)
     const router = useRouter();
     const handleLogOut = async () => {
         const user = await axios.get("/api/auth/logout");
         router.push('/admin');
     };
-    const lines = ['marca','familia','subfamilia','categoria','subcategoria']
 
-    const handleSubmit = (event) => {
+    const lines = ['marca','familia','subfamilia','categoria','subcategoria']
+    const deleteitem =async(event) =>{
+        const name_del = event.parentNode.getElementsByTagName("th")[1].innerHTML
+        
+        const record = await pb.collection('products').getFirstListItem('nome="'+name_del+'"');
+        const recordmin = await pb.collection('productsmin').getFirstListItem('nome="'+name_del+'"');
+
+        await pb.collection('products').delete(record.id)
+        await pb.collection('productsmin').delete(recordmin.id)
+        Router.reload()
+    }
+    const arbogen =async(event) =>{
+        setisLoading(true)
+        const record = await pb.collection('structura').getFirstListItem('intern=true');
+        const products = await pb.collection('products').getFullList(200 /* batch size */, {
+            sort: '-created',
+            filter:'iternal_product = true'
+        });
+        var data = record.familias
+        
+        if (products.length > 0){
+            products.forEach(element => {
+                // If the familia is not in the data dictionary, add it as a key and create a new object as its value
+                if (!data.familia.hasOwnProperty(element.familia)) {
+                    data.familia[element.familia] = {subfamilia: {}}
+                }
+
+                // If the subfamilia is not in the object corresponding to the familia, add it as a key and create a new object as its value
+                if (!data.familia[element.familia].subfamilia.hasOwnProperty(element.subfamilia)) {
+                    data.familia[element.familia].subfamilia[element.subfamilia] = {categoria: {}}
+                }
+
+                // If the categoria is not in the object corresponding to the subfamilia, add it as a key and create a new object as its value
+                if (!data.familia[element.familia].subfamilia[element.subfamilia].categoria.hasOwnProperty(element.categoria)) {
+                    data.familia[element.familia].subfamilia[element.subfamilia].categoria[element.categoria] = {subcategoria: {}}
+                }
+
+                if (!data.familia[element.familia].subfamilia[element.subfamilia].categoria[element.categoria].subcategoria.hasOwnProperty(element.subcategoria)) {
+                    data.familia[element.familia].subfamilia[element.subfamilia].categoria[element.categoria].subcategoria[element.subcategoria] = {}
+                }
+
+                record.familia = data
+                
+            });
+            const u = await pb.collection('structura').update(record.id, record);
+            localStorage.setItem("last_update","0")
+            Router.reload()
+        }else{
+            record.familias = {"familia":{}}
+            console.log('update ')
+            console.log(record)
+            const  u = await pb.collection('structura').update(record.id, record);
+            localStorage.setItem("last_update","0")
+            Router.reload()
+        }
+        setisLoading(false)
+    }
+    const handleSubmit = async (event) => {
         setShowNew(false)
+        setisLoading(true)
         event.preventDefault();
-        document.getElementById("myForm").reset()
-        setimages([])
+        
         const ref = event.target.ref.value;
         const ean = event.target.ean.value;
         const nome = event.target.nome.value;
@@ -38,14 +97,97 @@ export default function User({prod}){
         const descricao = event.target.descricao.value;
         const peso = event.target.peso.value;
 
-        const obj = {'ref' : ref ,'ean' : ean ,'nome' : nome ,
-        'preco' : preco ,'marca' : marca ,'familia' : familia ,
-        'subfamilia' : subfamilia ,'categoria' : categoria ,
-        'subcategoria' : subcategoria ,'resumo' : resumo ,
-         'descricao' : descricao , 'peso' : peso , 'imagems' : images }
-        console.log(obj);
-        console.log(marcaselect)
+        const formData = new FormData();
+        const formDatamin = new FormData();
         event.target.reset();
+        var files = []
+        
+        await Promise.all(images.map(async (element) => {
+            const quality = 80;
+            const width = 0;
+            const height = 0;
+            const format = 'webp';
+            var file = await fromBlob(element[0], quality, width, height, format).then((blob) => {
+                var filecomp = new File([blob], element[1]+'.webp',{type: "image/webp"});
+                console.log(filecomp)
+                console.log(element[0])
+                
+                return filecomp
+            });
+            console.log(file)
+            formData.append('imagems', file)
+        }));
+        
+        
+
+        formData.append("ref", ref);
+        formData.append("date", "2022-01-01 10:00:00.123Z");
+        formData.append("ean", ean);
+        formData.append("nome", nome);
+        formData.append("marca", marca);
+        formData.append("resumo", resumo);
+        formData.append("descricao", descricao);
+        formData.append("familia", familia);
+        formData.append("subfamilia", subfamilia);
+        formData.append("categoria", categoria);
+        formData.append("subcategoria", subcategoria);
+        formData.append("iternal_product", true);
+        formData.append("preco", Number(preco));
+        formData.append("peso", Number(peso));
+
+        formDatamin.append("nome", nome);
+        formDatamin.append("marca", marca);
+        formDatamin.append("familia", familia);
+        formDatamin.append("subfamilia", subfamilia);
+        formDatamin.append("categoria", categoria);
+        formDatamin.append("subcategoria", subcategoria);
+        formDatamin.append("iternal_product", true);
+        formDatamin.append("preco", Number(preco));
+
+        const record = await pb.collection('structura').getFirstListItem('intern=true');
+
+
+
+        
+        const objectToCheck =  {
+            "familia": familia,
+            "subfamilia": subfamilia,
+            "categoria": categoria,
+            "subcategoria": subcategoria
+        }
+        
+        var data = record.familias
+                // If the familia is not in the data dictionary, add it as a key and create a new object as its value
+        if (!data.familia.hasOwnProperty(familia)) {
+            data.familia[familia] = {subfamilia: {}}
+        }
+
+        // If the subfamilia is not in the object corresponding to the familia, add it as a key and create a new object as its value
+        if (!data.familia[familia].subfamilia.hasOwnProperty(subfamilia)) {
+            data.familia[familia].subfamilia[subfamilia] = {categoria: {}}
+        }
+
+        // If the categoria is not in the object corresponding to the subfamilia, add it as a key and create a new object as its value
+        if (!data.familia[familia].subfamilia[subfamilia].categoria.hasOwnProperty(categoria)) {
+            data.familia[familia].subfamilia[subfamilia].categoria[categoria] = {subcategoria: {}}
+        }
+
+        if (!data.familia[familia].subfamilia[subfamilia].categoria[categoria].subcategoria.hasOwnProperty(subcategoria)) {
+            data.familia[familia].subfamilia[subfamilia].categoria[categoria].subcategoria[subcategoria] = {}
+        }
+
+        record.familia = data
+        
+        document.getElementById("myForm").reset()
+        setimages([])
+        const u = await pb.collection('structura').update(record.id, record);
+        const obj = await pb.collection('products').create(formData)
+        const objmin = await pb.collection('productsmin').create(formDatamin)
+        console.log(record.familias)
+        localStorage.setItem("last_update","0")
+        
+        Router.reload()
+        setisLoading(false)
       };
 
     function removeImgupload(item) {
@@ -122,9 +264,9 @@ export default function User({prod}){
                         <input type="text" id={element}/>
                     </li>
                     <div className="column-form">
-                        <label> seleccionar uma {element} existente </label>
+                        <label>{element} existente</label>
                         <select id={element + 'select'}>
-                            <option >Veuillez sélectionner</option>
+                            <option >seleccionar</option>
                             <option value='test'>test</option>
                             <option value='test'>test</option>
                             <option value='test'>test</option>
@@ -163,7 +305,6 @@ export default function User({prod}){
                             </div>
                             )
                     }
-
                 </div>
                 <div className="row-form-unique">
                     <label>peso</label>
@@ -176,22 +317,69 @@ export default function User({prod}){
             </ul>
             <button onClick={() => setShowNew(false)} className="btnform"><AiOutlineClose></AiOutlineClose></button>
         </form>
-        <button onClick={() => handleLogOut()} className="btn">Sair</button>
+        
+        <div className="product-admin-container">
+            
+            <div class="table-wrapper">
+                <table>
+                <thead>
+                    <tr>
+                    <th>ref</th>
+                    <th>nome</th>
+                    <th>preco</th>
+                    <th>peso</th>
+                    <th>familia</th>
+                    <th>subfamilia</th>
+                    <th>categoria</th>
+                    <th>subcategoria</th>
+                    <th className="deletesection"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {prods.items && prods.items.map((prod) =>
+                    <tr>
+                        <th>{prod.ref}</th>
+                        <th>{prod.nome}</th>
+                        <th>{prod.preco}</th>
+                        <th>{prod.peso}</th>
+                        <th>{prod.familia}</th>
+                        <th>{prod.subfamilia}</th>
+                        <th>{prod.categoria}</th>
+                        <th>{prod.subcategoria}</th>
+                        <button onClick={(e) => deleteitem(e.currentTarget)} className="btn deleteitem"><FiTrash2></FiTrash2></button>
+                    </tr>)}
+                </tbody>
+                </table>
+                </div>
+        </div>
+        <div className="row-center">
+            {!isLoading? <button onClick={() => arbogen()} className="btn">arbo</button> : <button className="btn loading">arbo<div></div></button>}
+        </div>
+        <button onClick={() => handleLogOut()} className="btn-logout"><FiLogOut></FiLogOut></button>
     </>
     
     )
 }
 
-export async function getServerSideProps() {
-    const pb = new PocketBase('https://poor-camera.pockethost.io'); 
-    var prod = await pb.collection('products').getFirstListItem('nome = "testimage"') 
-    console.log(prod)
-    prod = JSON.stringify(prod)
-    return {props:{prod}}
+
+export async function getServerSideProps(context) {
+    
+    const pb = new PocketBase('https://poor-camera.pockethost.io');
+    const prods_list = await pb.collection('products').getList(1, 50,{
+        sort: '-created',
+        filter:'iternal_product = true'
+    });
+
+
+    const prods = JSON.stringify(prods_list)
+    console.log(prods)
+    return {
+        props: {prods}
+      }
+
 }
 
-
-
+export default User
 
 
 
