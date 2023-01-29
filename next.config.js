@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images:{
-    domains:['www.macorlux.pt'],
+    domains:['www.macorlux.pt' , 'poor-camera.pockethost.io'],
   }
 }
 
@@ -18,7 +18,7 @@ module.exports = {
   },
   swcMinify: true,
   images:{
-    domains:['www.macorlux.pt'],
+    domains:['www.macorlux.pt' , 'poor-camera.pockethost.io'],
   },
   /*async redirects() {
     return [
