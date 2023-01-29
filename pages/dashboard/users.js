@@ -40,8 +40,8 @@ function User({prods}){
             sort: '-created',
             filter:'iternal_product = true'
         });
-        var data = record.familias
-        
+        var data =  {"familia":{}}
+
         if (products.length > 0){
             products.forEach(element => {
                 // If the familia is not in the data dictionary, add it as a key and create a new object as its value
@@ -63,7 +63,7 @@ function User({prods}){
                     data.familia[element.familia].subfamilia[element.subfamilia].categoria[element.categoria].subcategoria[element.subcategoria] = {}
                 }
 
-                record.familia = data
+                record.familias = data
                 
             });
             const u = await pb.collection('structura').update(record.id, record);
