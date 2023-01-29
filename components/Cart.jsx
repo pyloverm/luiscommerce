@@ -83,7 +83,8 @@ const Cart = () => {
           {cartItems.length >= 1 && cartItems.map((item) => (
             <div key={item.id} className="productcart-cont" >
               <div className="productcart" key={item.id}>
-                <img src={item?.imagem} className="cart-product-image" />
+                {!item.iternal_product &&(<img src={item?.imagem} className="cart-product-image" />)}
+                {item.iternal_product &&(<img src={ 'https://poor-camera.pockethost.io/api/files/'+item.collectionId + '/' + item.id + '/' + item?.imagems[0]} className="cart-product-image" />)}
                 <div className="item-desc">
                   <div className="desc-price">
                     <h5>{item.nome}</h5>

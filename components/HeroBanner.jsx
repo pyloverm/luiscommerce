@@ -50,9 +50,9 @@ const HerroBanner = () => {
             </form>
         </div>
         <div class="drop-menus" id="navbar">
-            <button class="drop-button" id="novidades">NOVIDADES <img src='/static/arrow.svg' class='arrow' id='noviarrow'></img></button>
-            <button class="drop-button" id="produtos">PRODUTOS <img src='/static/arrow.svg' class='arrow' id='prodarrow'></img></button>
-            <button class="drop-button special" id='espaços'>ESPAÇOS <img src='/static/arrow.svg' class='arrow' id='esprrow'></img></button>
+            <button class="drop-button" id="moveis">MOVEIS<img src='/static/arrow.svg' class='arrow' id='moveisarrow'></img></button>
+            <button class="drop-button" id="elcetromoveis">ELECTROMOVEIS<img src='/static/arrow.svg' class='arrow' id='elctromoveisarrow'></img></button>
+            <button class="drop-button special" id='espaços'>ESPAÇOS<img src='/static/arrow.svg' class='arrow' id='esprrow'></img></button>
         </div>
     </div>
   )

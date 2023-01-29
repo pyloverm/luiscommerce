@@ -8,7 +8,7 @@ import { useStateContext } from '../../context/StateContext';
 function ProductPage({product}) {
   const [index, setIndex] = useState(0);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
-  
+  var image_pre_url = 'https://poor-camera.pockethost.io/api/files/'+product.collectionId + '/' + product.id + '/' 
   function testing(){
     console.log('clicked');
   }
@@ -55,10 +55,12 @@ function ProductPage({product}) {
         <div class="all-row">
           <div class = 'image-part'>
             <section class="carousel-container">
-              <img src={product.imagem} alt="" class="current-image"/>
+              {!product.iternal_product && (<img src={product.imagem} alt="" class="current-image"/>)}
+              {product.iternal_product && (<img src={image_pre_url + product.imagems[0]} alt="" class="current-image"/>)}
+              
               <ul class="next-list">
-                {product.iternal_product && product.imagem.map(imagem =>
-                  <li key={product.id}><img src={imagem} alt="" class="image-of-list current-image-list"/></li>
+                {product.iternal_product && product.imagems.map(imagem =>
+                  <li key={product.id}><img src={image_pre_url+imagem} alt="" class="image-of-list current-image-list"/></li>
                 )}
               </ul>
             </section>

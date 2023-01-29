@@ -1,10 +1,12 @@
 import React from 'react'
 import Head from 'next/head'
-import {FooterBanner , HeroBanner, NovidadesMenu, EspacosMenu, ProdutosMenu } from '../components'
+import {FooterBanner , HeroBanner, ProdutosMenuMoveis, EspacosMenu, ProdutosMenuElec } from '../components'
 import Script from 'next/script'
 
 
-const Layout = ({children,novidades,espacos,arbo}) => {
+const Layout = ({children,arbo2,espacos,arbo}) => {
+  console.log('arbo2')
+  console.log(arbo2)
   return (
     <>
       <Head>
@@ -15,8 +17,8 @@ const Layout = ({children,novidades,espacos,arbo}) => {
       </Head>
       <HeroBanner/>
       <div class="content">
-        <NovidadesMenu NovidadesMenu = {novidades.length && novidades}/>
-        <ProdutosMenu Arbo = {Object.keys(arbo).length && arbo} />
+        <ProdutosMenuMoveis Arbo2 = {Object.keys(arbo2).length && arbo2}/>
+        <ProdutosMenuElec Arbo = {Object.keys(arbo).length && arbo} />
         <EspacosMenu EspacosMenu = {espacos.length && espacos}/>
         {children}
       </div>

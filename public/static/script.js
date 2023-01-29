@@ -1,8 +1,10 @@
 
 function mobileAgentsChecking() {
     var scrollHeight = window.innerHeight;
-    document.getElementsByClassName('panel')[0].classList.add('active');
-    document.getElementsByClassName('familia')[0].classList.add('clicked');
+    document.getElementById('product-menu').getElementsByClassName('panel')[0].classList.add('active');
+    document.getElementById('product-menu2').getElementsByClassName('panel')[0].classList.add('active');
+    document.getElementById('product-menu').getElementsByClassName('familia')[0].classList.add('clicked');
+    document.getElementById('product-menu2').getElementsByClassName('familia')[0].classList.add('clicked');
     if (document.getElementsByTagName("html")[0].offsetHeight > scrollHeight) {
         if(navigator.userAgent.toLowerCase().search('mobile') === -1){
             return '15px'
@@ -69,34 +71,34 @@ function touchHandler(expr) {
             if (document.getElementById("mega-menu2").style.display === "grid"){
                 close("esprrow","mega-menu2","droped2","espaços");
             }else if (document.getElementById("product-menu").style.display === "flex"){
-                close("prodarrow","product-menu","droped-product","produtos");
+                close("elctromoveisarrow","product-menu","droped-product","elcetromoveis");
             }break;
         case 'expespaços':
-            if (document.getElementById("mega-menu").style.display === "grid"){
-                close("noviarrow","mega-menu","droped","novidades");
+            if (document.getElementById("product-menu2").style.display === "grid"){
+                close("moveisarrow","product-menu2","droped-product-moveis","moveis");
             }else if(document.getElementById("product-menu").style.display === "flex"){
-                close("prodarrow","product-menu","droped-product","produtos");
+                close("elctromoveisarrow","product-menu","droped-product","elcetromoveis");
             }break;
         case 'expprodutos':
-            if (document.getElementById("mega-menu").style.display === "grid"){
-                close("noviarrow","mega-menu","droped","novidades");
+            if (document.getElementById("product-menu2").style.display === "grid"){
+                close("moveisarrow","product-menu2","droped-product-moveis","moveis");
             }else if(document.getElementById("mega-menu2").style.display === "grid"){
                 close("esprrow","mega-menu2","droped2","espaços");
             }break;
         default:
-            if (document.getElementById("mega-menu").style.display === "grid"){
-                close("noviarrow","mega-menu","droped","novidades");
+            if (document.getElementById("product-menu2").style.display === "grid"){
+                close("moveisarrow","product-menu2","droped-product-moveis","moveis");
             }else if (document.getElementById("mega-menu2").style.display === "grid"){
                 close("esprrow","mega-menu2","droped2","espaços");
             }else if (document.getElementById("product-menu").style.display === "flex"){
-                close("prodarrow","product-menu","droped-product","produtos");
+                close("elctromoveisarrow","product-menu","droped-product","elcetromoveis");
             }
       }
 }
 
-document.getElementById("novidades").onclick = function() {
+document.getElementById("moveis").onclick = function() {
     touchHandler("expnovidades");
-    OpenCloseMenu("mega-menu","droped","noviarrow","grid","block","novidades");
+    OpenCloseMenu("product-menu2","droped-product-moveis","moveisarrow","grid","block","moveis");
 }
 
 document.getElementById("espaços").onclick = function() {
@@ -104,9 +106,9 @@ document.getElementById("espaços").onclick = function() {
     OpenCloseMenu("mega-menu2","droped2","esprrow","grid","block","espaços");
 }
 
-document.getElementById("produtos").onclick = function() {
+document.getElementById("elcetromoveis").onclick = function() {
     touchHandler('expprodutos');
-    OpenCloseMenu("product-menu","droped-product","prodarrow","flex","flex","produtos");
+    OpenCloseMenu("product-menu","droped-product","elctromoveisarrow","flex","flex","elcetromoveis");
 }
 
 document.getElementById("header").addEventListener('click', touchHandler, false);
@@ -177,4 +179,3 @@ if (range && field && range2 && field2){
         return true;  
     });
 }
-

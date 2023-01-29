@@ -1,11 +1,11 @@
 import React from 'react'
 
 
-const ProdutosMenu = ({Arbo}) => {
+const ProdutosMenuElec = ({Arbo}) => {
 
   function myScript(id) {
     var id_panel = id+'Panel'
-    if(document.getElementsByClassName('active')[0]){
+    if(document.getElementById('product-menu').getElementsByClassName('active')[0]){
       document.getElementsByClassName('active')[0].classList.remove('active');
     }
     if(document.getElementsByClassName('clicked')[0]){
@@ -52,4 +52,4 @@ const ProdutosMenu = ({Arbo}) => {
 }
 
 
-export default ProdutosMenu
+export default ProdutosMenuElec

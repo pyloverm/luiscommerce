@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps, ...appProps}) {
     loading: true,
     arbo: [],
     espacos:[],
-    novidades:[],
+    arbo2:[],
     last_update:[]
   });
   const [isLoading, setIsLoading] = useState(true)
@@ -33,8 +33,9 @@ function MyApp({ Component, pageProps, ...appProps}) {
         const pb = new PocketBase('https://poor-camera.pockethost.io');
         const query_arbo = await pb.collection('structura').getFirstListItem('intern = False');
         const arbo = JSON.parse(JSON.stringify(query_arbo));
-        const query_novidades = await pb.collection('novidades').getFullList();
-        const novidades = JSON.parse(JSON.stringify(query_novidades));
+
+        const query_arbo2 = await pb.collection('structura').getFirstListItem('intern = True');
+        const arbo2 = JSON.parse(JSON.stringify(query_arbo2));
 
         const query_espacos = await pb.collection('espacos').getFullList();
         const espacos = JSON.parse(JSON.stringify(query_espacos));
@@ -43,13 +44,13 @@ function MyApp({ Component, pageProps, ...appProps}) {
           loading: false,
           arbo: arbo,
           espacos:espacos,
-          novidades:novidades
+          arbo2:arbo2
         });
 
         // Store data in local storage
         localStorage.setItem('arbo', JSON.stringify(arbo));
         localStorage.setItem('espacos', JSON.stringify(espacos));
-        localStorage.setItem('novidades', JSON.stringify(novidades));
+        localStorage.setItem('arbo2', JSON.stringify(arbo2));
         let now = new Date();
         let month = now.getMonth() + 1;  // Returns a number 0-11 representing the month
         let date =  now.getFullYear()+'-'+month+'-'+now.getDate()
@@ -60,19 +61,19 @@ function MyApp({ Component, pageProps, ...appProps}) {
     }
     const arbo = localStorage.getItem('arbo');
     const espacos = localStorage.getItem('espacos');
-    const novidades = localStorage.getItem('novidades');
+    const arbo2 = localStorage.getItem('arbo2');
     const last_update = localStorage.getItem('last_update');
 
     let now = new Date();
     let month = now.getMonth() + 1;
     let date =  '"'+now.getFullYear()+'-'+month+'-'+now.getDate()+'"'
 
-    if (arbo && espacos && novidades && last_update === date) {
+    if (arbo && espacos && arbo2 && last_update === date) {
       setState({
         loading: false,
         arbo: JSON.parse(arbo),
         espacos: JSON.parse(espacos),
-        novidades: JSON.parse(novidades),
+        arbo2: JSON.parse(arbo2),
         last_update: JSON.parse(last_update)
       });
     } else {
@@ -96,7 +97,7 @@ function MyApp({ Component, pageProps, ...appProps}) {
   
   return (
     <StateContext>
-      <Layout novidades = {state.novidades}  espacos = {state.espacos} arbo = {state.arbo}>
+      <Layout arbo2 = {state.arbo2}  espacos = {state.espacos} arbo = {state.arbo}>
         <Toaster />
         {isLoading ? <>loading...</> : <Component {...pageProps} />}
         <Analytics />
