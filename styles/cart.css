@@ -422,6 +422,19 @@ margin-top: 160px;
   .cart-container{
     width: 100%;
   }
+  .item-desc{
+    width: 75%;
+  }
+  .productcart {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .productcart img{
+    width: auto;
+  }
+  .desc-price{
+    width: 100%;
+  }
 }
 @media screen and (max-width:800px) {
   .desc{
@@ -439,10 +452,6 @@ margin-top: 160px;
   }
   .product-container-bi{
     margin-top: 10px;
-  }
-  .productcart{
-    width: 25%;
-    height: 25%;
   }
   .buttons .add-to-cart{
     width: 150px;

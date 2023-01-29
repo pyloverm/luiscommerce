@@ -729,6 +729,17 @@ h1 {
   background: url("../public/static/ico.png") no-repeat;
   background-size: 35px;
 }
+.product-admin-container{
+  display: flex;
+  flex-direction: column;
+}
+.row-admin{
+  display: flex;
+}
+.row-admin div{
+  border-right: 1px solid #333;
+  padding: 5px;
+}
 
 .footer {
   position: relative;
