@@ -337,7 +337,7 @@ function User({prods}){
                 </thead>
                 <tbody>
                     {prods.items && prods.items.map((prod) =>
-                    <tr>
+                    <tr key={prod.id}>
                         <th>{prod.ref}</th>
                         <th>{prod.nome}</th>
                         <th>{prod.preco}</th>
