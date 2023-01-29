@@ -20,6 +20,7 @@
     "canvas-confetti": "^1.5.1",
     "cookies-next": "^2.1.1",
     "gramma": "^0.9.2",
+    "image-resize-compress": "^1.1.0",
     "jose": "^4.11.2",
     "js-cookie": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
