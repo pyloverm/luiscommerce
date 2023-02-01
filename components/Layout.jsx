@@ -14,6 +14,7 @@ const Layout = ({children,arbo2,espacos,arbo}) => {
           <title>Móveis | Electromóveis</title>
           <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'/>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+          <meta name="google-site-verification" content="HOxow2FE0XLFyAa3t-8f3WZ4_u5FA3GyrNkaTUW-NO8" />
       </Head>
       <HeroBanner/>
       <div class="content">
