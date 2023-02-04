@@ -339,16 +339,16 @@ function User({prods , arbo}){
                         <select id={element + 'select'} onChange={e => myFunction(e.target)}>
                             <option >seleccionar</option>
                             {element === 'familia' && (all_familias.map( fam =>
-                                <option value={fam}>{fam}</option>
+                                <option key={fam} value={fam}>{fam}</option>
                             ))}
                              {element === 'subfamilia' && (all_subfamilias.map( subfam =>
-                                <option value={subfam}>{subfam}</option>
+                                <option key={subfam} value={subfam}>{subfam}</option>
                             ))}
                              {element === 'categoria' && (all_categorias.map( cat =>
-                                <option value={cat}>{cat}</option>
+                                <option key={cat} value={cat}>{cat}</option>
                             ))}
                              {element === 'subcategoria' && (all_subcategorias.map( subcat =>
-                                <option value={subcat}>{subcat}</option>
+                                <option key={subcat} value={subcat}>{subcat}</option>
                             ))}
                         </select>
                     </div>
