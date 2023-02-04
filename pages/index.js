@@ -5,13 +5,13 @@ import { Product } from '../components'
 const Home = ({product_1,product_2}) => {
   return (
     <>
-      <div class="placehodling-content">
-            <div class='product-container'>
+      <div className="placehodling-content">
+            <div className='product-container'>
               <Product data = {product_1}/>
               <Product data = {product_2}/>
             </div>
-            <img src="https://via.placeholder.com/1000x500" class='placehodling-content' alt=""/>
-            <img src="https://via.placeholder.com/1000x500" class='placehodling-content' alt=""/>
+            <img src="https://via.placeholder.com/1000x500" className='placehodling-content' alt=""/>
+            <img src="https://via.placeholder.com/1000x500" className='placehodling-content' alt=""/>
       </div>
     </>
   )

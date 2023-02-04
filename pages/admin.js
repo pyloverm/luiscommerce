@@ -48,7 +48,7 @@ export default function Admin() {
           onChange={(e) => setPassword(e.target.value)}
         />
         
-        <div class='load-more'>
+        <div className='load-more'>
             <button className={isLoading ? 'button loading' : 'button'}>
                 Iniciar Sessão
                 <div></div>

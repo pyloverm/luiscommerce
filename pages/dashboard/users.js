@@ -234,10 +234,10 @@ function User({prods}){
         </div>
 
         <form className={showNew ? 'prod-form' : 'hid'} onSubmit={handleSubmit} id='myForm'>
-            <ul class="form-section">
+            <ul className="form-section">
                 <div className="row-form">
                     <li>
-                        <label>ref<span class="form-required">*</span></label>
+                        <label>ref<span className="form-required">*</span></label>
                         <input type="text" id='ref' />
                     </li>
                     <li >
@@ -284,10 +284,10 @@ function User({prods}){
                     <input type="text" id='descricao'/>
                 </div>
 
-                <div class="image-upload" id='admin'>
+                <div className="image-upload" id='admin'>
                     <input type="file" name="" id="logo" onChange={(e) => fileValue(e.currentTarget)}/>
-                    <label for="logo" class="upload-field" id="file-label">
-                        <div class="file-thumbnail">
+                    <label for="logo" className="upload-field" id="file-label">
+                        <div className="file-thumbnail">
                             <img id="image-preview" src="https://www.btklsby.go.id/images/placeholder/basic.png" alt=""/>
                             <h3 id="filename">
                                 Drag and Drop
@@ -299,7 +299,7 @@ function User({prods}){
 
                 <div className="images-container" id="">
                     {images.length > 0 && images.map( image =>
-                            <div key={image[0]} class="file-thumbnail-cont">
+                            <div key={image[0]} className="file-thumbnail-cont">
                                 <img id="image-preview" className="up-images" src={window.URL.createObjectURL(image[0])} alt=""/>
                                 <button  type="button" className="remove-bt" onClick={() => removeImgupload(image)}><FiTrash2></FiTrash2></button>
                             </div>
@@ -315,12 +315,12 @@ function User({prods}){
                     <button  className="btn" type="submit">additionar</button>
                 </div>
             </ul>
-            <button onClick={() => setShowNew(false)} className="btnform"><AiOutlineClose></AiOutlineClose></button>
+            <button type="button" onClick={() => setShowNew(false)} className="btnform"><AiOutlineClose></AiOutlineClose></button>
         </form>
         
         <div className="product-admin-container">
             
-            <div class="table-wrapper">
+            <div className="table-wrapper">
                 <table>
                 <thead>
                     <tr>

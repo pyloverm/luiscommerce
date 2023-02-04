@@ -10,13 +10,13 @@ const Layout = ({children,arbo2,espacos,arbo}) => {
   return (
     <>
       <Head>
-          <html lang='pt' id="html" class="" />
+          <html lang='pt' id="html" className="" />
           <title>Móveis | Electromóveis</title>
           <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'/>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
       </Head>
       <HeroBanner/>
-      <div class="content">
+      <div className="content">
         <ProdutosMenuMoveis Arbo2 = {Object.keys(arbo2).length && arbo2}/>
         <ProdutosMenuElec Arbo = {Object.keys(arbo).length && arbo} />
         <EspacosMenu EspacosMenu = {espacos.length && espacos}/>

@@ -2,9 +2,9 @@ import React from 'react'
 
 const FooterBanner = () => {
   return (
-    <div class='footer' >
-      <div class='footerContainer'>
-        <div class='footerRow'>
+    <div className='footer' >
+      <div className='footerContainer'>
+        <div className='footerRow'>
           <p>© ELECTROMOVEIS 2023</p>
           <a href="#">Créditos e avisos legais</a>
           <a href="#">Condições gerais de venda</a>
