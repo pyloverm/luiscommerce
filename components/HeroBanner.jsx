@@ -51,7 +51,7 @@ const HerroBanner = () => {
         </div>
         <div className="drop-menus" id="navbar">
             <button className="drop-button" id="moveis">MOVEIS<img src='/static/arrow.svg' className='arrow' id='moveisarrow'></img></button>
-            <button className="drop-button" id="elcetromoveis">ELECTROMOVEIS<img src='/static/arrow.svg' className='arrow' id='elctromoveisarrow'></img></button>
+            <button className="drop-button" id="elcetromoveis">ELECTRODOMÉSTICOS<img src='/static/arrow.svg' className='arrow' id='elctromoveisarrow'></img></button>
             <button className="drop-button special" id='espaços'>ESPAÇOS<img src='/static/arrow.svg' className='arrow' id='esprrow'></img></button>
         </div>
     </div>

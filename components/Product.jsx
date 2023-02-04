@@ -20,7 +20,7 @@ const Product = ({data}) => {
         <div>
           <p></p>
           <p className='desc'>{data.nome}</p>
-          <p className='price'>{Math.round(data.preco)}€</p>
+          { Math.round(data.preco) === 0 ? <p className='price'>Sobre orçamento</p> : <p className='price'>{Math.round(data.preco)}€</p>}
         </div>
       </a>
     </article>

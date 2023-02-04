@@ -26,6 +26,10 @@ function ProductPage({product}) {
   // Join the array of words back into a single string
   return words.join(' ');
   }
+
+  function orcamento(produto){
+    return null
+  }
   
   function modifyString(string) {
 
@@ -66,26 +70,50 @@ function ProductPage({product}) {
             </section>
           </div>
           <div class = 'desc-part'>
-            <h1 class = 'product-nome'>{toTitleCase(product.nome)}</h1>
-            <strong className="base-price">{Math.round(product.preco)}&nbsp;€</strong>
-            <hr data-v-6cc9fd2c=""></hr>
-            <button id="Add_cart" type="button" onClick={() => onAdd(product, 1)} className="btn-comprar">
-              Adicionar ao carrinho
-            </button>
-            <div className='preco-atributes'>
-              <div className='portes'>
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="100.000000pt" height="100.000000pt" viewBox="0 0 100.000000 100.000000" preserveAspectRatio="xMidYMid meet">
-                  <g transform="translate(0.000000,100.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                    <path d="M824 824 c-6 -3 -96 -135 -200 -294 -104 -160 -192 -290 -195 -290 -3 0 -57 44 -120 98 -132 114 -148 124 -172 111 -39 -22 -20 -52 110 -164 156 -135 186 -157 204 -150 16 6 419 618 427 648 3 12 -2 25 -13 33 -20 15 -23 15 -41 8z"/>
-                  </g>
-                </svg>
-                <a href='/envios'><p>Envio ao domicílio</p></a>
-              </div>
-              <p className='dispo'>Disponível</p>
-              <hr data-v-6cc9fd2c=""></hr>
-              <li key={product.id} ><a href='/devulocoes'>Devoluções</a></li>
-              <li key={product.id}><a href='/Pagamento'>Pagamento 100% seguro</a></li>
-            </div>
+            {Math.round(product.preco) != 0  && (
+              <>
+                <h1 class = 'product-nome'>{toTitleCase(product.nome)}</h1>
+                <strong className="base-price">{Math.round(product.preco)}&nbsp;€</strong>
+                <hr data-v-6cc9fd2c=""></hr>
+                <button id="Add_cart" type="button" onClick={() => onAdd(product, 1)} className="btn-comprar">
+                  Adicionar ao carrinho
+                </button>
+                <div className='preco-atributes'>
+                  <div className='portes'>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="100.000000pt" height="100.000000pt" viewBox="0 0 100.000000 100.000000" preserveAspectRatio="xMidYMid meet">
+                      <g transform="translate(0.000000,100.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                        <path d="M824 824 c-6 -3 -96 -135 -200 -294 -104 -160 -192 -290 -195 -290 -3 0 -57 44 -120 98 -132 114 -148 124 -172 111 -39 -22 -20 -52 110 -164 156 -135 186 -157 204 -150 16 6 419 618 427 648 3 12 -2 25 -13 33 -20 15 -23 15 -41 8z"/>
+                      </g>
+                    </svg>
+                    <a href='/envios'><p>Envio ao domicílio</p></a>
+                  </div>
+                  <p className='dispo'>Disponível</p>
+                  <hr data-v-6cc9fd2c=""></hr>
+                  <li key={product.id} ><a href='/devulocoes'>Devoluções</a></li>
+                  <li key={product.id}><a href='/Pagamento'>Pagamento 100% seguro</a></li>
+                </div>
+              </>
+            )}
+            {Math.round(product.preco) === 0  && (
+              <>
+                <h1 class = 'product-nome'>{toTitleCase(product.nome)}</h1>
+                <hr data-v-6cc9fd2c=""></hr>
+                <button id="Add_cart" type="button" onClick={() => orcamento(product)} className="btn-orcamento">
+                  Pedir um orçamento
+                </button>
+                <div className='preco-atributes'>
+                  <div className='portes'>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="100.000000pt" height="100.000000pt" viewBox="0 0 100.000000 100.000000" preserveAspectRatio="xMidYMid meet">
+                      <g transform="translate(0.000000,100.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                        <path d="M824 824 c-6 -3 -96 -135 -200 -294 -104 -160 -192 -290 -195 -290 -3 0 -57 44 -120 98 -132 114 -148 124 -172 111 -39 -22 -20 -52 110 -164 156 -135 186 -157 204 -150 16 6 419 618 427 648 3 12 -2 25 -13 33 -20 15 -23 15 -41 8z"/>
+                      </g>
+                    </svg>
+                    <a href='/envios'><p>Envio ao domicílio</p></a>
+                  </div>
+                  <p className='dispo'>Disponível</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className='column desc-col'>

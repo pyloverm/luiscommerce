@@ -1,10 +1,6 @@
 
 function mobileAgentsChecking() {
     var scrollHeight = window.innerHeight;
-    document.getElementById('product-menu').getElementsByClassName('panel')[0].classList.add('active');
-    document.getElementById('product-menu2').getElementsByClassName('panel')[0].classList.add('active');
-    document.getElementById('product-menu').getElementsByClassName('familia')[0].classList.add('clicked');
-    document.getElementById('product-menu2').getElementsByClassName('familia')[0].classList.add('clicked');
     if (document.getElementsByTagName("html")[0].offsetHeight > scrollHeight) {
         if(navigator.userAgent.toLowerCase().search('mobile') === -1){
             return '15px'
@@ -14,6 +10,7 @@ function mobileAgentsChecking() {
         return '0px'
     }
 }
+
 var panelBtn = document.getElementsByClassName('familia');
 
 function myScript(){
@@ -68,7 +65,7 @@ function close(nameArrow,nameMenu,nameTab,bntName) {
 function touchHandler(expr) {
     switch (expr) {
         case 'expnovidades':
-            if (document.getElementById("mega-menu2").style.display === "grid"){
+            if (document.getElementById("mega-menu2").style.display === "flex"){
                 close("esprrow","mega-menu2","droped2","espaços");
             }else if (document.getElementById("product-menu").style.display === "flex"){
                 close("elctromoveisarrow","product-menu","droped-product","elcetromoveis");

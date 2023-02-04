@@ -5,8 +5,6 @@ import Script from 'next/script'
 
 
 const Layout = ({children,arbo2,espacos,arbo}) => {
-  console.log('arbo2')
-  console.log(arbo2)
   return (
     <>
       <Head>

@@ -6,10 +6,10 @@ const ProdutosMenuMoveis = ({Arbo2}) => {
   function myScript(id) {
     var id_panel = id+'Panel'
     if(document.getElementById('product-menu2').getElementsByClassName('active')[0]){
-      document.getElementsByClassName('active')[0].classList.remove('active');
+      document.getElementById('product-menu2').getElementsByClassName('active')[0].classList.remove('active');
     }
-    if(document.getElementsByClassName('clicked')[0]){
-      document.getElementsByClassName('clicked')[0].classList.remove('clicked');
+    if(document.getElementById('product-menu2').getElementsByClassName('clicked')[0]){
+      document.getElementById('product-menu2').getElementsByClassName('clicked')[0].classList.remove('clicked');
     }
     
     document.getElementById(id_panel).classList.add("active");
@@ -25,25 +25,31 @@ const ProdutosMenuMoveis = ({Arbo2}) => {
                 <div className="menuprod" id="product-menu2">
                     <div className="menu-link">
                             <ul key={'familias'} className="familias">
-                                {keys.map(familia => <li key={familia}><a className='familia' id={familia.replace(/[.,\s/-]/g, '').toLowerCase()} onClick={() => myScript(familia.replace(/[.,\s/-]/g, '').toLowerCase())} >{familia}</a></li>)}
+                                {keys.map(function (familia, index){
+                                  return(
+                                  <li key={familia}>
+                                    <a className={index === 0 ? "familia clicked" : "familia"} id={familia.replace(/[.,\s/-]/g, '').toLowerCase()} onClick={() => myScript(familia.replace(/[.,\s/-]/g, '').toLowerCase())} >{familia}</a>
+                                  </li>)
+                                })}
                             </ul>
                             <div className='more'>
-                            {Object.keys(data['familia']).map(familia => 
-                              <div key={familia} className='panel' id={familia.replace(/[.,\s/-]/g, '').toLowerCase().concat('Panel')}>
-                                    {
-                                      Object.keys(data['familia'][familia]['subfamilia']).map(sub => 
-                                        <div key={sub}>
-                                          <li key={sub} className='SubFamilia'><a href={"/search?subfamilia="+sub}>{sub}</a></li>
-                                          { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria']).map(cat =>
-                                          <div key={cat}>
-                                            <li key={cat} className='categoria'>{cat.replace("TIPO - ", "")}</li>
-                                            { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria'][cat]['subcategoria']).map(sub => <li key={sub} className='valor'><a href={"/search?subcategoria="+sub}>{sub}</a></li>)}
+                            {Object.keys(data['familia']).map(function (familia, index){
+                              return(
+                                <div key={familia} className={index === 0 ? "panel active" : "panel"}  id={familia.replace(/[.,\s/-]/g, '').toLowerCase().concat('Panel')}>
+                                      {
+                                        Object.keys(data['familia'][familia]['subfamilia']).map(sub => 
+                                          <div key={sub}>
+                                            <li key={sub} className='SubFamilia'><a href={"/search?subfamilia="+sub}>{sub}</a></li>
+                                            { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria']).map(cat =>
+                                            <div key={cat}>
+                                              <li key={cat} className='categoria'>{cat.replace("TIPO - ", "")}</li>
+                                              { Object.keys(data['familia'][familia]['subfamilia'][sub]['categoria'][cat]['subcategoria']).map(sub => <li key={sub} className='valor'><a href={"/search?subcategoria="+sub}>{sub}</a></li>)}
+                                            </div>
+                                            )}
                                           </div>
-                                          )}
-                                        </div>
-                                    )}
-                              </div>
-                            )}
+                                      )}
+                                </div>)
+                            })}
                             </div>
                     </div>
                 </div>
