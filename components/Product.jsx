@@ -11,16 +11,16 @@ const Product = ({data}) => {
   console.log('data')
   console.log(data)
   return (
-    <article class='product'>
+    <article className='product'>
       <a href={link_product}>
         <div className='imagecenter'>
-          {!data.iternal_product && data.imagem && (<Image class='product-img' src={data.imagem} alt="" width={257} height={257} />)}
-          {data.iternal_product && (<Image class='product-img' src={image_pre_url+data.imagems[0]} alt="" width={257} height={257} />)}
+          {!data.iternal_product && data.imagem && (<Image className='product-img' src={data.imagem} alt="" width={257} height={257} />)}
+          {data.iternal_product && (<Image className='product-img' src={image_pre_url+data.imagems[0]} alt="" width={257} height={257} />)}
         </div>
         <div>
           <p></p>
-          <p class='desc'>{data.nome}</p>
-          <p class='price'>{Math.round(data.preco)}€</p>
+          <p className='desc'>{data.nome}</p>
+          { Math.round(data.preco) === 0 ? <p className='price'>Sobre orçamento</p> : <p className='price'>{Math.round(data.preco)}€</p>}
         </div>
       </a>
     </article>

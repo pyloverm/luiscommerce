@@ -87,8 +87,8 @@ function MyApp({ Component, pageProps, ...appProps}) {
   
   if (state.loading) {
     return (
-      <div class='spinner-wrapper'>
-      <div class="spinner"></div></div>
+      <div className='spinner-wrapper'>
+      <div className="spinner"></div></div>
     );
   }
 

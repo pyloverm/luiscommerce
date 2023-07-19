@@ -3,18 +3,40 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import PocketBase from 'pocketbase';
 import { FiTrash2 ,FiLogOut } from 'react-icons/fi';
-import {AiOutlineClose} from 'react-icons/ai';
+import {AiOutlineClose , AiOutlineEdit} from 'react-icons/ai';
+import {TfiReload} from 'react-icons/tfi';
 import {GrAdd} from 'react-icons/gr';
 import toast from "react-hot-toast";
 import { blobToURL, fromBlob } from 'image-resize-compress';
 import Router from "next/router";
 
-function User({prods}){
+function User({prods , arbo}){
+
     const pb = new PocketBase('https://poor-camera.pockethost.io');  
     const [images, setimages] = useState([])
     const [showNew, setShowNew] = useState(false)
     const [isLoading, setisLoading] = useState(false)
-    
+    const [isEditing, setisEditing] = useState(false)
+    const [editItemId, setEditItemId] = useState('')
+    arbo = JSON.parse(arbo)
+    const all_familias = []
+    const all_subfamilias = []
+    const all_categorias = []
+    const all_subcategorias = []
+
+    Object.keys(arbo.familias.familia).forEach(familia => {
+        if(familia != '' && !(familia in all_familias)){all_familias.push(familia)}
+        Object.keys(arbo.familias.familia[familia].subfamilia).forEach(subfamilia => {
+            if(subfamilia != '' && !(subfamilia in all_subfamilias)){all_subfamilias.push(subfamilia)}
+            Object.keys(arbo.familias.familia[familia].subfamilia[subfamilia].categoria).forEach(categoria => {
+                if(categoria != '' && !(categoria in all_categorias)){all_categorias.push(categoria)}
+                Object.keys(arbo.familias.familia[familia].subfamilia[subfamilia].categoria[categoria].subcategoria).forEach(subcategoria => {
+                    if(subcategoria != ''  && !(subcategoria in all_subcategorias)){all_subcategorias.push(subcategoria)}
+                });
+            });
+        });
+    });
+
     prods = JSON.parse(prods)
     const router = useRouter();
     const handleLogOut = async () => {
@@ -31,8 +53,40 @@ function User({prods}){
 
         await pb.collection('products').delete(record.id)
         await pb.collection('productsmin').delete(recordmin.id)
+        localStorage.setItem("last_update","0")
         Router.reload()
     }
+
+    const edititem =async(event) =>{
+        setisLoading(true)
+        const name_del = event.parentNode.getElementsByTagName("th")[1].innerHTML
+        const record = await pb.collection('products').getFirstListItem('nome="'+name_del+'"');
+        setEditItemId(record.id)
+        const input_list = ['ref','ean','nome','preco','marca','familia','subfamilia','categoria','subcategoria','resumo','descricao','peso']
+        input_list.forEach(element => {
+            document.getElementById(element).value = record[element]
+        });
+
+        var new_images = []
+        
+        await record.imagems.forEach( async(element) => {
+            var image_url = 'https://poor-camera.pockethost.io/api/files/'+record.collectionId + '/' + record.id + '/' + element
+            let response = await fetch(image_url);
+            let data = await response.blob();
+            let metadata = {
+                type: 'image/webp'
+            };
+            let item = new File([data], element, metadata);
+            new_images = [...new_images, [item,element,element]]
+            setimages(new_images)
+        });
+
+        setisEditing(true)
+        setShowNew(true)
+        setisLoading(false)
+        document.getElementById('toppage').scrollIntoView();
+    }
+
     const arbogen =async(event) =>{
         setisLoading(true)
         const record = await pb.collection('structura').getFirstListItem('intern=true');
@@ -71,8 +125,6 @@ function User({prods}){
             Router.reload()
         }else{
             record.familias = {"familia":{}}
-            console.log('update ')
-            console.log(record)
             const  u = await pb.collection('structura').update(record.id, record);
             localStorage.setItem("last_update","0")
             Router.reload()
@@ -84,24 +136,24 @@ function User({prods}){
         setisLoading(true)
         event.preventDefault();
         
-        const ref = event.target.ref.value;
-        const ean = event.target.ean.value;
-        const nome = event.target.nome.value;
+        const ref = event.target.ref.value.trim();
+        const ean = event.target.ean.value.trim();
+        const nome = event.target.nome.value.trim();
         const preco = event.target.preco.value;
-        const marca = event.target.marca.value;
-        const familia = event.target.familia.value;
-        const subfamilia = event.target.subfamilia.value;
-        const categoria = event.target.categoria.value;
-        const subcategoria = event.target.subcategoria.value;
-        const resumo = event.target.resumo.value;
-        const descricao = event.target.descricao.value;
+        const marca = event.target.marca.value.trim();
+        const familia = event.target.familia.value.trim();
+        const subfamilia = event.target.subfamilia.value.trim();
+        const categoria = event.target.categoria.value.trim();
+        const subcategoria = event.target.subcategoria.value.trim();
+        const resumo = event.target.resumo.value.trim();
+        const descricao = event.target.descricao.value.trim();
         const peso = event.target.peso.value;
 
         const formData = new FormData();
         const formDatamin = new FormData();
         event.target.reset();
         var files = []
-        
+
         await Promise.all(images.map(async (element) => {
             const quality = 80;
             const width = 0;
@@ -109,16 +161,11 @@ function User({prods}){
             const format = 'webp';
             var file = await fromBlob(element[0], quality, width, height, format).then((blob) => {
                 var filecomp = new File([blob], element[1]+'.webp',{type: "image/webp"});
-                console.log(filecomp)
-                console.log(element[0])
-                
                 return filecomp
             });
-            console.log(file)
+            
             formData.append('imagems', file)
         }));
-        
-        
 
         formData.append("ref", ref);
         formData.append("date", "2022-01-01 10:00:00.123Z");
@@ -181,19 +228,38 @@ function User({prods}){
         document.getElementById("myForm").reset()
         setimages([])
         const u = await pb.collection('structura').update(record.id, record);
-        const obj = await pb.collection('products').create(formData)
-        const objmin = await pb.collection('productsmin').create(formDatamin)
-        console.log(record.familias)
+
+        if(editItemId != '' ) {
+            const record = await pb.collection('products').getOne(editItemId)
+            const ckeck2 = await pb.collection('productsmin').getFirstListItem('nome="'+record.nome+'"');
+
+            await pb.collection('products').update(record.id, {
+                'imagems': null,
+            });
+
+            await pb.collection('products').update(record.id,formData)
+            
+            
+            await pb.collection('productsmin').update(ckeck2.id,formDatamin)
+            setisEditing(false)
+            setEditItemId('')
+
+        } else {
+            await pb.collection('products').create(formData)
+            
+            await pb.collection('productsmin').create(formDatamin)
+        }
+
         localStorage.setItem("last_update","0")
-        
         Router.reload()
         setisLoading(false)
+        
+        
       };
 
     function removeImgupload(item) {
         const newImages = images.filter((img) => img !== item);
         setimages(newImages)
-
     }
     
 
@@ -225,19 +291,24 @@ function User({prods}){
         }
     }
 
+    function myFunction(e) {
+        document.getElementById(e.id.replace(/select/g,'')).value = e.value
+    }
+
+
     return (
 
     <>      
-        <div className="row-head">
-            <h1 className="nv-prod">Novo produto</h1>
-            {showNew ?  <button type="button"  className="btnform" onClick={() => setShowNew(false)}> <AiOutlineClose></AiOutlineClose> </button> : <button type="button"  className="btnform" onClick={() => setShowNew(true)}> <GrAdd></GrAdd> </button> }
+        <div className="row-head" id="toppage">
+            <h1 className="nv-prod">{isEditing ? 'Editar produto':'Novo produto'}</h1>
+            {showNew ?  <button type="button"  className="btnform" onClick={() => setShowNew(false) & setisEditing(false)}> <AiOutlineClose></AiOutlineClose> </button> : <button type="button"  className="btnform" onClick={() => setShowNew(true)}> <GrAdd></GrAdd> </button> }
         </div>
 
         <form className={showNew ? 'prod-form' : 'hid'} onSubmit={handleSubmit} id='myForm'>
-            <ul class="form-section">
+            <ul className="form-section">
                 <div className="row-form">
                     <li>
-                        <label>ref<span class="form-required">*</span></label>
+                        <label>ref<span className="form-required">*</span></label>
                         <input type="text" id='ref' />
                     </li>
                     <li >
@@ -265,12 +336,20 @@ function User({prods}){
                     </li>
                     <div className="column-form">
                         <label>{element} existente</label>
-                        <select id={element + 'select'}>
+                        <select id={element + 'select'} onChange={e => myFunction(e.target)}>
                             <option >seleccionar</option>
-                            <option value='test'>test</option>
-                            <option value='test'>test</option>
-                            <option value='test'>test</option>
-                            <option value='test'>test</option>
+                            {element === 'familia' && (all_familias.map( fam =>
+                                <option key={fam} value={fam}>{fam}</option>
+                            ))}
+                             {element === 'subfamilia' && (all_subfamilias.map( subfam =>
+                                <option key={subfam} value={subfam}>{subfam}</option>
+                            ))}
+                             {element === 'categoria' && (all_categorias.map( cat =>
+                                <option key={cat} value={cat}>{cat}</option>
+                            ))}
+                             {element === 'subcategoria' && (all_subcategorias.map( subcat =>
+                                <option key={subcat} value={subcat}>{subcat}</option>
+                            ))}
                         </select>
                     </div>
                 </div>)}
@@ -284,10 +363,10 @@ function User({prods}){
                     <input type="text" id='descricao'/>
                 </div>
 
-                <div class="image-upload" id='admin'>
+                <div className="image-upload" id='admin'>
                     <input type="file" name="" id="logo" onChange={(e) => fileValue(e.currentTarget)}/>
-                    <label for="logo" class="upload-field" id="file-label">
-                        <div class="file-thumbnail">
+                    <label for="logo" className="upload-field" id="file-label">
+                        <div className="file-thumbnail">
                             <img id="image-preview" src="https://www.btklsby.go.id/images/placeholder/basic.png" alt=""/>
                             <h3 id="filename">
                                 Drag and Drop
@@ -299,7 +378,7 @@ function User({prods}){
 
                 <div className="images-container" id="">
                     {images.length > 0 && images.map( image =>
-                            <div key={image[0]} class="file-thumbnail-cont">
+                            <div key={image[0]} className="file-thumbnail-cont">
                                 <img id="image-preview" className="up-images" src={window.URL.createObjectURL(image[0])} alt=""/>
                                 <button  type="button" className="remove-bt" onClick={() => removeImgupload(image)}><FiTrash2></FiTrash2></button>
                             </div>
@@ -312,15 +391,16 @@ function User({prods}){
                 </div>
 
                 <div className="form-footer">
-                    <button  className="btn" type="submit">additionar</button>
+                    <button  className="btn" type="submit">{isEditing?'salvar alterações':'additionar'}</button>
+                    <button type="button" onClick={() => setShowNew(false) & setisEditing(false)} className="btn">anular</button>
                 </div>
             </ul>
-            <button onClick={() => setShowNew(false)} className="btnform"><AiOutlineClose></AiOutlineClose></button>
+            
         </form>
         
         <div className="product-admin-container">
             
-            <div class="table-wrapper">
+            <div className="table-wrapper">
                 <table>
                 <thead>
                     <tr>
@@ -347,13 +427,14 @@ function User({prods}){
                         <th>{prod.categoria}</th>
                         <th>{prod.subcategoria}</th>
                         <button onClick={(e) => deleteitem(e.currentTarget)} className="btn deleteitem"><FiTrash2></FiTrash2></button>
+                        <button onClick={(e) => edititem(e.currentTarget)} className="btn deleteitem"><AiOutlineEdit></AiOutlineEdit></button>
                     </tr>)}
                 </tbody>
                 </table>
                 </div>
         </div>
         <div className="row-center">
-            {!isLoading? <button onClick={() => arbogen()} className="btn">arbo</button> : <button className="btn loading">arbo<div></div></button>}
+            {!isLoading? <button onClick={() => arbogen()} className="btn"><TfiReload></TfiReload></button> : <button className="btn loading"><div></div></button>}
         </div>
         <button onClick={() => handleLogOut()} className="btn-logout"><FiLogOut></FiLogOut></button>
     </>
@@ -370,11 +451,13 @@ export async function getServerSideProps(context) {
         filter:'iternal_product = true'
     });
 
+    const arbo_list = await pb.collection('structura').getFirstListItem('intern = true');
 
     const prods = JSON.stringify(prods_list)
-    console.log(prods)
+    const arbo = JSON.stringify(arbo_list)
+
     return {
-        props: {prods}
+        props: {prods , arbo}
       }
 
 }

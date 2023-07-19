@@ -367,120 +367,120 @@ const Search = ({searched,query ,products,prods_infos}) => {
 
   return (
     <>
-      <div class="placehodling-content">
+      <div className="placehodling-content">
 
-        <aside id="mySidenav" class="sidenav column">
-            <div class='row title-settings'>
-                <p class='filtrar-por'>Filtrar por</p>
-                <a href="javascript:void(0)" class="closebtn" onClick={() => closeNav()}>&times;</a>
+        <aside id="mySidenav" className="sidenav column">
+            <div className='row title-settings'>
+                <p className='filtrar-por'>Filtrar por</p>
+                <a href="javascript:void(0)" className="closebtn" onClick={() => closeNav()}>&times;</a>
             </div>
 
             {marcas_dispo.length > 1 && (
-                <div class='column filter-col'>
-                    <div class='row r-no-margin'>
-                        <button class='bnt-open-filter'   onClick={() => openSub('marca')}>
+                <div className='column filter-col'>
+                    <div className='row r-no-margin'>
+                        <button className='bnt-open-filter'   onClick={() => openSub('marca')}>
                             <p>Marca</p>
-                            <p href="javascript:void(0)" id='marca-btn' class="closebtn">+</p>
+                            <p href="javascript:void(0)" id='marca-btn' className="closebtn">+</p>
                         </button>
                     </div>
-                    <div class='column filter-close' id='marca'>
-                        {marcas_dispo.length  && marcas_dispo.map(marca => <div key={marca} class='row row-marca'>
-                            <input type="checkbox"  class='check-box'id={marca} name={marca} value={marca}/>
+                    <div className='column filter-close' id='marca'>
+                        {marcas_dispo.length  && marcas_dispo.map(marca => <div key={marca} className='row row-marca'>
+                            <input type="checkbox"  className='check-box'id={marca} name={marca} value={marca}/>
                             <p>{marca}</p>
                         </div>)}
                     </div>
                 </div>
             )}
             {familia_dispo.length > 1 && (
-                <div class='column filter-col'>
-                    <div class='row r-no-margin'>
-                        <button class='bnt-open-filter' onClick={() => openSub('familia')}>
+                <div className='column filter-col'>
+                    <div className='row r-no-margin'>
+                        <button className='bnt-open-filter' onClick={() => openSub('familia')}>
                             <p>Familias</p>
-                            <p href="javascript:void(0)" id='familia-btn' class="closebtn">+</p>
+                            <p href="javascript:void(0)" id='familia-btn' className="closebtn">+</p>
                         </button>
                     </div>
-                    <div class='column filter-close' id='familia'>
-                        {familia_dispo.length  && familia_dispo.map(familia => <div key={familia} class='row row-marca'>
-                            <input type="checkbox"  class='check-box'id={familia} name={familia} value={familia}/>
+                    <div className='column filter-close' id='familia'>
+                        {familia_dispo.length  && familia_dispo.map(familia => <div key={familia} className='row row-marca'>
+                            <input type="checkbox"  className='check-box'id={familia} name={familia} value={familia}/>
                             <p>{familia}</p>
                         </div>)}
                     </div>
                 </div>
             )}
             {subfamilia_dispo.length > 1 && (
-                <div class='column filter-col'>
-                    <div class='row r-no-margin'>
-                        <button class='bnt-open-filter' onClick={() => openSub('subfamilia')}>
+                <div className='column filter-col'>
+                    <div className='row r-no-margin'>
+                        <button className='bnt-open-filter' onClick={() => openSub('subfamilia')}>
                             <p>Subfamilia</p>
-                            <p href="javascript:void(0)" id='subfamilia-btn'  class="closebtn">+</p>
+                            <p href="javascript:void(0)" id='subfamilia-btn'  className="closebtn">+</p>
                         </button>
                     </div>
-                    <div class='column filter-close' id='subfamilia'>
-                        {subfamilia_dispo.length  && subfamilia_dispo.map(subfamilia => <div key={subfamilia} class='row row-marca'>
-                            <input type="checkbox"  class='check-box'id={subfamilia} name={subfamilia} value={subfamilia}/>
+                    <div className='column filter-close' id='subfamilia'>
+                        {subfamilia_dispo.length  && subfamilia_dispo.map(subfamilia => <div key={subfamilia} className='row row-marca'>
+                            <input type="checkbox"  className='check-box'id={subfamilia} name={subfamilia} value={subfamilia}/>
                             <p>{subfamilia}</p>
                         </div>)}
                     </div>
                 </div>
             )}
             {categoria_dispo.length > 1 && (
-                <div class='column filter-col'>
-                    <div class='row r-no-margin'>
-                        <button class='bnt-open-filter'  onClick={() => openSub('categoria')}>
+                <div className='column filter-col'>
+                    <div className='row r-no-margin'>
+                        <button className='bnt-open-filter'  onClick={() => openSub('categoria')}>
                             <p>Categoria</p>
-                            <p href="javascript:void(0)" id='categoria-btn' class="closebtn">+</p>
+                            <p href="javascript:void(0)" id='categoria-btn' className="closebtn">+</p>
                         </button>
                     </div>
-                    <div class='column filter-close' id='categoria'>
-                        {categoria_dispo.length  && categoria_dispo.map(categoria => <div key={categoria} class='row row-marca'>
-                            <input type="checkbox"  class='check-box'id={categoria} name={categoria} value={categoria}/>
+                    <div className='column filter-close' id='categoria'>
+                        {categoria_dispo.length  && categoria_dispo.map(categoria => <div key={categoria} className='row row-marca'>
+                            <input type="checkbox"  className='check-box'id={categoria} name={categoria} value={categoria}/>
                             <p>{categoria}</p>
                         </div>)}
                     </div>
                 </div>
             )}
             {subcategoria_dispo.length > 1 && (
-                <div class='column filter-col'>
-                    <div class='row r-no-margin'>
-                        <button class='bnt-open-filter'   onClick={() => openSub('subcategoria')}>
+                <div className='column filter-col'>
+                    <div className='row r-no-margin'>
+                        <button className='bnt-open-filter'   onClick={() => openSub('subcategoria')}>
                             <p>Subcategoria</p>
-                            <p href="javascript:void(0)" id='subcategoria-btn' class="closebtn">+</p>
+                            <p href="javascript:void(0)" id='subcategoria-btn' className="closebtn">+</p>
                         </button>
                     </div>
-                    <div class='column filter-close' id='subcategoria'>
-                        {subcategoria_dispo.length && subcategoria_dispo.map(subcategoria => <div key={subcategoria} class='row row-marca'>
-                            <input type="checkbox"  class='check-box'id={subcategoria} name={subcategoria} value={subcategoria}/>
+                    <div className='column filter-close' id='subcategoria'>
+                        {subcategoria_dispo.length && subcategoria_dispo.map(subcategoria => <div key={subcategoria} className='row row-marca'>
+                            <input type="checkbox"  className='check-box'id={subcategoria} name={subcategoria} value={subcategoria}/>
                             <p>{subcategoria}</p>
                         </div>)}
                     </div>
                 </div>
             )}
 
-            <div class='column filter-col'>
-                <div class='row r-no-margin'>
-                    <button class='bnt-open-filter' onClick={() => openSub('Preco')}>
+            <div className='column filter-col'>
+                <div className='row r-no-margin'>
+                    <button className='bnt-open-filter' onClick={() => openSub('Preco')}>
                         <p>PRECO</p>
-                        <p href="javascript:void(0)" id='Preco-btn' class="closebtn">+</p>
+                        <p href="javascript:void(0)" id='Preco-btn' className="closebtn">+</p>
                     </button>
                 </div>
-                <div class='column filter-close' id='Preco'>
-                    <div class='colmn row-marca range-slider'>
-                        <input class="" type="range" min={minpreco} max={maxpreco}  defaultValue={minpreco} step="1" id='range-preco2'/>
-                        <input class="" type="range" min={minpreco} max={maxpreco}  defaultValue={maxpreco} step="1" id='range-preco'/>
+                <div className='column filter-close' id='Preco'>
+                    <div className='colmn row-marca range-slider'>
+                        <input className="" type="range" min={minpreco} max={maxpreco}  defaultValue={minpreco} step="1" id='range-preco2'/>
+                        <input className="" type="range" min={minpreco} max={maxpreco}  defaultValue={maxpreco} step="1" id='range-preco'/>
                     </div>
-                    <div class='row row-marca input-row'>
-                        <div class='after-input'>
-                            <input min={minpreco} max={maxpreco} name="min"   defaultValue={minpreco} type="number" class="input-preco-txt"  id='input-preco2'/>
+                    <div className='row row-marca input-row'>
+                        <div className='after-input'>
+                            <input min={minpreco} max={maxpreco} name="min"   defaultValue={minpreco} type="number" className="input-preco-txt"  id='input-preco2'/>
                             <span>€</span>
                         </div>
-                        <div class='after-input'>
-                            <input min={minpreco} max={maxpreco} name="max"  defaultValue={maxpreco} type="number" class="input-preco-txt" id='input-preco'/>
+                        <div className='after-input'>
+                            <input min={minpreco} max={maxpreco} name="max"  defaultValue={maxpreco} type="number" className="input-preco-txt" id='input-preco'/>
                             <span>€</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class='div-btn-resultado' id="bottom">
+            <div className='div-btn-resultado' id="bottom">
                 <button  type="button" className={isLoading ? 'btn-resultados loading' : 'btn-resultados'} onClick={() => filter_load()}>
                     Ver resultados
                     <div></div>
@@ -496,33 +496,33 @@ const Search = ({searched,query ,products,prods_infos}) => {
         
         {product_list.totalItems > 1 && (
             <>
-                <h1 class="result-of-search">{product_list.totalItems} resultados para a sua pesquisa &quot;{query}&quot;</h1>
-                <div class='row space'>
-                    <select name="sorting" class='sorting' onChange={sort_change} id="sort" >
+                <h1 className="result-of-search">{product_list.totalItems} resultados para a sua pesquisa &quot;{query}&quot;</h1>
+                <div className='row space'>
+                    <select name="sorting" className='sorting' onChange={sort_change} id="sort" >
                         <option value="">Ordenar</option>
                         <option value="preco">Preco Asc.</option>
                         <option value="-preco">Preco Desc.</option>
                         <option value="nome">Alfabética A-Z</option>
                         <option value="-nome">Alfabética Z-A</option>
                     </select>
-                    {(marcas_dispo.length > 1 || familia_dispo.length > 1 || subfamilia_dispo.length > 1 || categoria_dispo.length > 1  || subcategoria_dispo.length > 1  || minpreco != maxpreco) && (<button class='btn-filters' onClick={() => openNav()}>Filtrar</button>)}
+                    {(marcas_dispo.length > 1 || familia_dispo.length > 1 || subfamilia_dispo.length > 1 || categoria_dispo.length > 1  || subcategoria_dispo.length > 1  || minpreco != maxpreco) && (<button className='btn-filters' onClick={() => openNav()}>Filtrar</button>)}
                 </div>
             </>
         )}
 
         {product_list.totalItems <= 1 && (
             <>
-                <h1 class="result-of-search">{product_list.totalItems} resultado para a sua pesquisa &quot;{query}&quot;</h1>
-                {product_list.totalItems < 1 && (<div class='btn-return-menu' ><a href='/' >Voltar à inspiração</a></div>)}
+                <h1 className="result-of-search">{product_list.totalItems} resultado para a sua pesquisa &quot;{query}&quot;</h1>
+                {product_list.totalItems < 1 && (<div className='btn-return-menu' ><a href='/' >Voltar à inspiração</a></div>)}
             </>
         )}
 
-        <div class='product-container'>
+        <div className='product-container'>
             {product_list && product_list.items.map(product => <Product key={product.id} data = {product}/>)}
         </div>
         
         {product_list.items.length < product_list.totalItems && (
-            <div class='load-more'>
+            <div className='load-more'>
                 <p>Já viu {Object.keys(product_list.items).length} produtos de {product_list.totalItems}</p>
                 <button onClick={loadMore} className={isLoading ? 'button loading' : 'button'}>
                     Mais produtos

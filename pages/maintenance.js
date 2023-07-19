@@ -8,7 +8,7 @@ const Maintenance = () => {
         </Head>
         
         
-        <article class='mnt'>
+        <article className='mnt'>
             <h1>Voltaremos em breve!</h1>
             <div>
                 <p>Desculpem o incómodo, mas neste momento estamos a efectuar alguma manutenção. Se precisar, estaremos de volta online em breve!</p>
